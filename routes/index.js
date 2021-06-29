@@ -5,7 +5,7 @@ const lotsModel = require('../database/model/lotModel');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  const result = await lotsModel.getAll();
+  const result = await lotsModel.select_lots();
   res.render('index', { title: 'Express', result });
 });
 
