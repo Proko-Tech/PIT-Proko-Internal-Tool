@@ -9,5 +9,11 @@ async function getAll (){
         .select('*');
     return rows;
 }
+async function insert_lots(park_lot_info){
 
+    const rows = await db('lots').insert(park_lot_info);
+    return rows;
+
+
+}
 module.exports={ getAll };
