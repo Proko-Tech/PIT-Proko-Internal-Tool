@@ -12,12 +12,12 @@ async function get (){
 
 /**
  * insert parking lot using the information given to us
- * @returns {Promise<void>}
+ * @param parking_lot_info
  */
 async function insert (parking_lot_info){
     try {
         await db('lots')
-            .insert('*');
+            .insert(parking_lot_info);
    } catch (err) {
         console.log(err);
    }
