@@ -10,5 +10,16 @@ async function get (){
     return rows;
 }
 
-
-module.exports={ get };
+/**
+ * insert parking lot using the information given to us
+ * @param parking_lot_info
+ */
+async function insert (parking_lot_info){
+    try {
+        await db('lots')
+            .insert(parking_lot_info);
+   } catch (err) {
+        console.log(err);
+   }
+}
+module.exports={ get, insert };
