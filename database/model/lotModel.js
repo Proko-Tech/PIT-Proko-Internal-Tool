@@ -22,4 +22,19 @@ async function insert (parking_lot_info){
         console.log(err);
    }
 }
-module.exports={ get, insert };
+/**
+ *  get parking lot using the admin id
+ *  @return parking lot information
+ */
+async function getByID(id){
+    try{
+        const  lot = await  db('lots')
+            .where({id})
+            .select('*');
+        return lot;
+    } catch (err){
+        return {err};
+    }
+}
+
+module.exports={ get, insert, getByID };
