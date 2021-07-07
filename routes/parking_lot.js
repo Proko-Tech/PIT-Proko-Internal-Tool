@@ -9,7 +9,8 @@ router.get("/parking_lot", (req, res) => {
 });
 
 /* POST parking_lot route */
-router.post("/parking_lot", (req, res) => {
+router.post("/parking_lot", async function(req, res) {
+    await lot_model.insert(req.body);
 });
 
 module.exports = router;
