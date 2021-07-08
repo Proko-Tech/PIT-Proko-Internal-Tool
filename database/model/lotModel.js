@@ -24,17 +24,19 @@ async function insert (parking_lot_info){
 }
 /**
  *  get parking lot using the admin id
+ *  @param Admin ID
  *  @return parking lot information
  */
-async function getByID(id){
-    try{
-        const  lot = await  db('lots')
-            .where({id})
+async function getByAdminID(admin_id){
+    try {
+       const lots = await  db('lot_ownerships')
+            .join('lots','lot_ownerships.id','=','lots.id')
+            .where({admin_id})
             .select('*');
-        return lot;
+             return  lots;
     } catch (err){
         return {err};
     }
 }
 
-module.exports={ get, insert, getByID };
+module.exports={ get, insert, getByAdminID };
