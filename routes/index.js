@@ -7,7 +7,7 @@ const lotsModel = require('../database/model/lotModel');
 router.get('/', async function(req, res, next) {
   const result = await lotsModel.get();
   const a = await lotsModel.getByAdminID('1');
-  console.log(a);
+
   res.render('index', { title: 'Express', result });
 
 });
