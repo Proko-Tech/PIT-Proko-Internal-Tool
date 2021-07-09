@@ -3,9 +3,14 @@ var router = express.Router();
 
 const lot_model = require("../database/model/lotModel");
 
+
 /* GET parking_lot route */
-router.get("/parking_lot", (req, res) => {
-    lot_model.get();
+router.get("/", function(req, res) {
+    res.render('page/parkingLot/newParkingLot');
+});
+/* GET parking_lot route */
+router.get("/parking_lot", function(req, res) {
+    res.end("/parking_lot");
 });
 
 /* POST parking_lot route */
