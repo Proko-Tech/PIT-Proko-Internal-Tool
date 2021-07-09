@@ -30,7 +30,7 @@ async function insert (parking_lot_info){
 async function getByAdminId(admin_id){
     try {
        const lots = await  db('lot_ownerships')
-            .join('lots','lot_ownerships.lot_id','=','lots.id')
+            .join('lots','lot_ownerships.lot_id','lots.id')
             .where({admin_id})
             .select('*');
              return  lots;
