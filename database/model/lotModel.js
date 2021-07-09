@@ -27,10 +27,10 @@ async function insert (parking_lot_info){
  *  @param Admin ID
  *  @return parking lot information
  */
-async function getByAdminID(admin_id){
+async function getByAdminId(admin_id){
     try {
        const lots = await  db('lot_ownerships')
-            .join('lots','lot_ownerships.id','=','lots.id')
+            .join('lots','lot_ownerships.lot_id','=','lots.id')
             .where({admin_id})
             .select('*');
              return  lots;
@@ -39,4 +39,4 @@ async function getByAdminID(admin_id){
     }
 }
 
-module.exports={ get, insert, getByAdminID };
+module.exports={ get, insert, getByAdminId };
