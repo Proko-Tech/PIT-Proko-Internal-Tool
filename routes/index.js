@@ -9,5 +9,8 @@ router.get('/', async function(req, res, next) {
   res.render('index', { title: 'Express', result });
 });
 
+/* POST / route */
+router.post("/", async function(req, res) {
+});
 
 module.exports = router;
