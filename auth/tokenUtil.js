@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 /**
- * insert parking lot using the information given to us
+ * takes the token and validates the credential stored on the token
  * @param token
  * @return authData
  */
@@ -17,7 +17,7 @@ async function validateToken(token){
 }
 
 /**
- * insert parking lot using the information given to us
+ * creates a token with the information given to us
  * @param user_info
  * @return token
  */
