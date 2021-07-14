@@ -1,12 +1,18 @@
 <style>
-
+    .add-btn {
+        font-size: 12px;
+        text-align: center;
+    }
 </style>
 
 <div class="row">
     <div class="col s12 offset-s2">
         <div class="card">
             <div class="card-content">
-                <span class="card-title"><h6>Parking Lot Information</h6></span>
+                <div class="row">
+                    <div class="col s8 push-s1"><h6>Parking Lot Information</h6></div>
+                    <div class="col s4 push-s1"><a class="add-btn">Submit</a></div>
+                </div>
                 <form class="container"> <!-- Look up how to run routes with a form Note: Make submit button has to be inside the form -->
                     <div class="row">
                         <div class="input-field col s6">
@@ -31,15 +37,18 @@
                             <input id="price" placeholder="Price/Hr (default)" type="text" class="validate">
                         </div>
                     </div>
-                
-                    <span><h6>Administrator Account</h6></span>
-                
+                    <div class="row">
+                        <div class="col s8 pull-s1"><h6>Administrator Account</h6></div>
+                        <div class="col s4 push-s1"><a class="add-btn">+Add another Account</a></div>
+                    </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="admin-account" placeholder="Search By Account" type="search" class="validate">
                         </div>
                     </div>
-                    <span><h6>Parking Structure Orientation</h6></span>
+                    <div class="row">
+                        <div class="col s8 pull-s1"><h6>Parking Structure Orientation</h6></div>
+                    </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="total-spots" placeholder="Total number of Spots" type="text" class="validate">
@@ -47,7 +56,7 @@
                         <div class="input-field col s6">
                             <input id="num-levels" placeholder="Total number of levels" type="text" class="validate">
                         </div>
-                        <div class="input-field col s6">
+                        <div class="input-field col s6 offset-s6 pull-s6">
                             <span><h6>Level 1:</h6></span>
                             <input id="num-spots" placeholder="Number of spots" type="text" class="validate">
                         </div>
