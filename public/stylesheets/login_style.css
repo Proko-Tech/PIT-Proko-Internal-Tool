@@ -1,0 +1,21 @@
+
+        body {
+            display: flex;
+            min-height: 150vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        .cardContainer {
+            vertical-align: middle;
+        }
+
+        .centered {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
