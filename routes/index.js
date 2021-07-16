@@ -6,11 +6,9 @@ const auth = require('../auth/tokenUtil');
 
 require('dotenv').config();
 
-/* GET home page. */
-router.get('/', async function(req, res, next) {
-  const result = await lotsModel.get();
-  res.render('index', { title: 'Express', result });
-
+/* GET login page. */
+router.get('/', function(req, res, next) {
+    res.render('page/login/login.ejs');
 });
 
 /* POST / route */
