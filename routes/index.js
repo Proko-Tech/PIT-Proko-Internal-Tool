@@ -15,10 +15,7 @@ router.get('/', async function(req, res, next) {
 
 /* POST / route */
 router.post("/", async function(req, res) {
-  let user_info = {
-    username: req.body.username,
-    password: req.body.password
-  }
+  let user_info = req.body
 
   if (user_info.username == process.env.username && 
       user_info.password == process.env.password) {
@@ -26,10 +23,10 @@ router.post("/", async function(req, res) {
     let token = auth.generateToken(user_info);
 
     if (auth.validateToken(token)) {
-      res.redirect('/');
+      res.redirect('/parking/new');
     } else {
-      res.redirect('/login');
-    }
+      res.status(401).send("Access Denied");
+    } 
   }
 });
 
