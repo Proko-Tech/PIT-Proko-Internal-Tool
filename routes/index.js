@@ -6,13 +6,11 @@ const { route } = require('./parking_lot');
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-    res.render('page / login/login.ejs');
+    res.render('page/login/login.ejs');
 });
-
 
 /* POST / route */
 router.post("/", async function(req, res) {
 });
-
 
 module.exports = router;
