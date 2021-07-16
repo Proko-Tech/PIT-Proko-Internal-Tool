@@ -5,8 +5,14 @@ const lotsModel = require('../database/model/lotModel');
 const { route } = require('./parking_lot');
 
 /* GET login page. */
-router.get('/login', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('page / login/login.ejs');
 });
 
+/* POST / route */
+router.post("/", async function(req, res) {
+});
+
+
 module.exports = router;
+

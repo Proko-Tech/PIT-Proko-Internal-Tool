@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 
 <html>
-
-<%- include('../../component/sideBar.ejs', {classes:true, advertisement:false, calendar:false, tutor:false, attendance: false}); %>
+    <head>
+        <meta charset="utf-8">
+        <title>ProkoPark - New Parking Lot</title>
+    </head>
+    <body>
+        <div class="container" >
+            <%- include("../../component/sideBar.ejs") %>
+            <%- include("../../component/pageTitle.ejs", {title: "New Parking Lot"}) %>
+            <%- include("../../component/parkingLots/parkingLotInfoCard.ejs") %>
+        </div>
+    </body>
 </html>
