@@ -2,17 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 const lotsModel = require('../database/model/lotModel');
+const { route } = require('./parking_lot');
 
-/* GET home page. */
-router.get('/', async function(req, res, next) {
-  const result = await lotsModel.get();
-  res.render('index', { title: 'Express', result });
-
+/* GET login page. */
+router.get('/', function(req, res, next) {
+    res.render('page/login/login.ejs');
 });
 
 /* POST / route */
 router.post("/", async function(req, res) {
 });
-
 
 module.exports = router;
