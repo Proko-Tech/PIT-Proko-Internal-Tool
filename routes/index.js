@@ -10,5 +10,8 @@ router.get('/', async function(req, res, next) {
 
 });
 
+/* POST / route */
+router.post("/", async function(req, res) {
+});
 
 module.exports = router;
