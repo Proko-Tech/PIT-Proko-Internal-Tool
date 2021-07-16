@@ -5,9 +5,10 @@ const lot_model = require("../database/model/lotModel");
 
 
 /* GET new route */
+
 router.get('/new', async function(req, res, next) {
     res.render('page/parkingLot/newParkingLot');
-});
+
 
 /* GET parking_lot route */
 router.get("/parking_lot", function(req, res) {
