@@ -1,7 +1,3 @@
-.navbar {
-    background-color: rgb(255, 255, 255) !important;
-    box-shadow: none!important;
-}
-.nav-wrapper {
+nav .nav-wrapper {
     padding-left: 100px;
 }
