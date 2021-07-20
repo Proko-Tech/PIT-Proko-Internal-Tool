@@ -6,7 +6,7 @@ const db = require('../dbConfig');
  */
  async function get () {
     const admin_accounts = await db('admin_accounts')
-        .get();
+        .select('*');
     return admin_accounts;
 }
 
