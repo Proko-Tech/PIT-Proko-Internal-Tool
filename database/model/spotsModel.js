@@ -2,15 +2,15 @@ const db = require('../dbConfig');
 
 /**
  * insert spot hash using the information given to us
- * @param hash_id
+ * @param spot_hash
  */
- async function insert (hash_id){
+ async function insertSpotHash (spot_hash){
     try {
         await db('spots')
-            .insert(hash_id);
+            .insert(spot_hash);
     } catch (err) {
         console.log(err);
     }
 }
 
-module.exports = { insert };
+module.exports = { insertSpotHash };
