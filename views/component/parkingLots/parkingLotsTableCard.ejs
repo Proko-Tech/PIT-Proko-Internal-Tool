@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col s12 offset-s2">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="card-title">
+                    All Tickets
+                </h4>
+            </div>
+            <div class="container">
+                <table id="lotsTable">
+                    <thead>
+                        <tr>
+                            <th>Lot ID</th>
+                            <th>Lot Hash</th>
+                            <th>Administrator</th>
+                            <th>Parking Lot</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%lotsInfo.map(function(lot){%>
+                            <tr>
+                                <td>
+                                    <%=lot.id%>
+                                </td>
+                                <td>
+                                    <%=lot.hash%>
+                                </td>
+                                <td>Administrator not in Lots Table</td>
+                                <td>
+                                    <%=lot.name%>
+                                </td>
+                                <td>
+                                    <%=lot.created_at%>
+                                </td>
+                            </tr>
+                            <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

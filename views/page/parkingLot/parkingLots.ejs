@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Change the title later-->
+    <title>
+        Parking Lots
+    </title>
+
+    <!--Datatable style CDN-->
+    <script src="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"></script>
+    <!--Datatable style CDN-->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!--Initialise Datatable-->
+    <script>
+        $document.ready(function () {
+            $('#lotsTable').dataTable();
+        });
+    </script>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <%- include("../../component/sideBar.ejs") %>
+            <%- include("../../component/pageTitle.ejs", {title: "Successfully Registered" }) %>
+                <%- include("../../component/parkingLots/parkingLotsTableCard.ejs",{lotsInfo}) %>
+    </div>
+    <div class="container""">
+        
+    </div>
+    
+</body>
+
+</html>

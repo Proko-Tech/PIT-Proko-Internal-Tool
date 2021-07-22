@@ -9,8 +9,10 @@ router.get('/new', async function(req, res, next) {
 });
 
 /* GET parking_lot route */
-router.get("/parking_lot", function(req, res) {
-    res.end("/parking_lot");
+router.get("/parking_lot", async function(req, res) {
+    const lotsInfo = await lot_model.get();
+    // res.json(lotsInfo);
+    res.render("page/parkingLot/parkingLots",{title:"parking lots", lotsInfo});
 });
 
 /* POST parking_lot route */
