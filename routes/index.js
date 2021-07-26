@@ -14,8 +14,6 @@ router.get('/', function(req, res, next) {
 /* POST / route */
 router.post("/", async function(req, res) {
   let user_info = req.body
-  console.log(user_info);
-  console.log(user_info.username === process.env.USERNAME && user_info.password === process.env.PASSCODE);
  
   if (user_info.username === process.env.USERNAME && 
       user_info.password === process.env.PASSCODE) {
