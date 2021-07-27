@@ -5,7 +5,7 @@ const db = require('../dbConfig');
  * @param spot_id
  * @param spot_hash
  */
- async function insertSpotHash (spot_id, spot_hash){
+ async function update (spot_id, spot_hash){
     try {
         await db('spots')
             .where(spot_id)
@@ -15,4 +15,4 @@ const db = require('../dbConfig');
     }
 }
 
-module.exports = { insertSpotHash };
+module.exports = { update };
