@@ -31,7 +31,7 @@ async function insert (parking_lot_info){
  async function update (id, changes){
     const [result] = await db('lots')
         .where({ id })
-        .update({ changes });
+        .update(changes);
     return result;
 }
 
