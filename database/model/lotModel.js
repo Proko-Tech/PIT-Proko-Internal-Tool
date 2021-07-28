@@ -29,10 +29,13 @@ async function insert (parking_lot_info){
  * @param changes
  */
  async function update (id, changes){
-    const [result] = await db('lots')
-        .where({ id })
-        .update(changes);
-    return result;
+    try {
+        await db('lots')
+            .where({ id })
+            .update(changes);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 /**
