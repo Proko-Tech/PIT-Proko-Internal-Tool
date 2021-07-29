@@ -31,7 +31,7 @@ router.put("/parking_lot", async function (req, res) {
     try {
         const result = await lot_model.update(id, changes);
         if (result) {
-            res.status(200).json({updated: result})
+            res.status(200).json({message: result})
         } else {
             res.status(404).json({message: "Record not found"})
         }
