@@ -24,5 +24,4 @@ router.post("/parking_lot", async function(req, res) {
 });
 
 
-
 module.exports = router;
