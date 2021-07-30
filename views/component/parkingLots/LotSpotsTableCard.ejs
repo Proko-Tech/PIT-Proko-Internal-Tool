@@ -5,60 +5,48 @@
                 <div class="card-content">
                     <center>
                         <h4 class="card-title">
-                            Parking Lots Directory
+                            All Tickets
                         </h4>
                     </center>
                 </div>
                 <div class="container" style="width: 90%;">
-                    <table id="lotsTable" class="DataTable" style="width: 100%">
+                    <table id="spotsTable" class="Datatable" style="width: 100%">
                         <colgroup>
-                            <col style="width: 5%">
-                            <col style="width: 10%">
-                            <col style="width: 40%">
-                            <col style="width: 30%">
-                            <col style="width: 20%">
-                            <col style="width: 10%">
+                            <!--Add Column Styling Later-->
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Lot ID</th>
-                                <th>Lot Hash</th>
+                                <th>Spot Name</th>
+                                <th>Spot Hash</th>
+                                <th>Administrator</th>
                                 <th>Parking Lot</th>
                                 <th>Created At</th>
-                                <th>Last Updated</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <form method="POST">
-                                <%lotsInfo.map(function(lot){%>
+                            <form action="/SOMETHING" method="POST">
+                                <%spotsInfo.map(function(spots){%>
                                     <tr>
                                         <td>
-                                            <input value='<%=lot.id%>'>
+                                            <input value='<%=spots.spot_name%'>
                                             <p style="visibility: hidden;">
-                                                <%=lot.id%>
+                                                <%=spots.spot_name%>
                                             </p>
                                         </td>
                                         <td>
-                                            <input value='<%=lot.hash%>'>
+                                            <input value='<%=spots.secret%>'>
                                             <p style="visibility: hidden;">
-                                                <%=lot.hash%>
+                                                <%=spots.secret%>
                                             </p>
                                         </td>
                                         <td>
-                                            <input value='<%=lot.name%>'>
-                                            <p style="visibility: hidden;">
-                                                <%=lot.name%>
-                                            </p>
+                                            <!--Want to put Administrator here-->
                                         </td>
                                         <td>
-                                            <%=lot.created_at%>
+                                            <!-- Want Parking Lot Name Here-->
                                         </td>
                                         <td>
-                                            <%=lot.updated_at%>
-                                        </td>
-                                        <td>
-                                            <a href = "/parking/lotID?lotId=<%=lot.id%>">See Parking Spots Information</a>
+                                            <%=spots.created_at%>
                                         </td>
                                     </tr>
                                     <%});%>
