@@ -8,6 +8,7 @@ const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
 router.get('/new', async function(req, res, next) {
     res.render('page/parkingLot/newParkingLot');
 });
+
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
    await lot_ownerships_model.insert(req.body);
