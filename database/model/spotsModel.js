@@ -1,9 +1,9 @@
 const db = require('../dbConfig');
 
 /**
- * update spot hash using the information given to us
+ * update spot info using the information given to us
  * @param spot_id
- * @param spot_hash
+ * @param spot_info
  */
  async function update (spot_id, spot_info){
     try {
