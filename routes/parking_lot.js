@@ -23,8 +23,8 @@ router.post("/parking_lot", async function(req, res) {
     await lot_model.insert(req.body);
 });
 
-/* PUT parking_lot route */
-router.put("/parking_lot", async function (req, res) {
+/* POST parking_lot route */
+router.post("/parking_lot", async function (req, res) {
     const {id} = req.params;
     const changes = req.body;
 
