@@ -1,0 +1,22 @@
+* {
+    font-family: Mulish;
+    font-style: normal;
+}
+
+div #table-header {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+div #status-btn {
+    border-radius: 100px;
+    font-size: 11px;
+}
+
+div .lower-txt {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    color: #C5C7CD;
+}
