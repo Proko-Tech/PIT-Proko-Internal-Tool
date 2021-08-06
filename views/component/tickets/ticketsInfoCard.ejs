@@ -31,8 +31,8 @@
                                 <div class="lower-txt">6:30 PM</div>
                             </td>
                             <td>
-                                <div id="status-btn" class="col s7 center white-text red">NOT YET FIXED</div>
-                                <div class="col s1"><i class="tiny material-icons">more_vert</i></div>
+                                <%- include("../../component/ticketStatus/red.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
                             </td>
                         </tr>
                         <tr>
@@ -50,8 +50,8 @@
                                 <div class="lower-txt">8:00 AM</div>
                             </td>
                             <td>
-                                <div id="status-btn" class="col s6 center white-text yellow darken-2">IN PROCESS</div>
-                                <div class="col s1 push-s1"><i class="tiny material-icons">more_vert</i></div>
+                                <%- include("../../component/ticketStatus/yellow.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
                             </td>
                         </tr>
                         <tr>
@@ -69,11 +69,8 @@
                                 <div class="lower-txt">4:00 PM</div>
                             </td>
                             <td>
-                                <div class="row">
-                                    <div id="status-btn" class="col s4 center white-text green">RESOLVED</div>
-                                    <div class="col s1 push-s1"><i class="tiny material-icons">more_vert</i>
-                                </div>
-                                
+                                <%- include("../../component/ticketStatus/green.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i>
                             </td>
                         </tr>
                     </tbody>
@@ -99,14 +96,30 @@
 <script>
     $(document).ready(function () {
         $("#datatable").DataTable({
+            "dom": '<"top"fl>rt<"bottom"ip><"clear">',
             "searching": false,
-            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
             "pagingType": "simple",
-            "bLengthChange": false,
+            "bLengthChange": true,
+            "lengthMenu": [ [3, 2, 3, -1], [1, 2, 3, "All"] ],
+            "oLanguage": {
+                    "sStripClasses": "",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "Enter Keywords Here",
+                    "sInfo": "_START_ -_END_ of _TOTAL_",
+                    "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                        '<option value="5">5</option>' +
+                        '<option value="8">8</option>' +
+                        '<option value="10">10</option>' +
+                        '<option value="15">15</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">All</option>' +
+                        '</select></div>'
+            },
             "language": {
                 "paginate": {
-                    "next": "&gt",
-                    "previous": "&lt"
+                    "next": "<i id=\"next-btn\" class=\"material-icons grey-text\">keyboard_arrow_right</i>",
+                    "previous": "<i id=\"prev-btn\" class=\"material-icons grey-text\">keyboard_arrow_left</i>"
                 }
             }
         });
