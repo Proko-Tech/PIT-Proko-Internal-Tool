@@ -41,16 +41,48 @@ div .lower-txt {
     border-color: #DFE0EB !important;
 }
 
-.dataTables_length, .dataTables_length select {
+.dataTables_length {
     letter-spacing: 0.3px;
     line-height: 20px;
     color: #9FA2B4 !important;
+}
 
+.dataTables_length select {
+    color: #4B506D !important;
+}
+
+.dataTables_length label {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+.dataTables_length select {
+    max-width: 50px;
+    max-height: 35px;
+    color: #9FA2B4 !important;
+    border-color: transparent !important;
+}
+
+.dataTables_length span {
+    font-size: 12px;
+    min-width: 50px;
+    padding-right: 10px;
+    line-height: 35px;
+    white-space: nowrap;
 }
 
 .dataTables_info {
     font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 30px;
     color: #9FA2B4 !important;
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.dataTables_wrapper .bottom {
+    display: flex;
+    flex-direction: row;
+    float: right;
 }
