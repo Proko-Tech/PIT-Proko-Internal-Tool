@@ -22,6 +22,22 @@ async function insert(parking_lot_info) {
         console.log(err);
     }
 }
+
+/**
+ * update parking lot using the information given to us
+ * @param id
+ * @param changes
+ */
+ async function update (id, changes){
+    try {
+        await db('lots')
+            .where({ id })
+            .update(changes);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 /**
  *  get parking lot using the admin id
  *  @param Admin ID
@@ -39,6 +55,4 @@ async function getByAdminId(admin_id) {
     }
 }
 
-
-
-module.exports = { get, insert, getByAdminId };
+module.exports={ get, insert, update, getByAdminId };

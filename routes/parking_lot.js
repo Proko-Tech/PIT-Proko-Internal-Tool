@@ -30,10 +30,25 @@ router.post("/parking_lot", async function(req, res) {
 
 /* TEST for parking lot spots route */
 router.get("/lotID", async function(req,res) {
-    const spotInfo = await spot_model.getSpots(req.query.lotId);
+    const spotsInfo = await spot_model.getSpots(req.query.lotId);
     res.render("page/parkingLot/parkingLotSpots", {spotsInfo});
 });
 
+/* POST parking_lot route */
+router.post("/parking_lot", async function (req, res) {
+    const {id} = req.params;
+    const changes = req.body;
 
+    try {
+        const result = await lot_model.update(id, changes);
+        if (result) {
+            res.status(200).json({message: result})
+        } else {
+            res.status(404).json({message: "Record not found"})
+        }
+    } catch (err) {
+        res.status(500).json({message: "Error updating new post", error: err})
+    }
+});
 
 module.exports = router;

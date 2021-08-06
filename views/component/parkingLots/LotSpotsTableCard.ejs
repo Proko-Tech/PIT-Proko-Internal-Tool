@@ -18,17 +18,17 @@
                             <tr>
                                 <th>Spot Name</th>
                                 <th>Spot Hash</th>
-                                <th>Administrator</th>
-                                <th>Parking Lot</th>
+                                <th>Spot Status</th>
+                                <th>Firmware Version</th>
                                 <th>Created At</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <form action="/SOMETHING" method="POST">
+                            <form method="POST">
                                 <%spotsInfo.map(function(spots){%>
                                     <tr>
                                         <td>
-                                            <input value='<%=spots.spot_name%'>
+                                            <input value='<%=spots.spot_name%>'>
                                             <p style="visibility: hidden;">
                                                 <%=spots.spot_name%>
                                             </p>
@@ -40,10 +40,10 @@
                                             </p>
                                         </td>
                                         <td>
-                                            <!--Want to put Administrator here-->
+                                            <%=spots.spot_status%>
                                         </td>
                                         <td>
-                                            <!-- Want Parking Lot Name Here-->
+                                            <%=spots.firmware_version%>
                                         </td>
                                         <td>
                                             <%=spots.created_at%>

@@ -32,7 +32,7 @@
                         <tbody>
                             <form method="POST">
                                 <%lotsInfo.map(function(lot){%>
-                                    <tr>
+                                    <tr class="clickable-row" data-href = "/parking/lotID?lotId=<%=lot.id%>">
                                         <td>
                                             <input value='<%=lot.id%>'>
                                             <p style="visibility: hidden;">
