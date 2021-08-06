@@ -28,8 +28,4 @@ router.post("/", async function(req, res) {
   }
 });
 
-/* TESTER FOR PARKINGLOTS.EJS GET*/
-router.get('/parking', function(req, res, next) {
-  res.render('/page/parkingLot/parkingLots.ejs');
-});
 module.exports = router;
