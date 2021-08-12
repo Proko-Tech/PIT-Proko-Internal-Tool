@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col s12 offset-s2">
+        <div class="card material-table">
+            <div class="card-content">
+                <div class="row">
+                    <div id="table-header" class="col s10"><p>All tickets</p></div>
+                    <div class="col s1"><i class="tiny material-icons">sort</i><span id="sort-txt">Sort</span></div>
+                    <div class="col s1"><i class="tiny material-icons">filter_list</i><span id="sort-txt">Filter</span></div>
+                </div>
+                <table class="highlight" id="datatable">
+                    <thead>
+                        <th>Parking Lot</th>
+                        <th>Spot</th>
+                        <th>Customer name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>El Fernando Parking</div>
+                                <div class="lower-txt">Updated 1 day ago</div>
+                            </td>
+                            <td>Spot #234</td>
+                            <td>
+                                <div>Yuichi Kurino</div>
+                                <div class="lower-txt">on 24.05.2019</div>
+                            </td>
+                            <td>
+                                <div>May 26, 2019</div>
+                                <div class="lower-txt">6:30 PM</div>
+                            </td>
+                            <td>
+                                <%- include("../../component/ticketStatus/red.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>Promenade Parking</div>
+                                <div class="lower-txt">Updated 1 day ago</div>
+                            </td>
+                            <td>Spot #234</td>
+                            <td>
+                                <div>Matt Damon</div>
+                                <div class="lower-txt">on 24.05.2019</div>
+                            </td>
+                            <td>
+                                <div>May 26, 2019</div>
+                                <div class="lower-txt">8:00 AM</div>
+                            </td>
+                            <td>
+                                <%- include("../../component/ticketStatus/yellow.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>Promenade Parking</div>
+                                <div class="lower-txt">Updated 2 days ago</div>
+                            </td>
+                            <td>Spot #234</td>
+                            <td>
+                                <div>Henry Cavil</div>
+                                <div class="lower-txt">on 24.05.2019</div>
+                            </td>
+                            <td>
+                                <div>May 25, 2019</div>
+                                <div class="lower-txt">4:00 PM</div>
+                            </td>
+                            <td>
+                                <%- include("../../component/ticketStatus/green.ejs") %>
+                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Materialize Icon CSS  -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- External style sheet -->
+<link rel="stylesheet" href="/stylesheets/tickets_info_card_style.css" type="text/css">
+<!-- Font style sheet -->
+<link href="https://fonts.googleapis.com/css?family=Mulish" rel="stylesheet">
+<!-- Datatable CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<!-- Datatable JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#datatable").DataTable({
+            "dom": '<"top">rt<"bottom"lip><"clear">',
+            "searching": false,
+            "pagingType": "simple",
+            "bLengthChange": true,
+            "lengthMenu": [ [3, 2, 3, -1], [1, 2, 3, "All"] ],
+            "oLanguage": {
+                    "sStripClasses": "",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "Enter Keywords Here",
+                    "sInfo": "_START_ -_END_ of _TOTAL_",
+                    "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                        '<option value="5">5</option>' +
+                        '<option value="8">8</option>' +
+                        '<option value="10">10</option>' +
+                        '<option value="15">15</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">All</option>' +
+                        '</select></div>'
+            },
+            "language": {
+                "paginate": {
+                    "next": "<i id=\"next-btn\" class=\"material-icons grey-text\">keyboard_arrow_right</i>",
+                    "previous": "<i id=\"prev-btn\" class=\"material-icons grey-text\">keyboard_arrow_left</i>"
+                }
+            }
+        });
+    });
+</script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
