@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var parkingLotRouter = require('./routes/parking_lot');
 
+const verifyToken = require('./middleware/verifyToken');
+
 var app = express();
 
 // view engine setup
@@ -21,8 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/parking', parkingLotRouter);
+app.use('/users', verifyToken, usersRouter);
+app.use('/parking', verifyToken, parkingLotRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
