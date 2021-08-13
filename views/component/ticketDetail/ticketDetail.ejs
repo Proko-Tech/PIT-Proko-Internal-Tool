@@ -1,0 +1,80 @@
+<div class="row">
+<div class="col s12 m5" id = test>
+    <div class="card-panel ">
+       <div class='col s8'>
+           <div class = titles>
+           <div class = 'title'>
+               <p> Ticket  Detail</p>
+           </div>
+           <div class = 'time'>
+               <p> 25 May 2019, 09:41 PM</p>
+           </div>
+           </div>
+           <div id = 'map'></div>
+           <script>
+               function initMap(){
+                   var options = {
+                       zoom: 15,
+                       center: {lat:42.3601,lng:-71.05}
+                   }
+                   var map = new google.maps.Map(document.getElementById('map'),options)
+               }
+           </script>
+           <script
+                   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlortmnrf9V5j7FosAw-p_Bol5kY0lD7g&callback=initMap&libraries=&v=weekly"
+                   async
+           ></script>
+       </div>
+        <div class="col s4" id = 'box'>
+            <div id="subject">
+                        <p>
+                            Spot Number
+                        </p>
+            </div>
+            <div id="details">
+                    <p>
+                        234
+                    </p>
+            </div>
+            <div class="divider"></div>
+            <div id="subject">
+                <p>
+                    Sensor Serial Code
+                </p>
+            </div>
+            <div id="details">
+                <p>
+                    &23dDFSKf3-sdfasdf
+                </p>
+            </div>
+                <div class="divider"></div>
+                <div id="subject">
+                    <p>
+                        Last Update At
+                    </p>
+                </div>
+            <div id="details">
+                    <p>
+                        12:23 PM 02/20/2020
+                    </p>
+            </div>
+            <div class="divider"></div>
+            <div id="subject">
+                <p>
+                    Address
+                </p>
+            </div>
+            <div id="details">
+                <p>
+                    550 Deep Valley Dr, RHS, 90502
+                </p>
+            </div>
+        </div>
+     </div>
+</div>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="/stylesheets/ticket-detail-style.css" rel="stylesheet" type="text/css"/>

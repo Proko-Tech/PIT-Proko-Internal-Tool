@@ -1,0 +1,83 @@
+.card-panel{
+    width: 1122px;
+    height: 444px;
+    padding:0px;
+
+}
+#box{
+    padding: 0px;
+    border-left: 1px solid #DFE0EB;
+    height: 444px;
+}
+#map {
+    height: 318px;
+    width: 602px;
+    top:31px;
+    left:29px;
+}
+.titles{
+    padding-top:15px;
+    padding-left:29px;
+}
+.title{
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    color: #252733;
+
+}
+.time{
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    color: #9FA2B4;
+
+}
+p{
+     margin-top: 0px;
+    margin-bottom: 0px;
+ }
+
+#subject{
+    padding-top:30px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    color: #9FA2B4;
+
+}
+#details{
+    padding-bottom: 30px;
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.3px;
+
+    /* grayscale / black */
+
+    color: #252733;
+
+}
+.divider{
+    width: 373px;
+    border: 1px solid #DFE0EB;
+}
+.card{
+    width: 1122px;
+    height: 444px;
+
+}
