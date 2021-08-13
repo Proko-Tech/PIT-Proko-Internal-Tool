@@ -19,7 +19,8 @@ router.post("/new", async function (req, res) {
 /* GET parking_lot route */
 router.get("/parking_lot", async function(req, res) {
     const lotsInfo = await lot_model.get();
-    res.render("page/parkingLot/parkingLots",{title:"parking lots", lotsInfo});
+    console.log(lotsInfo);
+    res.render("page/parkingLot/parkingLots",{title:"Parking Lots", lotsInfo});
 });
 
 /* POST parking_lot route */
