@@ -1,0 +1,43 @@
+<div class="container" style="width: 100%;">
+    <div class="row">
+        <div class="col s12 offset-s2">
+            <div class="card">
+                <div class="card-content">
+                    <center>
+                        <h4 class="card-title">
+                            Parking Lots Directory
+                        </h4>
+                    </center>
+                </div>
+                <div class="container" style="width: 90%;">
+                    <table id="lotsTable" class="DataTable" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>License</th>
+                                <th>Creation<br>Date</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%complaints.map(function(complaint){%>
+                            <tr>
+                                <td><%=complaint.id%></td>
+                                <td><%=complaint.name%></td>
+                                <td><%=complaint.email%></td>
+                                <td><%=complaint.subject%></td>
+                                <td><%=complaint.license_plate%></td>
+                                <td><%=complaint.created_at%></td>
+                                <td><a class="material-icons" href="/complaints/<%=complaint.id%>">chevron_right</a></td>
+                            </tr>
+                            <%});%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
