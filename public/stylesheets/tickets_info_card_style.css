@@ -1,0 +1,88 @@
+* {
+    font-family: Mulish;
+    font-style: normal;
+}
+
+div #table-header {
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    color: #252733;
+}
+
+td {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: #252733;
+}
+
+div .lower-txt {
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    color: #C5C7CD;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    outline: none  !important;
+    box-shadow: none  !important;
+}
+
+.dataTable thead th, #datatable.dataTable thead th {
+    border-color: #DFE0EB;
+}
+
+.dataTable.no-footer {
+    border-color: #DFE0EB !important;
+}
+
+.dataTables_length {
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    color: #9FA2B4 !important;
+}
+
+.dataTables_length select {
+    color: #4B506D !important;
+}
+
+.dataTables_length label {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+.dataTables_length select {
+    max-width: 50px;
+    max-height: 35px;
+    color: #9FA2B4 !important;
+    border-color: transparent !important;
+}
+
+.dataTables_length span {
+    font-size: 12px;
+    min-width: 50px;
+    padding-right: 10px;
+    line-height: 35px;
+    white-space: nowrap;
+}
+
+.dataTables_info {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 30px;
+    color: #9FA2B4 !important;
+    padding-left: 50px;
+    padding-right: 10px;
+}
+
+.dataTables_wrapper .bottom {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
