@@ -1,21 +1,26 @@
 const db = require('../dbConfig');
 
-/**
+
  * get lot, spot, and violation info using reservation_id
  * @param reservation_id
  * @returns lot, spot, and violation info
  */
-async function get(reservation_id) {
+
+ * get lot, customer, and reservation info using id
+ * @param id
+ * @returns lot, customer, and reservation info
+ */
+ async function get (id) {
     try {
-        const rows = await db('violation')
-            .join('spots', 'spots.secret', 'violation.spot_hash')
-            .join('lots','lots.id','violation.lot_id')
-            .where({reservation_id})
+        const rows = await db('violations')
+            .join('lots', 'violations.lot_id', 'lots.id')
+            .join('reservations', 'violations.reservation_id', 'reservations.id')
+            .join('users', 'violations.user_id', 'users.id')
+            .where({ id })
+
             .select('*');
         return rows;
     } catch (err) {
         return { err };
     }
-}
-
 module.exports={ get };

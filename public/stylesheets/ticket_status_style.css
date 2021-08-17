@@ -1,0 +1,13 @@
+div #status-btn {
+    font-family: Mulish;
+    font-style: normal;
+    border-radius: 100px !important;
+    font-size: 0.72vw;
+    font-weight: 600;
+    line-height: 14px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 5px;
+}
