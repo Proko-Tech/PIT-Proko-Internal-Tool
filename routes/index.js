@@ -14,17 +14,16 @@ router.get('/', function(req, res, next) {
 /* POST / route */
 router.post("/", async function(req, res) {
   let user_info = req.body
- 
-  if (user_info.username === process.env.USERNAME && 
+
+  if (user_info.username === process.env.USERNAME &&
       user_info.password === process.env.PASSCODE) {
 
     let token = auth.generateToken(user_info);
-
-    if (auth.validateToken(token)) {
-      res.redirect('/parking/new');
-    } else {
-      res.status(401).send("Access Denied");
-    } 
+    res.clearCookie('user');
+    res.cookie("user", token);
+    res.redirect('/parking/new');
+  }else{
+    res.status(401).send("Access Denied");
   }
 });
 
