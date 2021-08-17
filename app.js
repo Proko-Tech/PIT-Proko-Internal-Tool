@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
+var complaintsRouter = require('./routes/complaints');
 
 const verifyToken = require('./middleware/verifyToken');
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', verifyToken, usersRouter);
 app.use('/parking', verifyToken, parkingLotRouter);
 app.use('/tickets', verifyToken, ticketsRouter);
+app.use('/complaints', verifyToken, complaintsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
