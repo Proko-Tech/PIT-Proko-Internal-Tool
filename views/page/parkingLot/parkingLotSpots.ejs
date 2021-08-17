@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-
 <head>
-    <title><%= title %> </title>
+    <title><%= title %></title>
     <!--Import JQuery-->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -19,18 +18,15 @@
     <!--Initialise Datatable-->
     <script>
         $(document).ready(function () {
-            $('#lotsTable').DataTable();
+            $('#spotsTable').DataTable();
+            
         });
     </script>
 </head>
-
 <body>
     <div class="container">
-        <%- include("../../component/sideBar.ejs") %>
-        <%- include("../../component/parkingLots/parkingLotsTableCard.ejs") %>
+        <%- include("../../component/sideBar.ejs") %> 
+        <%- include("../../component/parkingLots/LotSpotsTableCard.ejs") %>
     </div>
-    
-
 </body>
-
 </html>
