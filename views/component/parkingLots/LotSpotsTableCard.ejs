@@ -1,0 +1,60 @@
+<div class="container" style="width: 100%;">
+    <div class="row">
+        <div class="col s12 offset-s2">
+            <div class="card">
+                <div class="card-content">
+                    <center>
+                        <h4 class="card-title">
+                            All Tickets
+                        </h4>
+                    </center>
+                </div>
+                <div class="container" style="width: 90%;">
+                    <table id="spotsTable" class="Datatable" style="width: 100%">
+                        <colgroup>
+                            <!--Add Column Styling Here if Necessary-->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Spot Name</th>
+                                <th>Spot Hash</th>
+                                <th>Spot Status</th>
+                                <th>Firmware Version</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form method="POST">
+                                <%spotsInfo.map(function(spots){%>
+                                    <tr>
+                                        <td>
+                                            <input value='<%=spots.spot_name%>'>
+                                            <p style="visibility: hidden;">
+                                                <%=spots.spot_name%>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <input value='<%=spots.secret%>'>
+                                            <p style="visibility: hidden;">
+                                                <%=spots.secret%>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <%=spots.spot_status%>
+                                        </td>
+                                        <td>
+                                            <%=spots.firmware_version%>
+                                        </td>
+                                        <td>
+                                            <%=spots.created_at%>
+                                        </td>
+                                    </tr>
+                                    <%});%>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
