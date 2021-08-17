@@ -9,8 +9,9 @@ const spot_model = require("../database/model/spotsModel");
 
 /* GET new route */
 router.get('/new', async function(req, res, next) {
-    res.render('page/parkingLot/newParkingLot');
+    res.render('page/parkingLot/newParkingLot', { title: 'New Parking Lot' });
 });
+
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
    await lot_ownerships_model.insert(req.body);
@@ -19,7 +20,8 @@ router.post("/new", async function (req, res) {
 /* GET parking_lot route */
 router.get("/parking_lot", async function(req, res) {
     const lotsInfo = await lot_model.get();
-    res.render("page/parkingLot/parkingLots",{title:"parking lots", lotsInfo});
+    console.log(lotsInfo);
+    res.render("page/parkingLot/parkingLots",{title:"Parking Lots", lotsInfo});
 });
 
 /* POST parking_lot route */

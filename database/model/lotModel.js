@@ -1,13 +1,25 @@
 const db = require('../dbConfig');
+const moment = require('moment');
 
 /**
  * get all parking lots from lots table
+ * , formatting the creation date/time to date
  * @returns {Promise<void>}
  */
 async function get() {
-    const rows = await db('lots')
-        .select('*');
-    return rows;
+    try {
+        let lotRows = await db('lots')
+            .select('*');
+        lotRows = await lotRows.map((row, index) => {
+            row.created_at = moment(row.created_at).format('MM-DD-YYYY');
+            row.updated_at = moment(row.updated_at).format('MM-DD-YYYY');
+            return row;
+        });
+        return lotRows;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 /**
@@ -28,7 +40,7 @@ async function insert(parking_lot_info) {
  * @param id
  * @param changes
  */
- async function update (id, changes){
+async function update(id, changes) {
     try {
         await db('lots')
             .where({ id })
@@ -55,4 +67,4 @@ async function getByAdminId(admin_id) {
     }
 }
 
-module.exports={ get, insert, update, getByAdminId };
+module.exports = { get, insert, update, getByAdminId };

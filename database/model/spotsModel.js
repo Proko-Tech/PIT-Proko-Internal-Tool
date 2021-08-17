@@ -1,5 +1,5 @@
 const db = require("../dbConfig");
-
+const moment = require('moment');
 /**
  * GET for the spots of a specific parking lot by lot_id
  * @param lot_id
@@ -10,9 +10,13 @@ const db = require("../dbConfig");
 
 async function getSpots(lot_id) {
     try {
-        const spots = await db('spots')
+        let spots = await db('spots')
             .where({ lot_id })
             .select('*');
+        spots = await spots.map((row, index) => {
+            row.created_at = moment(row.created_at).format('MM-DD-YYYY');
+            return row;
+        });
         return spots;
     } catch (err) {
         return { err };
@@ -24,7 +28,7 @@ async function getSpots(lot_id) {
  * @param spot_id
  * @param spot_info
  */
- async function update (spot_id, spot_info){
+async function update(spot_id, spot_info) {
     try {
         await db('spots')
             .where({ spot_id })
@@ -38,7 +42,7 @@ async function getSpots(lot_id) {
  * create spots in the spots table
  * @param spot_info
  */
-async function create(spot_info){
+async function create(spot_info) {
     try {
         await db('spots')
             .insert(spot_info);
