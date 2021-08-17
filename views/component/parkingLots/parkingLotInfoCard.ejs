@@ -63,30 +63,5 @@
 <link href="/stylesheets/parking_lot_info_card_style.css" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-/* Creates input fields on focusout  */
-$( "#total-spots-input" )
-  .focusout(function() {
-    $( "#num-spots-input" ).empty();
-    var num_spots = $( "#total-spots" ).val();
-    for (var i = 1; i < parseInt(num_spots) + 1; i++) {
-        $( "#num-spots-input" ).append("<span><h6> Level " + i + ":</h6></span>" +
-                                   "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\">");
-    }
-});
-
-/* Creates input fiels on Enter press */
-$( "#total-spots-input" )
-  .keypress(function(key) {
-    $( "#num-spots-input" ).empty();
-    var num_spots = $( "#total-spots" ).val();
-    var key_code = key.keyCode ||key.which;
-
-    if (key_code == 13) {
-        for (var i = 1; i < parseInt(num_spots) + 1; i++) {
-            $( "#num-spots-input" ).append("<span><h6> Level " + i + ":</h6></span>" +
-                                   "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\">");
-        }
-    }
-});
-</script>
+<!-- External javascript -->
+<script src="/javascript/spotsInputField.js"></script>
