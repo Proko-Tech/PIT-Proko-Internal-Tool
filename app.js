@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
+var complaintsRouter = require('./routes/complaints');
+
+const verifyToken = require('./middleware/verifyToken');
 
 
 var app = express();
@@ -21,12 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/users', verifyToken, usersRouter);
+app.use('/parking', verifyToken, parkingLotRouter);
+app.use('/tickets', verifyToken, ticketsRouter);
+app.use('/complaints', verifyToken, complaintsRouter);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/parking', parkingLotRouter);
-
-app.use('/tickets', ticketsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
