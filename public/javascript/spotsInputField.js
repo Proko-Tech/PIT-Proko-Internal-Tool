@@ -14,8 +14,8 @@ $(document).ready(function (){
     $( "#total-spots-input" )
     .keypress(function(key) {
     $( "#num-spots-input" ).empty();
-    var num_spots = $( "#total-spots" ).val();
-    var key_code = key.keyCode ||key.which;
+    const num_spots = $( "#total-spots" ).val();
+    const key_code = key.keyCode ||key.which;
 
     if (key_code == 13) {
         for (var i = 1; i < parseInt(num_spots) + 1; i++) {
