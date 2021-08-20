@@ -3,15 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>El Fernando Parking - Spot #234</title>
+    <title><%= title %></title>
 </head>
 <body>
 <div class="container" >
+
     <%- include("../../component/sideBar.ejs") %>
     <%- include("../../component/ticketDetail/spotTitle.ejs", {title: "El Fernando Parking - Spot #234"}) %>
     <%- include("../../component/ticketDetail/ticketDetail.ejs") %>
-    <%- include("../../component/ticketDetail/assignInspector.ejs") %>
-    <%- include("../../component/ticketDetail/closeTicket.ejs") %>
+    <%- include("../../component/ticketDetail/assignInspectorInfoCard.ejs") %>
+    <%- include("../../component/ticketDetail/closeTicketInfoCard.ejs") %>
 
 </div>
 </body>

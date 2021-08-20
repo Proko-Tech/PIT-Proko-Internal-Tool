@@ -1,14 +1,22 @@
-<!-- Parking lot info card -->
+<!-- Inspector info card -->
 <div class="row">
     <div class="col s12  ">
         <div class="card">
             <div class="card-content">
                 <form class="container" action="/ticket_detail" method="POST">
+
                     <div class="row">
-                        <div class="col s8 pull-s2" ><h6>Assign Inspector</h6></div>
-                        <div class="col s8 push-s12"><a>Assign</a></div>
-                        <div class="col s8 pull-s2"><p>Time</p></div>
-                    </div>
+                        <div class="title">
+                            <div class="col s8 pull-s2" > <p>Assign Inspector</p></div>
+                        </div>
+                            <div class="col s4 push-s5"><a>Assign</a></div>
+                        </div>
+                        <div class="col s8 pull-s2">
+                            <div class="time">
+                            <p>25 May 2019, 09:41 PM</p>
+                            </div>
+                        </div>
+
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="first-name" placeholder="First Name" type="text" class="Inspector">
