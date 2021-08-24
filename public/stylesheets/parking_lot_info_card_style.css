@@ -1,0 +1,11 @@
+/* Gets rid of de/increment arrows on Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Gets rid of de/increment arrows on Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

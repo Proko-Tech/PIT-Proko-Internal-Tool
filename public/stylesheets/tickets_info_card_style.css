@@ -24,6 +24,7 @@ div .lower-txt {
     color: #C5C7CD;
 }
 
+/* Next/previous buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: none !important;
 }
@@ -33,10 +34,12 @@ div .lower-txt {
     box-shadow: none  !important;
 }
 
+/* Line underneath the column title */
 .dataTable thead th, #datatable.dataTable thead th {
     border-color: #DFE0EB;
 }
 
+/* Bottom line of datatable */
 .dataTable.no-footer {
     border-color: #DFE0EB !important;
 }
@@ -47,16 +50,13 @@ div .lower-txt {
     color: #9FA2B4 !important;
 }
 
-.dataTables_length select {
-    color: #4B506D !important;
-}
-
 .dataTables_length label {
     display: flex;
     flex-direction: row;
     padding: 5px;
 }
 
+/* Rows per page dropdown */
 .dataTables_length select {
     max-width: 50px;
     max-height: 35px;
@@ -64,6 +64,7 @@ div .lower-txt {
     border-color: transparent !important;
 }
 
+/* Container for Rows per page */
 .dataTables_length span {
     font-size: 12px;
     min-width: 50px;
@@ -81,6 +82,7 @@ div .lower-txt {
     padding-right: 10px;
 }
 
+/* Container for the label, info, and paginate */
 .dataTables_wrapper .bottom {
     display: flex;
     flex-direction: row;
