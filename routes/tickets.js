@@ -19,9 +19,8 @@ router.get('/ticket_detail', async function (req,res){
 });
 /* GET ticket detail route */
 router.get('/:id', async function(req, res, next) {
-    const id = '1';
-    const spot = await spotModel.get(id);
-    console.log(spot);
+    const id = '2';
+    const spot = await spotModel.ticket_detail_get(id);
     res.render('page/tickets/ticketdetail', {title:" El Fernando Parking - Spot #234", spot, id});
 });
 

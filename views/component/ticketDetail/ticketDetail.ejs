@@ -7,15 +7,15 @@
                <p> Ticket  Detail</p>
            </div>
            <div class = 'time'>
-               <p> 25 May 2019, 09:41 PM</p>
+               <p> <%= spot[0].updated_at%></p>
            </div>
            </div>
            <div id = 'map'></div>
            <script>
                function initMap(){
                    var options = {
-                       zoom: 15,
-                       center: {lat:42.3601,lng:-71.05}
+                       zoom: 10,
+                       center: {lat:<%=spot[0].lat %>,lng:<%=spot[0].long %>}
                    }
                    var map = new google.maps.Map(document.getElementById('map'),options)
                }
@@ -33,7 +33,7 @@
             </div>
             <div id="details">
                     <p>
-                        234
+                        <%=spot[0].spot_name %>
                     </p>
             </div>
             <div class="divider"></div>
@@ -44,7 +44,7 @@
             </div>
             <div id="details">
                 <p>
-                    &23dDFSKf3-sdfasdf
+                    <%=spot[0].spot_hash %>
                 </p>
             </div>
                 <div class="divider"></div>
@@ -55,7 +55,7 @@
                 </div>
             <div id="details">
                     <p>
-                        12:23 PM 02/20/2020
+                        <%=spot[0].updated_at %>
                     </p>
             </div>
             <div class="divider"></div>
@@ -66,7 +66,7 @@
             </div>
             <div id="details">
                 <p>
-                    550 Deep Valley Dr, RHS, 90502
+                    <%=spot[0].address %>
                 </p>
             </div>
         </div>
