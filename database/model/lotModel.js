@@ -35,6 +35,8 @@ async function insert(parking_lot_info) {
     }
 }
 
+
+
 /**
  * update parking lot using the information given to us
  * @param id
