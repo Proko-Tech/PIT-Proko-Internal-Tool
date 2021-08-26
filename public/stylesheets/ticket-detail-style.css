@@ -1,3 +1,6 @@
+.container{
+
+}
 .card-panel{
     width: 1122px;
     height: 444px;
@@ -41,7 +44,7 @@
 }
 p{
      margin-top: 0px;
-    margin-bottom: 0px;
+     margin-bottom: 0px;
  }
 
 #subject{
@@ -80,4 +83,7 @@ p{
     width: 1122px;
     height: 444px;
 
+}
+#bar{
+padding-top: 22px;
 }
