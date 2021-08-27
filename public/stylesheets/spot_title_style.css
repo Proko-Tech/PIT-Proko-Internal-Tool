@@ -1,0 +1,16 @@
+*{
+    font-family: Mulish;
+    font-style: normal;
+}
+.nav-wrapper {
+    padding-left: 20px;
+
+}
+
+ .brand-logo {
+
+     font-weight: normal;
+     font-size: 24px !important;
+     letter-spacing: 0.3px;
+     color: #252733  !important;
+}
