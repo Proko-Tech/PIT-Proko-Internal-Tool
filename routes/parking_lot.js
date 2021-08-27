@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 const lot_model = require("../database/model/lotModel");
+const spots_model = require("../database/model/spotsModel");
 const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
 
 /*TEST for SpotsModel */
@@ -14,33 +15,38 @@ router.get('/new', async function (req, res, next) {
 
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
-    console.log(req.body);
-    await lot_ownerships_model.insert(req.body);
+    //console.log(req.body);
+    await lot_model.insert(req.body); //Need to extract lot_id
+    let lotID = await lot_model.getMax();
+    let levelData = req.body.spots_num.map((spot) => {
+        for (let i = 0; i < spot; i++) {
+            return {
+                "spot_status": "UNOCCUPIED",
+                "alive_status": 0,
+                "is_charging_station": 0,
+                "secret": lotID, 
+                "spot_name": "",
+            }
+        }
+    });
+    await spots_model.create(levelData); //create in spotsModel is the same as insert for lotModel
+
+    let lotOwnData = {
+        "admin_id": 0,
+        "lot_id": lotID
+    }
+    await lot_ownerships_model.insert(lotOwnData);
 });
 
 /* GET parking_lot route */
 router.get("/parking_lot", async function (req, res) {
     const lotsInfo = await lot_model.get();
-    console.log(lotsInfo);
     res.render("page/parkingLot/parkingLots", { title: "Parking Lots", lotsInfo });
 });
 
 /* POST parking_lot route */
 router.post("/parking_lot", async function (req, res) {
     await lot_model.insert(req.body);
-    console.log(req.body);
-    //fix 'req.body' below
-   /* let spotData = req.body.map(function(lot) => {
-        return { 
-            "id": // Get spot id
-            "lot_id": // Get lot id
-
-        }
-    } */
-    
-
-    // Another Function for lot ownership here.
-
 });
 
 /* TEST for parking lot spots route */
