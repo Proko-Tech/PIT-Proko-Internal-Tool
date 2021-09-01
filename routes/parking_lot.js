@@ -16,16 +16,30 @@ router.get('/new', async function (req, res, next) {
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
     //console.log(req.body);
-    await lot_model.insert(req.body); //Need to extract lot_id
-    let lotID = await lot_model.getMax();
-    let levelData = req.body.spots_num.map((spot) => {
+    var lotData = {
+        "address": req.body.address,
+        "city": req.body.city,
+        "name": req.body.name,
+        "price_per_hour": req.body.price_per_hour,
+        "state": req.body.state,
+        "zip": req.body.zip
+    }
+    await lot_model.insert(lotData);
+    let lotID = await lot_model.getMax(); //extracting lotID
+
+    // If statement in the case there is only one level, the map function is inappropriate
+    const spots_num = new Array(req.body.spots_num);
+    let spotInfo = req.body.spots_num.length===1?spots_num:req.body.spots_num;
+
+    let levelData = spotInfo.map((spot) => {
         for (let i = 0; i < spot; i++) {
             return {
                 "spot_status": "UNOCCUPIED",
                 "alive_status": 0,
                 "is_charging_station": 0,
-                "secret": lotID, 
+                "secret": lotID,
                 "spot_name": "",
+                "is_reservable": 1
             }
         }
     });
@@ -36,6 +50,7 @@ router.post("/new", async function (req, res) {
         "lot_id": lotID
     }
     await lot_ownerships_model.insert(lotOwnData);
+    res.json(levelData);
 });
 
 /* GET parking_lot route */
