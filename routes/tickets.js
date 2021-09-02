@@ -7,7 +7,6 @@ var tickets_model = require('../database/model/ticketsModel')
 router.get('/', async function(req, res, next) {
     const id = req.params.id;
     const ticket = await tickets_model.get(id);
-    console.log(ticket)
     res.render('page/tickets/tickets', { title: 'Tickets', ticket, id });
 });
 
