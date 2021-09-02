@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
+const admin_account_model = require("../database/model/adminAccountsModel");
 const lot_model = require("../database/model/lotModel");
 const spots_model = require("../database/model/spotsModel");
 const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
@@ -10,7 +11,8 @@ const spot_model = require("../database/model/spotsModel");
 
 /* GET new route */
 router.get('/new', async function (req, res, next) {
-    res.render('page/parkingLot/newParkingLot', { title: 'New Parking Lot' });
+    const adminAccounts = await admin_account_model.get();
+    res.render('page/parkingLot/newParkingLot', { title: 'New Parking Lot',adminAccounts});
 });
 
 /* POST new parking lot */
