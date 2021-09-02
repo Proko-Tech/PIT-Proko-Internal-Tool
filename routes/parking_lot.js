@@ -27,7 +27,6 @@ router.post("/new", async function (req, res) {
     await lot_model.insert(lotData);
     let lotID = await lot_model.getMax(); //extracting lotID
 
-    // If statement in the case there is only one level, the map function is inappropriate
     const spots_num = new Array(req.body.spots_num);
     let spotInfo = req.body.spots_num.length===1?spots_num:req.body.spots_num;
 
