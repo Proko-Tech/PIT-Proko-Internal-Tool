@@ -15,64 +15,30 @@
                         <th>Date</th>
                         <th>Status</th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div>El Fernando Parking</div>
-                                <div class="lower-txt">Updated 1 day ago</div>
-                            </td>
-                            <td>Spot #234</td>
-                            <td>
-                                <div>Yuichi Kurino</div>
-                                <div class="lower-txt">on 24.05.2019</div>
-                            </td>
-                            <td>
-                                <div>May 26, 2019</div>
-                                <div class="lower-txt">6:30 PM</div>
-                            </td>
-                            <td>
-                                <%- include("../../component/ticketStatus/red.ejs") %>
-                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Promenade Parking</div>
-                                <div class="lower-txt">Updated 1 day ago</div>
-                            </td>
-                            <td>Spot #234</td>
-                            <td>
-                                <div>Matt Damon</div>
-                                <div class="lower-txt">on 24.05.2019</div>
-                            </td>
-                            <td>
-                                <div>May 26, 2019</div>
-                                <div class="lower-txt">8:00 AM</div>
-                            </td>
-                            <td>
-                                <%- include("../../component/ticketStatus/yellow.ejs") %>
-                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>Promenade Parking</div>
-                                <div class="lower-txt">Updated 2 days ago</div>
-                            </td>
-                            <td>Spot #234</td>
-                            <td>
-                                <div>Henry Cavil</div>
-                                <div class="lower-txt">on 24.05.2019</div>
-                            </td>
-                            <td>
-                                <div>May 25, 2019</div>
-                                <div class="lower-txt">4:00 PM</div>
-                            </td>
-                            <td>
-                                <%- include("../../component/ticketStatus/green.ejs") %>
-                                <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i>
-                            </td>
-                        </tr>
+                    <tbody id="ticket-table">
+                        <form method="POST">
+                            <% ticket.map(function(tickets){ %>
+                                <tr>
+                                    <td>
+                                        <div><%- tickets.name %></div>
+                                        <div class="lower-txt">Updated <%- tickets.updated_at[1]%> ago</div>
+                                    </td>
+                                    <td><%- tickets.spot_name %></td>
+                                    <td>
+                                        <div><%- tickets.first_name %> <%= tickets.last_name %></div>
+                                        <div class="lower-txt">on <%- tickets.updated_at[0] %></div>
+                                    </td>
+                                    <td>
+                                        <div><%- tickets.created_at[0] %></div>
+                                        <div class="lower-txt"><%- tickets.created_at[1] %></div>
+                                    </td>
+                                    <td>
+                                        <%- include("../../component/ticketStatus/red.ejs") %>
+                                        <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
+                                    </td>
+                                </tr>
+                            <%});%>
+                        </form>
                     </tbody>
                 </table>
             </div>
@@ -100,7 +66,7 @@
             "searching": false,
             "pagingType": "simple",
             "bLengthChange": true,
-            "lengthMenu": [ [3, 2, 3, -1], [1, 2, 3, "All"] ],
+            "pageLength": 50,
             "oLanguage": {
                     "sStripClasses": "",
                     "sSearch": "",
