@@ -17,7 +17,7 @@ router.get('/new', async function (req, res, next) {
 
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
-    //console.log(req.body);
+    //Preparing JSON for insertion
     var lotData = {
         "address": req.body.address,
         "city": req.body.city,
@@ -27,8 +27,9 @@ router.post("/new", async function (req, res) {
         "zip": req.body.zip
     }
     await lot_model.insert(lotData);
-    let lotID = await lot_model.getMax(); //extracting lotID
-
+    //Extracting lotID
+    let lotID = await lot_model.getMax(); 
+    //Format spots_num to array so that map function always works
     const spots_num = new Array(req.body.spots_num);
     let spotInfo = req.body.spots_num.length===1?spots_num:req.body.spots_num;
 
@@ -40,18 +41,20 @@ router.post("/new", async function (req, res) {
                 "is_charging_station": 0,
                 "secret": lotID,
                 "spot_name": "",
-                "is_reservable": 1
+                "is_reservable": 1,
+                "lot_id": lotID
             }
         }
     });
-    await spots_model.create(levelData); //create in spotsModel is the same as insert for lotModel
+    //create in spotsModel is the same as insert for lotModel
+    await spots_model.create(levelData); 
 
     let lotOwnData = {
-        "admin_id": 0,
+        "admin_id":req.body.admin_id,
         "lot_id": lotID
     }
     await lot_ownerships_model.insert(lotOwnData);
-    res.json(levelData);
+    res.redirect("/parking/parking_lot");
 });
 
 /* GET parking_lot route */
