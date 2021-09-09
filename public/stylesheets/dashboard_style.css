@@ -1,0 +1,168 @@
+#infocard{
+
+
+    /* grayscale / white */
+
+    background: #FFFFFF;
+    /* grayscale / divider */
+
+    border: 1px solid #DFE0EB;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+#Trend{
+
+    width: 1275px;
+    height: 526px;
+    padding: 0px;
+    margin: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+
+    /* grayscale / white */
+
+    background: #FFFFFF;
+    /* grayscale / divider */
+
+    border: 1px solid #DFE0EB;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+}
+
+
+.title{
+    padding-top:15px;
+    padding-left:29px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    color: #252733;
+
+}
+#subject{
+
+    height: 14px;
+    left: 32px;
+    right: 896px;
+    top: 24px;
+
+    /* Bold 19 (0.4 px) */
+
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 24px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.4px;
+
+    /* grayscale / gray */
+
+    color: #9FA2B4;
+
+}
+#details{
+
+    height: 80px;
+    left: 32px;
+    right: 896px;
+    top: 60px;
+
+    /* Bold 40 (1 px) */
+
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: 1px;
+
+    /* grayscale / black */
+
+    color: #252733;
+
+}
+.divider{
+    height: 0px;
+    left: 0px;
+    right: 0px;
+    top: calc(50% - 0px/2);
+    border-top: 50px;
+
+    /* grayscale / divider */
+
+    border: 1px solid #DFE0EB;;
+}
+#box{
+    padding: 0px;
+    border-left: 1px solid #DFE0EB;
+    height: 526px;
+}
+#subject1{
+
+    width: 278px;
+    height: 22px;
+    right: 32px;
+    top: 32px;
+
+    /* Semibold 16 (0.3 px) */
+
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+
+    text-align: center;
+    letter-spacing: 0.3px;
+
+    /* grayscale / gray */
+
+    color: #9FA2B4;
+padding-left: 100px;
+
+}
+#details1{
+
+    width: 278px;
+    height: 30px;
+    right: 32px;
+    top: 60px;
+
+    /* Bold 24 (0.3 px) */
+    padding-bottom: 40px;
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.3px;
+
+    /* grayscale / black */
+
+    color: #252733;
+    padding-left: 100px;
+
+}
+
+#rows{
+    padding-top: 10px;
+}
+#tickets{
+    background: #FFFFFF;
+
+    border: 1px solid #DFE0EB;
+    box-sizing: border-box;
+    border-radius: 8px;
+}

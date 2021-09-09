@@ -1,0 +1,104 @@
+<div class="row">
+
+        <div class="card" id="tickets" >
+            <div class="card-content" >
+                <div class="row">
+                    <div id="table-header" class="col s10"><p></p>Unresolved Defect Tickets</div>
+                    <div class="col s2"><span span class = "blue-text text-darken-4">View details</span></div>
+                    <div  class="col s4" id = "rows" ><span class = "grey-text">Group:</span> <span >Defected</span></div>
+                </div>
+                <table class="highlight" id="datatable">
+
+                    <tbody>
+                    <tr>
+
+                            <div class="row" id = "rows">
+                            <div class=" col s7">Promenade Parking - Spot 2 Offline</div>
+
+                            <div class="col s5 push-s3"> <span class = "grey-text">8:00AM 06/18/2021</span></div>
+                            </div>
+                    <tr>
+                        <div class="divider"></div>
+                    <tr>
+
+                        <div class="row" id = "rows">
+                            <div class=" col s7">Promenade Parking - Spot 3 Offline</div>
+
+                            <div class="col s5 push-s3"> <span class = "grey-text">8:00AM 06/18/2021</span></div>
+                        </div>
+                    <tr>
+                        <div class="divider"></div>
+                    <tr>
+
+                        <div class="row" id = "rows">
+                            <div class=" col s7">El Fernando - Spot 2 Offline</div>
+
+                            <div class="col s5 push-s3"> <span class = "grey-text">8:00AM 06/18/2021</span></div>
+                        </div>
+                    <tr>
+                        <div class="divider"></div>
+
+                    <tr>
+
+                        <div class="row " id = "rows">
+                            <div class=" col s7">Promenade Parking - Spot 3 Offline</div>
+
+                            <div class="col s5 push-s3"> <span class = "grey-text">8:00AM 06/18/2021</span></div>
+                        </div>
+                    <tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</div>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Materialize Icon CSS  -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- External style sheet -->
+<link rel="stylesheet" href="/stylesheets/tickets_info_card_style.css" type="text/css">
+<!-- Font style sheet -->
+<link href="https://fonts.googleapis.com/css?family=Mulish" rel="stylesheet">
+<!-- Datatable CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<!-- Datatable JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#datatable").DataTable({
+            "dom": '<"top">rt<"bottom"lip><"clear">',
+            "searching": false,
+            "pagingType": "simple",
+            "bLengthChange": true,
+            "lengthMenu": [ [3, 2, 3, -1], [1, 2, 3, "All"] ],
+            "oLanguage": {
+                "sStripClasses": "",
+                "sSearch": "",
+                "sSearchPlaceholder": "Enter Keywords Here",
+                "sInfo": "_START_ -_END_ of _TOTAL_",
+                "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                    '<option value="5">5</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="10">10</option>' +
+                    '<option value="15">15</option>' +
+                    '<option value="20">20</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="-1">All</option>' +
+                    '</select></div>'
+            },
+            "language": {
+                "paginate": {
+                    "next": "<i id=\"next-btn\" class=\"material-icons grey-text\">keyboard_arrow_right</i>",
+                    "previous": "<i id=\"prev-btn\" class=\"material-icons grey-text\">keyboard_arrow_left</i>"
+                }
+            }
+        });
+    });
+</script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>
