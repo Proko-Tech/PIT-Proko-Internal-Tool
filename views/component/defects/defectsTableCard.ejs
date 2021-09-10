@@ -1,0 +1,45 @@
+<div class="container" style="width: 100%;">
+    <div class="row">
+        <div class="col s12 offset-s2">
+            <div class="card">
+                <div class="card-content">
+                    <h4 class="card-title">
+                        Defects Directory
+                    </h4>
+                </div>
+                <div class="container" style="width: 90%;">
+                    <table id="lotsTable" class="DataTable" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Lot</th>
+                                <th>Spot</th>
+                                <th>Admin Name</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Auto<br>Generator</th>
+                                <th>Creation<br>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% defects.map(function(defect){%>
+                            <tr>
+                                <td><%=defect.id%></td>
+                                <td><%=defect.name%></td>
+                                <td><%=defect.spot_name%></td>
+                                <td><%=defect.first_name%> <%=defect.last_name%></td>
+                                <td><%=defect.subject%></td>
+                                <td><%=defect.status_message%></td>
+                                <td><%=defect.is_auto_generator%></td>
+                                <td><%=defect.created_at[0]%></td>
+                                <td><%=defect.created_at[1]%></td>
+                            </tr>
+                            <%});%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
