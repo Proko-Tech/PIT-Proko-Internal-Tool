@@ -35,21 +35,21 @@
                                     <tr class="clickable-row" data-href = "/parking/lotID?lotId=<%=lot.id%>">
                                         <td>
                                             <input value='<%=lot.id%>'>
-                                            <p style="visibility: hidden;">
+                                            <div style="visibility: hidden;">
                                                 <%=lot.id%>
-                                            </p>
+                                            </div>
                                         </td>
                                         <td>
                                             <input value='<%=lot.hash%>'>
-                                            <p style="visibility: hidden;">
+                                            <div style="visibility: hidden;">
                                                 <%=lot.hash%>
-                                            </p>
+                                            </div>
                                         </td>
                                         <td>
                                             <input value='<%=lot.name%>'>
-                                            <p style="visibility: hidden;">
+                                            <div style="visibility: hidden;">
                                                 <%=lot.name%>
-                                            </p>
+                                            </div>
                                         </td>
                                         <td>
                                             <%=lot.created_at%>
@@ -70,3 +70,6 @@
         </div>
     </div>
 </div>
+
+<!-- External style sheet -->
+<link href="/stylesheets/parkingLotsTableCard.css" rel="stylesheet" type="text/css"/>
