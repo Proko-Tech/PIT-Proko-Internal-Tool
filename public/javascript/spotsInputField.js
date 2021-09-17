@@ -6,7 +6,7 @@ $(document).ready(function (){
     var num_spots = $( "#total-spots" ).val();
     for (var i = 1; i < parseInt(num_spots) + 1; i++) {
         $( "#num-spots-input" ).append("<span><h6> Level " + i + ":</h6></span>" +
-                                    "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\">");
+                                    "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\ name=\"spots_num\">");
     }
     });
 
@@ -20,8 +20,11 @@ $(document).ready(function (){
     if (key_code == 13) {
         for (var i = 1; i < parseInt(num_spots) + 1; i++) {
             $( "#num-spots-input" ).append("<span><h6> Level " + i + ":</h6></span>" +
-                                    "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\">");
+                                    "<input id=\"num-spots\" placeholder=\"Number of spots\" type=\"text\" class=\validate\ name=\"spots_num\">");
         }
     }
     });
+
+    $('select').formSelect();
+
 });
