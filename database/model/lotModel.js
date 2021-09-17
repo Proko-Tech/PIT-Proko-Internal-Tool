@@ -29,7 +29,7 @@ async function get() {
 async function insert(parking_lot_info) {
     try {
         await db('lots')
-            .insert(parking_lot_info)
+            .insert(parking_lot_info);
     } catch (err) {
         console.log(err);
     }
@@ -39,7 +39,7 @@ async function getMax() {
     try {
         let maxQuery = await db('lots')
             .max('id as maxID')
-            .first()
+            .first();
         return maxQuery.maxID;
     }
     catch (err) {
