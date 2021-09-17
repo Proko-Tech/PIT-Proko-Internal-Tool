@@ -52,4 +52,5 @@ async function create(spot_info) {
 }
 
 
+
 module.exports = { create, update, getSpots };

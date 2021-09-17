@@ -35,6 +35,19 @@ async function insert(parking_lot_info) {
     }
 }
 
+async function getMax() {
+    try {
+        let maxQuery = await db('lots')
+            .max('id as maxID')
+            .first();
+        return maxQuery.maxID;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
 /**
  * update parking lot using the information given to us
  * @param id
@@ -67,4 +80,4 @@ async function getByAdminId(admin_id) {
     }
 }
 
-module.exports = { get, insert, update, getByAdminId };
+module.exports = { get, insert, update, getByAdminId, getMax };

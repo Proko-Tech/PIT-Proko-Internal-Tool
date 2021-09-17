@@ -3,10 +3,10 @@
     <div class="col s12 offset-s2">
         <div class="card">
             <div class="card-content">
-                <form class="container" action="/parking_lot" method="POST">
+                <form class="container" action="/parking/new" method="POST">
                     <div class="row">
                         <div class="col s8 pull-s1"><h6>Parking Lot Information</h6></div>
-                        <div class="col s4 push-s2"><a>Submit</a></div>
+                        <div class="col s4 push-s2"><input type="submit" class="btn" value="Submit"></div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
@@ -34,7 +34,15 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input name="admin_username" id="admin-account" placeholder="Search By Account" type="search" class="validate">
+                            <select name="admin_id">
+                                <option value="" disabled selected>Search By Account</option>
+                                <%adminAccounts.map((account)=>{%>
+                                <option value="<%=account.id%>"><%=account.admin_username%></option>
+                                <%});%>
+                            </select>
+                            <label>
+                                Search By Account
+                            </label>
                         </div>
                     </div>
                     <div class="row">
@@ -42,7 +50,7 @@
                     </div>
                     <div class="row">
                         <div id="total-spots-input" class="input-field col s6">
-                            <input id="total-spots" type="number" name="total-spots"  placeholder="Total number of Spots" min="0" class="validate">
+                            <input id="total-spots" type="number" name="total-spots"  placeholder="Total number of levels" min="0" class="validate">
                         </div>
                         <div id="num-spots-input" class="input-field col s5 offset-s6 pull-s6"></div>
                     </div>
@@ -51,14 +59,14 @@
         </div>
     </div>
 </div>
+<!-- External style sheet -->
+<link href="/stylesheets/parking_lot_info_card_style.css" rel="stylesheet" type="text/css"/>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- External style sheet -->
-<link href="/stylesheets/parking_lot_info_card_style.css" rel="stylesheet" type="text/css"/>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- External javascript -->
 <script src="/javascript/spotsInputField.js"></script>
