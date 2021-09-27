@@ -3,16 +3,15 @@
     font-style: normal;
 }
 
-div #table-header {
-    font-size: 19px;
+#table-header {
     font-weight: bold;
-    letter-spacing: 0.4px;
-    color: #252733;
-}
+    font-size: 19px;
+    line-height: 24px;
 
-td {
-    font-size: 14px;
-    letter-spacing: 0.2px;
+    /* identical to box height */
+    letter-spacing: 0.4px;
+
+    /* grayscale / black */
     color: #252733;
 }
 
