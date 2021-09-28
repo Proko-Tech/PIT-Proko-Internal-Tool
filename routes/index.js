@@ -27,4 +27,13 @@ router.post("/", async function(req, res) {
   }
 });
 
+
+/* Logout route */
+router.get('/logout', function(req, res, next) {
+  res.clearCookie('user');
+  console.log("Logged out");
+  res.redirect('/');
+});
+
+
 module.exports = router;
