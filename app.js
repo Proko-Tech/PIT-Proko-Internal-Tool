@@ -30,7 +30,7 @@ app.use('/users', verifyToken, usersRouter);
 app.use('/parking', verifyToken, parkingLotRouter);
 app.use('/tickets', verifyToken, ticketsRouter);
 app.use('/complaints', verifyToken, complaintsRouter);
-app.use('/dashboard', dashboardRouter);
+app.use('/dashboard', verifyToken,dashboardRouter);
 
 
 // catch 404 and forward to error handler
