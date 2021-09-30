@@ -23,6 +23,10 @@ div .lower-txt {
     color: #C5C7CD;
 }
 
+#card-div {
+    width: 110%;
+}
+
 /* Next/previous buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     border: none !important;
