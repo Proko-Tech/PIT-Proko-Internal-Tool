@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+</head>
+<body>
+<div class="container" >
+    <%- include("../../component/sideBar.ejs") %>
+    <%- include("../../component/pageTitle.ejs", {title: "Sensor Firmware Control"}) %>
+    <%- include("../../component/firmwareControl/firmwareControlInfoCard.ejs") %>
+</div>
+</body>
+</html>
