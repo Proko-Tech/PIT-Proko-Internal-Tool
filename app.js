@@ -11,6 +11,7 @@ var ticketsRouter = require('./routes/tickets');
 var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
 var firmwareControlRouter = require('./routes/firmware_control');
+var defectsRouter = require('./routes/defects');
 
 const verifyToken = require('./middleware/verifyToken');
 
@@ -31,6 +32,7 @@ app.use('/users', verifyToken, usersRouter);
 app.use('/parking', verifyToken, parkingLotRouter);
 app.use('/tickets', verifyToken, ticketsRouter);
 app.use('/complaints', verifyToken, complaintsRouter);
+app.use('/defects', verifyToken, defectsRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/firmware', verifyToken, firmwareControlRouter);
 

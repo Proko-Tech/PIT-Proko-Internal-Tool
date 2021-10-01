@@ -6,8 +6,9 @@ const moment = require('moment');
  */
 async function get() {
     let rows = await db('complaints')
+        .where({ internal_site: 'VISIBLE' })
         .select('*');
-    rows = await rows.map((row)=>{
+    rows = await rows.map((row) => {
         row.created_at = moment(row.Start_Week).format('MM-DD-YYYY');
         row.updated_at = moment(row.End_Week).format('MM-DD-YYYY');
         return row;
@@ -22,9 +23,8 @@ async function get() {
  */
 async function getById(id) {
     let rows = await db('complaints')
-        .where({id})
         .select('*');
-    rows = await rows.map((row)=>{
+    rows = await rows.map((row) => {
         row.created_at = moment(row.Start_Week).format('MM-DD-YYYY');
         row.updated_at = moment(row.End_Week).format('MM-DD-YYYY');
         return row;
@@ -32,4 +32,4 @@ async function getById(id) {
     return rows;
 }
 
-module.exports={ get,getById };
+module.exports = { get, getById };
