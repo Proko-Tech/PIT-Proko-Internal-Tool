@@ -24,7 +24,9 @@ router.post("/new", async function (req, res) {
         "name": req.body.name,
         "price_per_hour": req.body.price_per_hour,
         "state": req.body.state,
-        "zip": req.body.zip
+        "zip": req.body.zip,
+        "long": req.body.long,
+        "lat" : req.body.lat
     }
     await lot_model.insert(lotData);
     //Extracting lotID
