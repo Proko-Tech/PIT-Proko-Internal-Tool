@@ -10,6 +10,8 @@ var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
 var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
+var defectsRouter = require('./routes/defects');
+
 const verifyToken = require('./middleware/verifyToken');
 
 
@@ -30,6 +32,7 @@ app.use('/users', verifyToken, usersRouter);
 app.use('/parking', verifyToken, parkingLotRouter);
 app.use('/tickets', verifyToken, ticketsRouter);
 app.use('/complaints', verifyToken, complaintsRouter);
+app.use('/defects', verifyToken, defectsRouter);
 app.use('/dashboard', dashboardRouter);
 
 

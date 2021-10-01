@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+</head>
+<body>
+<div class="container">
+    <%- include("../../component/sideBar.ejs") %>
+    <%- include("../../component/pageTitle.ejs", {title: "Defects Table"}) %>
+    <%- include("../../component/defects/defectsTableCard.ejs", {defects}) %>
+</div>
+</body>
+</html>
