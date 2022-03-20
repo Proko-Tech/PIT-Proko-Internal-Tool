@@ -12,6 +12,7 @@ var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
 var firmwareControlRouter = require('./routes/firmware_control');
 var defectsRouter = require('./routes/defects');
+var v0Router = require('./routes/v0');
 
 const verifyToken = require('./middleware/verifyToken');
 
@@ -33,8 +34,9 @@ app.use('/parking', verifyToken, parkingLotRouter);
 app.use('/tickets', verifyToken, ticketsRouter);
 app.use('/complaints', verifyToken, complaintsRouter);
 app.use('/defects', verifyToken, defectsRouter);
-app.use('/dashboard', dashboardRouter);
+app.use('/dashboard', verifyToken, dashboardRouter);
 app.use('/firmware', verifyToken, firmwareControlRouter);
+app.use('/v0', verifyToken, v0Router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

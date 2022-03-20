@@ -38,6 +38,9 @@
 
 }
 
+.container {
+    width: 95%;
+}
 
 .title{
     padding-top:15px;
