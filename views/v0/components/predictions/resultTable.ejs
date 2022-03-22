@@ -18,14 +18,15 @@
         </thead>
         <tbody>
             <% predictions.map(prediction => { %>
-                <tr>
+                <tr onclick="goToPrediction(<%=prediction.id%>)">
                     <td><%=prediction.spot_name%></td>
                     <td><%=prediction.secret%></td>
                     <td><%=prediction.is_car_prediction?'Car':'Not Car'%></td>
                     <td><%=prediction.license_plate_prediction.split('\n').join(', ')%></td>
                     <td><%=prediction.created_at%></td>
                     <td>
-                        <% if(prediction.is_car_prediction === prediction.is_car) {%>
+                        <% if(prediction.is_car_prediction === prediction.is_car &&
+                                prediction.license_plate_prediction.split('\n').includes(prediction.license_plate)) {%>
                             <%- include("../../../component/ticketStatus/green.ejs", {data:'CORRECT'}) %>
                         <% } else if(prediction.is_car === null || prediction.license_plate === null) { %>
                             <%- include("../../../component/ticketStatus/yellow.ejs", {data:'FLAG NEEDED'}) %>
@@ -40,6 +41,14 @@
 </div>
 <link rel='stylesheet' href='/stylesheets/materialTable.css'>
 <script>
+    /**
+     * Go to GET /v0/predictions/:prediction_id
+     * @param prediction_id
+     */
+    function goToPrediction(prediction_id) {
+        window.location.href = '/v0/predictions/' + prediction_id;
+    }
+
     (function(window, document, undefined) {
         var factory = function($, DataTable) {
             "use strict";
