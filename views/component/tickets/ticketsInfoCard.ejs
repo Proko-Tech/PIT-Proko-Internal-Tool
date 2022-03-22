@@ -1,6 +1,4 @@
-<div class="row">
-    <div class="col s12 offset-s1">
-        <div class="card material-table" id="card-div">
+ <div class="card material-table" id="card-div">
             <div class="card-content row">
                 <div id="table-header" class="col s10"><p>All tickets</p></div>
                 <div class="col s1"><i class="tiny material-icons">sort</i><span id="sort-txt">Sort</span></div>
@@ -32,7 +30,7 @@
                                         <div class="lower-txt"><%- tickets.created_at[1] %></div>
                                     </td>
                                     <td>
-                                        <%- include("../../component/ticketStatus/red.ejs") %>
+                                        <%- include("../../component/ticketStatus/red.ejs", {data:'NOT YET FIXED'}) %>
                                     </td>
                                     <td>
                                         <div class="col s1 push-s1"><i class="tiny material-icons grey-text">more_vert</i></div>
@@ -44,9 +42,6 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
-
 <!-- External style sheet -->
 <link rel="stylesheet" href="/stylesheets/tickets_info_card_style.css" type="text/css">
 <script>
