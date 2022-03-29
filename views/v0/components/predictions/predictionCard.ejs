@@ -55,7 +55,7 @@
         const form = $(this);
 
         $.ajax({
-            url: '/v0/predictions/'+<%=data.id%>,
+            url: '/v0/predictions/'+<%=data.prediction_results_id%>,
             type: 'PUT',
             data: form.serialize(),
             success: function(data) {

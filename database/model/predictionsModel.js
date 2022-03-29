@@ -7,7 +7,7 @@ const db = require('../dbConfig');
 async function getJoinSpots () {
     const result = await db('prediction_results')
         .join('spots', 'prediction_results.spot_secret', 'spots.secret')
-        .select('*');
+        .select('*', 'prediction_results.id as prediction_result_id');
     return result;
 }
 
@@ -19,7 +19,7 @@ async function getJoinSpots () {
 async function getJoinSpotsById (id) {
     const result = await db('prediction_results')
         .join('spots', 'prediction_results.spot_secret', 'spots.secret')
-        .select('*')
+        .select('*', 'prediction_results.id as prediction_results_id')
         .where('prediction_results.id', id);
     return result;
 }

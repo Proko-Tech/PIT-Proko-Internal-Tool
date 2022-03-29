@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             <% predictions.map(prediction => { %>
-                <tr onclick="goToPrediction(<%=prediction.id%>)">
+                <tr onclick="goToPrediction(<%=prediction.prediction_result_id%>)">
                     <td><%=prediction.spot_name%></td>
                     <td><%=prediction.secret%></td>
                     <td><%=prediction.is_car_prediction?'Car':'Not Car'%></td>
