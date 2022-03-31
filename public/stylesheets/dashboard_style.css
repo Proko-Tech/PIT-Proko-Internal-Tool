@@ -174,3 +174,43 @@ padding-left: 100px;
     box-sizing: border-box;
     border-radius: 8px;
 }
+
+.input-field.input-outlined > input {
+    border: 2px solid #b8b8b8;
+    padding-left: 10px;
+    width: calc(100% - 2.5rem);
+    float: none;
+    display: block;
+    border-radius: 4px;
+    transition: box-shadow, border-color 0.15s;
+}
+.input-field.input-outlined > input:focus:not([readonly]) {
+    border-color: #0038a6;
+    box-shadow: 0 1px 0 0px #0038a6;
+}
+.input-field.input-outlined > textarea {
+    border: 2px solid #b8b8b8;
+    padding-left: 10px;
+    width: calc(100% - 1rem);
+    float: none;
+    display: block;
+    border-radius: 4px;
+    transition: box-shadow, border-color 0.15s;
+}
+.input-field.input-outlined > textarea:focus:not([readonly]) {
+    border-color: #0038a6;
+    box-shadow: 0 1px 0 0px #0038a6;
+}
+
+.input-field.input-outlined > label {
+    left: 27px;
+    display: inline-flex;
+    width: auto !important;
+}
+.input-field.input-outlined > label.active {
+    background: white;
+    border-left: 4px solid white;
+    border-right: 4px solid white;
+    transform: translateY(-1.75rem);
+    top: 1rem;
+}
