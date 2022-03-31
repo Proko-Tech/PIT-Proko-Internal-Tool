@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const { DateTime } = require('luxon');
 
 const predictionsModel = require('../../database/model/predictionsModel');
 
 router.get('/', async function (req, res, next) {
     try {
+        const { tzOffset } = req.userInfo.user_info;
         const predictions = await predictionsModel.getJoinSpots();
+        predictions.map(prediction => {
+            return prediction.created_at = DateTime.fromISO(new Date(prediction.created_at)
+                .toISOString()).toUTC().plus({ minutes: tzOffset }).toFormat('MMMM dd, tt');
+        })
+
         return res.render('v0/pages/predictions/predictions', { title: 'V0 Prediction Results', predictions });
     } catch (err) {
         console.error(err);

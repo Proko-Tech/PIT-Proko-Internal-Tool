@@ -20,13 +20,14 @@
         <div class="card">
             <div class="card-content">
                 <form method="post" action="/">
+                    <input type="hidden" name="tzOffset" id="tzOffset">
                     <p>
                         <label>Username:</label>
                         <input type="text" placeholder="Enter Username" name="username">
                     </p>
                     <p>
                         <label>Password:</label>
-                        <input type="text" placeholder="Enter Password" name="password">
+                        <input type="password" placeholder="Enter Password" name="password">
                     </p>
                     <center>
                         <p>
@@ -39,6 +40,11 @@
     </div>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        var tzOffset = new Date().getTimezoneOffset(),
+            tzInput = document.getElementById('tzOffset');
+        tzInput.value = tzOffset*(-1);
+    </script>
 </body>
 
 </html>

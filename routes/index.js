@@ -17,8 +17,11 @@ router.post("/", async function (req, res) {
 
     if (user_info.username === process.env.USERNAME &&
       user_info.password === process.env.PASSCODE) {
-
-        const token = auth.generateToken(user_info);
+        const tokenPayload = {
+            tzOffset: user_info.tzOffset,
+            username: user_info.username,
+        }
+        const token = await auth.generateToken(tokenPayload);
         res.clearCookie('user');
         res.cookie("user", token);
         res.redirect('/dashboard');
