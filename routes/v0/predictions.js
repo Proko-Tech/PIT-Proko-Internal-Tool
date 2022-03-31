@@ -16,11 +16,13 @@ router.get('/', async function (req, res, next) {
 router.get('/:prediction_id', async function (req, res, next) {
     try {
         const predictions = await predictionsModel.getJoinSpotsById(req.params.prediction_id);
+        const next_predictions = await predictionsModel.getByIdGreaterThan(req.params.prediction_id);
+
         if (predictions.length === 0) {
             return res.status(404).json({ message: 'Prediction stats not found' });
         }
         return res.render('v0/pages/predictions/predictionStat',
-            { title: 'V0 Prediction Results', data: predictions[0] });
+            { title: 'V0 Prediction Results', data: predictions[0], next_predictions });
     } catch (err) {
         console.error(err);
         return res.status(502).json({ message: "internal error" });

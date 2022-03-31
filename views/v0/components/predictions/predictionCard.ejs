@@ -61,7 +61,11 @@
             success: function(data) {
                 const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
                                     <span>${data.message}</span>
+                                    <% if (next_predictions.length !== 0) { %>
+                                    <button class="btn-flat toast-action" onclick="nextPredictionAndCloseToast(<%= next_predictions[0].id %>)">Next</button>
+                                   <% } else { %>
                                     <button class="btn-flat toast-action" onclick="M.Toast.dismissAll();">Ack</button>
+                                   <% } %>
                                    </div>`;
                 M.toast({html: toastHTML});
             },
@@ -74,4 +78,9 @@
             }
         });
     })
+
+    function nextPredictionAndCloseToast (id) {
+        M.Toast.dismissAll();
+        window.location.href = '/v0/predictions/' + id;
+    }
 </script>
