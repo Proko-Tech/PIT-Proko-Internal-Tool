@@ -2,35 +2,20 @@
 
 <head>
     <title><%= title %> </title>
-    <!--Import JQuery-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-    <!--Import datatables-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
-    </script>
-
-    <!--Materialize CDN-->
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!--Initialise Datatable-->
-    <script>
-        $(document).ready(function () {
-            $('#lotsTable').DataTable();
-        });
-    </script>
+    <%- include('../../common/topScripts.ejs') %>
+    <%- include('../../common/bottomScripts.ejs') %>
 </head>
 
-<body>
-    <div class="container">
+<body class="has-fixed-sidenav">
+    <header>
+        <%- include('../../component/topBar.ejs', {title})%>
         <%- include("../../component/sideBar.ejs") %>
-        <%- include("../../component/parkingLots/parkingLotsTableCard.ejs") %>
-    </div>
-    
-
+    </header>
+    <main>
+        <div class="container" >
+            <%- include("../../component/parkingLots/parkingLotsTableCard.ejs") %>
+        </div>
+    </main>
 </body>
 
 </html>
