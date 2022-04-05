@@ -3,60 +3,54 @@ var router = express.Router();
 
 const admin_account_model = require("../database/model/adminAccountsModel");
 const lot_model = require("../database/model/lotModel");
-const spots_model = require("../database/model/spotsModel");
+const spot_model = require("../database/model/spotsModel");
 const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
 
-/*TEST for SpotsModel */
-const spot_model = require("../database/model/spotsModel");
+const pick = require('../utils/pick');
+const crypto = require("crypto");
 
 /* GET new route */
 router.get('/new', async function (req, res, next) {
     const adminAccounts = await admin_account_model.get();
-    res.render('page/parkingLot/newParkingLot', { title: 'New Parking Lot',adminAccounts});
+    res.render('page/parkingLot/newParkingLot', { title: 'New Parking Lot',adminAccounts });
 });
 
 /* POST new parking lot */
 router.post("/new", async function (req, res) {
-    //Preparing JSON for insertion
-    var lotData = {
-        "address": req.body.address,
-        "city": req.body.city,
-        "name": req.body.name,
-        "price_per_hour": req.body.price_per_hour,
-        "state": req.body.state,
-        "zip": req.body.zip,
-        "long": req.body.long,
-        "lat" : req.body.lat
-    }
-    await lot_model.insert(lotData);
-    //Extracting lotID
-    let lotID = await lot_model.getMax(); 
-    //Format spots_num to array so that map function always works
-    const spots_num = new Array(req.body.spots_num);
-    let spotInfo = req.body.spots_num.length===1?spots_num:req.body.spots_num;
+    try {
+        const current_date = (new Date()).valueOf().toString();
+        const random = Math.random().toString();
+        const hash = crypto.createHash('sha1')
+            .update(current_date + random)
+            .digest('hex');
 
-    let levelData = spotInfo.map((spot) => {
-        for (let i = 0; i < spot; i++) {
-            return {
-                "spot_status": "UNOCCUPIED",
-                "alive_status": 0,
-                "is_charging_station": 0,
-                "secret": lotID,
-                "spot_name": "",
-                "is_reservable": 1,
-                "lot_id": lotID
-            }
+        // Preparing JSON for insertion
+        const lotData = {
+            ...pick(req.body, ['address', 'city', 'name', 'price_per_hour', 'state', 'zip', 'long', 'lat']), hash
         }
-    });
-    //create in spotsModel is the same as insert for lotModel
-    await spots_model.create(levelData); 
+        const spotsData = await Promise.all(req.body.spot_name.map((name, index) => {
+            const spot = {
+                spot_name: name,
+                secret: req.body.secret[index],
+                firmware_version: req.body.firmware_version[index],
+                available_firmware_version: req.body.firmware_version[index],
+                alive_status: false,
+                is_charging_station: false,
+                spot_status: 'UNOCCUPIED'
+            }
+            return spot;
+        }));
 
-    let lotOwnData = {
-        "admin_id":req.body.admin_id,
-        "lot_id": lotID
+        const { insertResult } = await lot_model.insertWithSpotsAndOwnership(lotData, spotsData, req.body.admin_id);
+        if (insertResult === 'failed') {
+            return res.status(503);
+        }
+
+        return res.redirect('/parking/parking_lot');
+    } catch (err) {
+        console.error(err);
+        return res.status(503);
     }
-    await lot_ownerships_model.insert(lotOwnData);
-    res.redirect("/parking/parking_lot");
 });
 
 /* GET parking_lot route */
