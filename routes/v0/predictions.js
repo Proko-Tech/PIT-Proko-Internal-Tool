@@ -9,10 +9,19 @@ router.get('/', async function (req, res, next) {
         const { tzOffset } = req.userInfo.user_info;
         const predictions = await predictionsModel.getJoinSpots();
         predictions.map(prediction => {
-            return prediction.created_at = DateTime.fromISO(new Date(prediction.created_at)
+            prediction.created_at = DateTime.fromISO(new Date(prediction.created_at)
                 .toISOString()).toUTC().plus({ minutes: tzOffset }).toFormat('MMMM dd, tt');
+            prediction.exited_at = prediction.exited_at === null
+                ? 'NOT YET LEFT'
+                : DateTime.fromISO(new Date(prediction.exited_at)
+                    .toISOString()).toUTC().plus({ minutes: tzOffset }).toFormat('MMMM dd, tt');
+            prediction.hour_stayed = prediction.exited_at === 'NOT YET LEFT'
+                ? 'N/A'
+                : Math.ceil(DateTime.fromISO(new Date(prediction.exited_at)
+                    .toISOString()).diff(DateTime.fromISO(new Date(prediction.created_at)
+                    .toISOString()), ["hours"]).toObject().hours);
+            return prediction;
         })
-
         return res.render('v0/pages/predictions/predictions', { title: 'V0 Prediction Results', predictions });
     } catch (err) {
         console.error(err);
@@ -36,7 +45,7 @@ router.get('/:prediction_id', async function (req, res, next) {
     }
 });
 
-router.put('/:prediction_id', async function(req, res, next){
+router.put('/:prediction_id', async function (req, res, next){
     try {
         const { prediction_id } = req.params;
         const data = req.body;

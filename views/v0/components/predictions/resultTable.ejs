@@ -13,6 +13,7 @@
             <th>Vehicle Prediction</th>
             <th>License Prediction(s)</th>
             <th>Created At</th>
+            <th>Exited At</th>
             <th>Result</th>
         </tr>
         </thead>
@@ -24,6 +25,7 @@
                     <td><%=prediction.is_car_prediction?'Car':'Not Car'%></td>
                     <td><%=prediction.license_plate_prediction.split('\n').join(', ')%></td>
                     <td><%=prediction.created_at%></td>
+                    <td><%=prediction.exited_at%></td>
                     <td>
                         <% if(prediction.is_car_prediction === prediction.is_car &&
                                 prediction.license_plate_prediction.split('\n').includes(prediction.license_plate)) {%>
