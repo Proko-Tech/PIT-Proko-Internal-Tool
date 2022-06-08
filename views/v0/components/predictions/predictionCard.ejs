@@ -19,6 +19,11 @@
                 <h6 style="display:inline;">Spot Hash: </h6>
                 <blockquote style="white-space:pre"><code><%=data.secret%></code></blockquote>
             </div>
+            <% if (data.exit_image_url) { %>
+                <div class="col s6">
+                    <img src="<%=data.exit_image_url%>" alt="Prediction image" class="col s12">
+                </div>
+            <% } %>
         </div>
         <div class="card-action">
             <h5>Verification:</h5>
