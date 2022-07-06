@@ -1,0 +1,19 @@
+<div id="change_version_modal_spotID<%=spots.id%>" class="modal card" style="width: 40% !important;">
+    <form class="change_spot_version_form" action="" method="POST">
+        <div class="modal-content">
+            <h4>Edit Version</h4>
+            <input type="text" value="<%=spots.secret%>" name="spot_hash" hidden>
+            <input type="number" value="<%=spots.lot_id%>" name="lotId" hidden>
+            <div class="row">
+                <div class="col input-field input-outlined s12">
+                    <input type="number" step="0.01" placeholder="Enter a number" id="version" name="version" class="validate">
+                    <label for="version">Version</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                <button class="waves-effect waves-light btn indigo" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

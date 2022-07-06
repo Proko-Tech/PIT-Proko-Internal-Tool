@@ -1,0 +1,55 @@
+<div id="man" class="col s12">
+    <div class="card material-table">
+        <div class="table-header">
+            <span class="table-title">Sensor Binaries</span>
+            <div class="actions">
+                <a href="#upload-binary-model" id="upload-binary" class="waves-effect btn-flat nopadding modal-trigger"><i class="material-icons">add</i></a>
+            </div>
+            <div class="actions">
+                <a href="#" id="upload-binary" class="upload-binary waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+            </div>
+        </div>
+        <%- include('versionUploadCard.ejs') %>
+        <!-- Display list of parking structures in a table -->
+        <table class="highlight centered responsive-table" id="datatable">
+            <thead>
+            <tr>
+                <th>Version</th>
+                <th>Time uploaded</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% for (let row = 0; row < data.length; row++) { %>
+                <tr>
+                    <td>
+                        <%- data[row].version %>
+                    </td>
+                    <td>
+                        <%=data[row].created_at%>
+                    </td>
+                    <td>
+                        <a class="dropdown-trigger btn btn-floating waves-effect waves-light indigo pulse" data-target="download<%= data[row].version %>"><i class="material-icons" style="color: white;">download</i></a>
+                    </td>
+                    <ul id="download<%= data[row].version %>" class="dropdown-content">
+                        <li><a href="/firmware/download/<%= data[row].version %>/ESP32">ESP32</a></li>
+                        <li><a href="/firmware/download/<%= data[row].version %>/ESP8266">ESP8266</a></li>
+                    <td>
+                        <a class="dropdown-trigger btn btn-floating waves-effect waves-light indigo pulse"  href="/firmware/delete/<%= data[row].version %>"><i class="material-icons" style="color: white;">delete</i></a>
+                    </td>
+                </tr>
+                
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Initialize the modal        
+    $('.modal').modal();
+    // Initialize the dropdown
+    $('.dropdown-trigger').dropdown();
+</script>

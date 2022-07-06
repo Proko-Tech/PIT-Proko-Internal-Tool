@@ -1,0 +1,18 @@
+<div id="change_version_modal_lotID<%=firmware.lot_id%>" class="modal card" style="width: 40% !important;">
+    <form class="change_lot_version_form" action = "" method="POST">
+        <div class="modal-content">
+            <h4>Edit Version</h4>
+            <input type="number" value="<%=firmware.id%>" name="lotId" hidden>
+            <div class="row">
+                <div class="col input-field input-outlined s12">
+                    <input type="number" step="0.01" placeholder="Enter a number" id="version" name="version" class="validate">
+                    <label for="version">Version</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                <button class="waves-effect waves-light btn indigo" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

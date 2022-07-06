@@ -23,19 +23,66 @@ async function getSpots(lot_id) {
     }
 }
 
+async function getSpotHashesByLotId(lot_id) {
+    try {
+        const spots = await getSpots(lot_id);
+        const spot_hashes = spots.map((spot) => {
+            return spot.secret;
+        });
+        return spot_hashes;
+    } catch (err) {
+        return { err };
+    }
+}
+
 /**
  * update spot info using the information given to us
- * @param spot_id
+ * @param String[] spot_hashes
  * @param spot_info
+ * @returns {Promise<{status: string}>}
  */
-async function update(spot_id, spot_info) {
-    try {
-        await db('spots')
-            .where({ spot_id })
-            .update(spot_info);
-    } catch (err) {
-        console.log(err);
-    }
+async function update(spot_hashes, spot_info) {
+    console.log("spot_hashes", spot_hashes);
+    console.log("spot_info", spot_info);
+    // Update the spots with the given spot_hashes
+    // try {
+    //     console.log("Im here")
+    //     await db('spots')
+    //         .where({'secret': spot_hashes[0]})
+    //         .update(spot_info);
+    //     return { status: 'success' };
+    // } catch (err) {
+    //     console.log("Im here too");
+    //     return { status: 'failed', payload: err };
+    // }
+    const result = { status: 'failed' };
+    await db.transaction(async (trx) => {
+        try {
+            console.log("Hash: " + spot_hashes);
+            console.log(spot_info);
+            for(let i = 0; i < spot_hashes.length; i++) {
+                await db('spots')
+                    .where({ secret: spot_hashes[i] })
+                    .update(spot_info)
+                    .transacting(trx);
+            }
+            await trx.commit();
+            result.status = 'success';
+        } catch (err) {
+            await trx.rollback();
+        }
+    });
+
+    // try {
+    //     await db('spots')
+    //         .where({ secret: spot_hash })
+    //         .update(spot_info);
+    //     return { status: 'success' };
+    // } catch (err) {
+    //     return { status: 'failed', payload: err };
+    // }
+    return result;
+
 }
 
 /**
@@ -53,4 +100,4 @@ async function create(spot_info) {
 
 
 
-module.exports = { create, update, getSpots };
+module.exports = { create, update, getSpots, getSpotHashesByLotId };

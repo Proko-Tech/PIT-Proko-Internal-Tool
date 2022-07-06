@@ -10,7 +10,7 @@ var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
 var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
-var firmwareControlRouter = require('./routes/firmware_control');
+var firmwareControlRouter = require('./routes/firmware');
 var defectsRouter = require('./routes/defects');
 var v0Router = require('./routes/v0');
 

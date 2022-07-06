@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const lotsModel = require('../database/model/lotModel');
+const spotsModel = require('../database/model/spotsModel');
 const auth = require('../auth/tokenUtil');
 
 require('dotenv').config();

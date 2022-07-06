@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta charset="utf-8">
-    <title><%= title %></title>
-</head>
-<body>
-<div class="container" >
-    <%- include("../../component/sideBar.ejs") %>
-    <%- include("../../component/pageTitle.ejs", {title: "Sensor Firmware Control"}) %>
-    <%- include("../../component/firmwareControl/firmwareControlInfoCard.ejs") %>
-</div>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title><%= title %></title>
+        <%- include('../../common/topScripts.ejs') %>
+    </head>
+    <body class="has-fixed-sidenav">
+        <header>
+            <%- include('../../component/topBar.ejs', {title})%>
+            <%- include("../../component/sideBar.ejs") %>
+        </header>
+        <main>
+            <div class="container" >
+                <%- include("../../component/firmwareControl/firmwareControlInfoCard.ejs") %>
+            </div>
+            <div class="container" >
+                <%- include("../../component/firmwareControl/versionHistoryCard.ejs",  {data: data}) %>
+            </div>
+        </main>
+        <%- include('../../common/bottomScripts.ejs') %>
+    </body>
 </html>
