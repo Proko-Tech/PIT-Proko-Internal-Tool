@@ -1,5 +1,6 @@
 const db = require('../dbConfig');
 const moment = require('moment');
+const { default: knex } = require('knex');
 
 /**
  * get spots by ids.
@@ -9,6 +10,15 @@ const moment = require('moment');
 async function get() {
     const data = await db('firmware_version')
         .select('*');
+    return data;
+}
+
+async function getWithNumSpots(){
+    const data = await db.count('spots.id as num_spots').select('firmware_version.*')
+    .from('firmware_version')
+    .leftJoin('spots', 'firmware_version.version', 'spots.available_firmware_version')
+    .groupBy('firmware_version.version');
+
     return data;
 }
 
@@ -41,5 +51,5 @@ async function deleteByVersion(version) {
 }
 
 module.exports = {
-    get, insert, getByVersion, deleteByVersion, exists,
+    get, insert, getByVersion, deleteByVersion, exists, getWithNumSpots
 };

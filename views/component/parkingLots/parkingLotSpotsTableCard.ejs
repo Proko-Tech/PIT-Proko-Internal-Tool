@@ -284,9 +284,9 @@
             success: function(res) {
                 window.location.href = '/parking/lotID?lotId=' + res.lotId;
             },
-            errors: function(err) {
+            error: function(err) {
                 const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
-                                    <span>${err.message}</span>
+                                    <span>${err.responseText}</span>
                                    </div>`;
                 M.toast({html: toastHTML});
             }

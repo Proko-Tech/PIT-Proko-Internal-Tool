@@ -16,6 +16,7 @@
             <tr>
                 <th>Version</th>
                 <th>Time uploaded</th>
+                <th>#spots with this version</th>
                 <th>Download</th>
                 <th>Delete</th>
             </tr>
@@ -28,16 +29,19 @@
                         <%- data[row].version %>
                     </td>
                     <td>
-                        <%=data[row].created_at%>
+                        <%= moment(data[row].created_at).format('L') %>
+                    </td>
+                    <td>
+                        <%= data[row].num_spots %>
                     </td>
                     <td>
                         <a class="dropdown-trigger btn btn-floating waves-effect waves-light indigo pulse" data-target="download<%= data[row].version %>"><i class="material-icons" style="color: white;">download</i></a>
                     </td>
                     <ul id="download<%= data[row].version %>" class="dropdown-content">
-                        <li><a href="/firmware/download/<%= data[row].version %>/ESP32">ESP32</a></li>
-                        <li><a href="/firmware/download/<%= data[row].version %>/ESP8266">ESP8266</a></li>
+                        <li><a href="/firmware/download/ESP32/<%= data[row].version %>">ESP32</a></li>
+                        <li><a href="/firmware/download/ESP8266/<%= data[row].version %>">ESP8266</a></li>
                     <td>
-                        <a class="dropdown-trigger btn btn-floating waves-effect waves-light indigo pulse"  href="/firmware/delete/<%= data[row].version %>"><i class="material-icons" style="color: white;">delete</i></a>
+                        <a class="btn btn-floating waves-effect waves-light indigo pulse"  onclick="confirmDelete(<%= data[row].version %>)"><i class="material-icons" style="color: white;">delete</i></a>
                     </td>
                 </tr>
                 
@@ -52,4 +56,21 @@
     $('.modal').modal();
     // Initialize the dropdown
     $('.dropdown-trigger').dropdown();
+    function confirmDelete(version) {
+        if (confirm("Press OK to confirm deleting version " + version) == true) {
+            $.ajax({
+                url: '/firmware/' + version,
+                type: 'DELETE',
+                success: function(result) {
+                    location.reload();
+                },
+                error: function(err) {
+                    const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                        <span>${err.responseText}</span>
+                                    </div>`;
+                    M.toast({html: toastHTML});
+                }
+            });
+        }
+    }
 </script>

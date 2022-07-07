@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const moment = require('moment');
 const fs = require('fs')
 const firmwareControlModel = require('../database/model/firmwareControlModel');
 const firmwareVersionModel = require('../database/model/firmwareVersionModel');
@@ -11,10 +12,14 @@ const s3_service = require('../services/s3-upload');
 const spotsModel = require('../database/model/spotsModel');
 
 router.get('/', async function(req, res, next) {
-    const firmwareControl = await firmwareControlModel.get();
-    const data = await firmwareVersionModel.get();
-
-    res.render('page/firmwareControl/firmwareControl.ejs', {title:"ProkoPark - Firmware Control", firmwareControl, data});
+    try{
+        const firmwareControl = await firmwareControlModel.get();
+        const data = await firmwareVersionModel.getWithNumSpots();
+    
+        res.render('page/firmwareControl/firmwareControl.ejs', {title:"ProkoPark - Firmware Control", firmwareControl, data, moment});
+    }catch(err){
+        res.send(err)
+    }
 });
 
 router.post('/upload', upload.fields([{name: 'ESP32'},{name: 'ESP8266'}, ]), async function(req, res, next) {
@@ -52,51 +57,59 @@ router.post('/upload', upload.fields([{name: 'ESP32'},{name: 'ESP8266'}, ]), asy
     
 });
 
-router.get('/download/:version/ESP8266', async function(req, res, next) {
+router.get('/download/ESP8266/:version', async function(req, res, next) {
     const version = req.params.version;
     const data = await firmwareVersionModel.getByVersion(version);
     return res.redirect(data[0].ESP8266_url);    
 });
 
-router.get('/download/:version/ESP32', async function(req, res, next) {
+router.get('/download/ESP32/:version', async function(req, res, next) {
     const version = req.params.version;
     const data = await firmwareVersionModel.getByVersion(version);
     return res.redirect(data[0].ESP32_url);    
 });
 
 
-router.get('/delete/:version', async function(req, res, next) {
-    const version = req.params.version;
+router.delete('/:version', async function(req, res, next) {
+    try{
+        const version = req.params.version;
 
-    const data = await firmwareVersionModel.getByVersion(version);
-    const ESP8266FileName = data[0].ESP8266_file_name;
-    const ESP32FileName = data[0].ESP32_file_name;
-
-    await s3_service.remove(ESP8266FileName);
-    await s3_service.remove(ESP32FileName);
-
-    await firmwareVersionModel.deleteByVersion(version);
-
-    return res.redirect('/firmware');
+        const data = await firmwareVersionModel.getByVersion(version);
+        const ESP8266FileName = data[0].ESP8266_file_name;
+        const ESP32FileName = data[0].ESP32_file_name;
+    
+        await s3_service.remove(ESP8266FileName);
+        await s3_service.remove(ESP32FileName);
+    
+        await firmwareVersionModel.deleteByVersion(version);
+    
+        res.status(200).json({message: 'delete success'});
+    } catch(err) {
+        res.status(502).json({message: err});
+    }
 });
 
 router.put('/spots', async function (req, res, next) {
-    const version = req.body.version;
-    const lotId = req.body.lotId;
-    let spot_hashes;
-    if(req.body.spot_hash === undefined){
-        spot_hashes = await spotsModel.getSpotHashesByLotId(lotId);
-    } else{
-        spot_hashes = JSON.parse(req.body.spot_hash);
+    try{
+        const version = req.body.version;
+        const lotId = req.body.lotId;
+        let spot_hashes;
+        if(req.body.spot_hash === undefined){
+            spot_hashes = await spotsModel.getSpotHashesByLotId(lotId);
+        } else{
+            spot_hashes = JSON.parse(req.body.spot_hash);
+        }
+        const uploadPayload = {
+            available_firmware_version: version,
+        }
+        const update_stat = await spotsModel.update(spot_hashes, uploadPayload);
+        if(update_stat.status === 'failed') {
+            return res.status(502).json({message: 'Update failed', payload: update_stat.payload});
+        }
+        res.status(200).json({message: 'Update success', lotId: lotId});
+    } catch(err) {
+        res.status(502).json({message: err});
     }
-    const uploadPayload = {
-        available_firmware_version: version,
-    }
-    const update_stat = await spotsModel.update(spot_hashes, uploadPayload);
-    if(update_stat.status === 'failed') {
-        return res.status(502).json({message: 'Update failed', payload: update_stat.payload});
-    }
-    return res.status(200).json({message: 'Update success', lotId: lotId});
 });
 
 

@@ -14,7 +14,7 @@ async function get() {
             .leftJoin('spots', 'lots.id', 'spots.lot_id')
             .leftJoin('lot_ownerships', 'lots.id', 'lot_ownerships.lot_id')
             .leftJoin('admin_accounts', 'lot_ownerships.admin_id', 'admin_accounts.id')
-            .join('users', 'admin_accounts.admin_email', 'users.email').groupBy('lots.id')
+            .leftJoin('users', 'admin_accounts.admin_email', 'users.email').groupBy('lots.id')
 
         
         firmware_rows = await firmware_rows.map((row, index) => {

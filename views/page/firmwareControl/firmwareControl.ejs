@@ -16,7 +16,7 @@
                 <%- include("../../component/firmwareControl/firmwareControlInfoCard.ejs") %>
             </div>
             <div class="container" >
-                <%- include("../../component/firmwareControl/versionHistoryCard.ejs",  {data: data}) %>
+                <%- include("../../component/firmwareControl/versionHistoryCard.ejs",  {data: data, moment: moment}) %>
             </div>
         </main>
         <%- include('../../common/bottomScripts.ejs') %>
