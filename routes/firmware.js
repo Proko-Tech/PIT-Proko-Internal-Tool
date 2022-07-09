@@ -32,10 +32,11 @@ router.post('/upload', upload.fields([{name: 'ESP32'},{name: 'ESP8266'}, ]), asy
             return res.send('Version already exists');
         }
 
+        const version = req.body.version
         const pathESP32 = ESP32[0].path;
         const pathESP8266 = ESP8266[0].path;
-        const ESP32FileName = sha256File(pathESP32) + '.ESP32.bin';
-        const ESP8266FileName = sha256File(pathESP8266) + '.ESP8266.bin';
+        const ESP32FileName = sha256File(pathESP32) + '.ESP32-v' + version + '.bin';
+        const ESP8266FileName = sha256File(pathESP8266) + '.ESP8266-v' + version + '.bin';
 
         const s3InfoESP32 = await s3_service.upload(pathESP32, ESP32FileName);
         const s3Info2ESP8266 = await s3_service.upload(pathESP8266, ESP8266FileName);
