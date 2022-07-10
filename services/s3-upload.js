@@ -26,7 +26,7 @@ const s3 = new AWS.S3();
  * @param hashedFileName the file name: ex: dfjklsa342.jpg
  * @returns {Promise<ManagedUpload.SendData>} (with a link to the image)
  */
-async function upload(filePath, hashedFileName) {
+async function upload (filePath, hashedFileName) {
     const fileContent = fs.readFileSync(filePath);
 
     const params = {
@@ -39,7 +39,7 @@ async function upload(filePath, hashedFileName) {
     return stored;
 }
 
-async function remove(fileName) {
+async function remove (fileName) {
     const params = {
         Bucket: process.env.S3BUCKETNAME,
         Key: fileName
@@ -49,4 +49,4 @@ async function remove(fileName) {
     return deleted;
 }
 
-module.exports={upload, remove};
+module.exports={ upload, remove };

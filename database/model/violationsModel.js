@@ -23,7 +23,7 @@ async function get (id) {
  * @param id
  * @returns spot number, serial code, address and update info
  */
-async function ticket_detail_get(id){
+async function ticket_detail_get (id){
     try {
         const rows = await db('violations')
             .join('lots', 'violations.lot_id', 'lots.id')

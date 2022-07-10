@@ -8,7 +8,7 @@ const moment = require('moment');
  * 
  *  */
 
-async function getSpots(lot_id) {
+async function getSpots (lot_id) {
     try {
         let spots = await db('spots')
             .where({ lot_id })
@@ -23,7 +23,7 @@ async function getSpots(lot_id) {
     }
 }
 
-async function getSpotHashesByLotId(lot_id) {
+async function getSpotHashesByLotId (lot_id) {
     try {
         const spots = await getSpots(lot_id);
         const spot_hashes = spots.map((spot) => {
@@ -41,7 +41,7 @@ async function getSpotHashesByLotId(lot_id) {
  * @param spot_info
  * @returns {Promise<{status: string}>}
  */
-async function update(spot_hashes, spot_info) {
+async function update (spot_hashes, spot_info) {
     console.log("spot_hashes", spot_hashes);
     console.log("spot_info", spot_info);
     // Update the spots with the given spot_hashes
@@ -60,7 +60,7 @@ async function update(spot_hashes, spot_info) {
         try {
             console.log("Hash: " + spot_hashes);
             console.log(spot_info);
-            for(let i = 0; i < spot_hashes.length; i++) {
+            for (let i = 0; i < spot_hashes.length; i++) {
                 await db('spots')
                     .where({ secret: spot_hashes[i] })
                     .update(spot_info)
@@ -89,7 +89,7 @@ async function update(spot_hashes, spot_info) {
  * create spots in the spots table
  * @param spot_info
  */
-async function create(spot_info) {
+async function create (spot_info) {
     try {
         await db('spots')
             .insert(spot_info);
