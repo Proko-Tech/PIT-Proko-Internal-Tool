@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="card material-table col s12" id="card-div">
+    <div class="card material-table col s12 offset-s1" id="card-div">
         <div class="card-content row">
             <div id="table-header" class="col s10"><p>Parking Lots</p></div>
             <div class="col s1"><i class="tiny material-icons">sort</i><span id="sort-txt">Sort</span></div>
@@ -13,7 +13,7 @@
                     <th>Update Available Version</th>
                 </thead>
                 <tbody id="firmware-control-table">
-                    <!-- <form method="POST"> -->
+                    <form method="POST">
                         <% firmwareControl.map(function(firmware){ %>
                             <tr>
                                 <td>
@@ -30,14 +30,11 @@
                                     <div class="lower-txt"><%- firmware.created_at[1] %></div>
                                 </td>
                                 <td>
-                                    <div id="status-btn modal-trigger" class="col s6 center white-text">
-                                        <a class="modal-trigger" href="#change_version_modal_lotID<%= firmware.lot_id %>">Update All</a>
-                                        <%- include('parkingLotUpdateCard.ejs', {firmware: firmware}) %>
-                                    </div>
+                                    <%- include("../../component/firmwareControlStatus/updateAll.ejs") %>
                                 </td>
                             </tr>
                         <%});%>
-                    <!-- </form> -->
+                    </form>
                 </tbody>
             </table>
         </div>
@@ -88,29 +85,6 @@
             }
         });
     });
-
-    $('.change_lot_version_form').submit(function(e) {
-        console.log("here", data);
-        e.preventDefault();
-        const form = $(this);
-        var data = {};
-        $.each(form.serializeArray(), function (i, field) {
-            data[field.name] = field.value;
-        });
-        lodId = data.lotId;
-        $.ajax({
-            url: '/firmware/spots',
-            type: 'PUT',
-            data: data,
-            success: function(res) {
-                window.location.href = '/parking/lotID?lotId=' + res.lotId;
-            },
-            error: function(err) {
-                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
-                                    <span>${err.responseText}</span>
-                                   </div>`;
-                M.toast({html: toastHTML});
-            }
-        });
-    })
 </script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
