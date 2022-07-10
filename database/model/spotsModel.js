@@ -8,7 +8,7 @@ const moment = require('moment');
  * 
  *  */
 
-async function getSpots(lot_id) {
+async function getSpots (lot_id) {
     try {
         let spots = await db('spots')
             .where({ lot_id })
@@ -28,7 +28,7 @@ async function getSpots(lot_id) {
  * @param spot_id
  * @param spot_info
  */
-async function update(spot_id, spot_info) {
+async function update (spot_id, spot_info) {
     try {
         await db('spots')
             .where({ spot_id })
@@ -42,7 +42,7 @@ async function update(spot_id, spot_info) {
  * create spots in the spots table
  * @param spot_info
  */
-async function create(spot_info) {
+async function create (spot_info) {
     try {
         await db('spots')
             .insert(spot_info);

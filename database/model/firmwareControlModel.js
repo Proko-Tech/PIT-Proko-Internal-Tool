@@ -6,7 +6,7 @@ const knex = require('knex');
  * get basic info on lots that use sensor firmware
  * @returns lot, customer, date created, date updated
  */
-async function get() {
+async function get () {
     try {
         // Groups list of parking lots by name
         let firmware_rows = await db('lots')
@@ -17,7 +17,7 @@ async function get() {
             .select('*');
 
         // Counts up spots associated with each lot id
-        let num_spots = await db('spots')
+        const num_spots = await db('spots')
             .count('* as num_spots')
             .groupBy('spots.lot_id'); 
         

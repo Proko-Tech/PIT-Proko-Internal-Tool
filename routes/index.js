@@ -19,7 +19,7 @@ router.post("/", async function (req, res) {
       user_info.password === process.env.PASSCODE) {
         const tokenPayload = {
             tzOffset: user_info.tzOffset,
-            username: user_info.username,
+            username: user_info.username
         }
         const token = await auth.generateToken(tokenPayload);
         res.clearCookie('user');
