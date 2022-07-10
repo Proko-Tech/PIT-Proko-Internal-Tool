@@ -6,7 +6,7 @@
                 <div class = "file-field input-field">
                     <div class = "btn">
                         <span>Browse</span>
-                        <input type = "file" name = "ESP32" single/>
+                        <input type = "file" name = "ESP32" single required>
                     </div>
                     
                     <div class = "file-path-wrapper">
@@ -21,7 +21,7 @@
                 <div class = "file-field input-field">
                     <div class = "btn">
                         <span>Browse</span>
-                        <input type = "file" name = "ESP8266" single />
+                        <input type = "file" name = "ESP8266" single required>
                     </div>
                     
                     <div class = "file-path-wrapper">
@@ -32,12 +32,12 @@
             </div>
             <div class = "row">
                 <div class="col input-field input-outlined s12">
-                    <input type="number" step="0.01" placeholder="Enter a number" id="version" name="version" class="validate">
+                    <input type="number" step="0.01" placeholder="Enter a number" id="version" name="version" class="validate" required>
                     <label for="version">Version</label>
                 </div>
             </div>
-            <div class = "modal-close">
-                <input class = "btn" type="submit" value="Submit" class="btn modal-close">
+            <div>
+                <input class = "btn" type="submit" value="Submit" class="btn">
             </div>
         </form>
     </div>
