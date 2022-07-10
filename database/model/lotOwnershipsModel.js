@@ -11,7 +11,7 @@ async function insert (lot_owner){
         console.log(err);
     }
 }
-module.exports = {insert};
+module.exports = { insert };
 
 
 

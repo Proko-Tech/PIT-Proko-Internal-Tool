@@ -10,7 +10,7 @@ var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
 var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
-var firmwareControlRouter = require('./routes/firmware_control');
+var firmwareControlRouter = require('./routes/firmware');
 var defectsRouter = require('./routes/defects');
 var v0Router = require('./routes/v0');
 
@@ -39,19 +39,19 @@ app.use('/firmware', verifyToken, firmwareControlRouter);
 app.use('/v0', verifyToken, v0Router);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

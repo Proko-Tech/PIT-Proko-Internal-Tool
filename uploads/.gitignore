@@ -1,0 +1,5 @@
+# This directory is for temporary storing ESP8266 and ESP32 firmware
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore

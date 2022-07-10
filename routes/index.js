@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const lotsModel = require('../database/model/lotModel');
+const spotsModel = require('../database/model/spotsModel');
 const auth = require('../auth/tokenUtil');
 
 require('dotenv').config();
@@ -19,7 +20,7 @@ router.post("/", async function (req, res) {
       user_info.password === process.env.PASSCODE) {
         const tokenPayload = {
             tzOffset: user_info.tzOffset,
-            username: user_info.username,
+            username: user_info.username
         }
         const token = await auth.generateToken(tokenPayload);
         res.clearCookie('user');

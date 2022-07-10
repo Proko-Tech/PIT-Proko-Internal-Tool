@@ -7,7 +7,7 @@
 function pick (obj, props) {
     return Object.keys(obj)
         .filter((key) => props.includes(key))
-        .reduce((picked, key) => ({...picked, [key]: obj[key]}), {});
+        .reduce((picked, key) => ({ ...picked, [key]: obj[key] }), {});
 }
 
 module.exports = pick;

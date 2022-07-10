@@ -5,7 +5,7 @@ const moment = require('moment');
  *  get all defects from defects table with formatted dates
  *  @returns {Promise<void>}
  */
-async function get() {
+async function get () {
     try {
         let defect_rows = await db('defects')
             .join('spots', 'defects.spot_id', 'spots.id')
