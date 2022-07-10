@@ -15,7 +15,6 @@ router.get('/', async function (req, res, next) {
     try {
         const firmwareControl = await firmwareControlModel.get();
         const data = await firmwareVersionModel.getWithNumSpots();
-    
         res.render('page/firmwareControl/firmwareControl.ejs', { title:"ProkoPark - Firmware Control", firmwareControl, data, moment });
     } catch (err){
         res.send(err)
@@ -59,23 +58,31 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
         fs.unlinkSync(pathESP8266);
         return res.redirect('/firmware');
     } catch (err) {
-        console.log(err);
+        res.status(500).json({ message: "Error updating new post", error: err })
     }
     
 });
 
 /* Download ESP8266 firmware */
 router.get('/download/ESP8266/:version', async function (req, res, next) {
-    const version = req.params.version;
-    const data = await firmwareVersionModel.getByVersion(version);
-    return res.redirect(data[0].ESP8266_url);    
+    try {
+        const version = req.params.version;
+        const data = await firmwareVersionModel.getByVersion(version);
+        return res.redirect(data[0].ESP8266_url);  
+    } catch (err) {
+        res.status(500).json({ message: "Error downloading ESP8266 firmware", error: err })
+    }  
 });
 
 /* Download ESP32 firmware */
 router.get('/download/ESP32/:version', async function (req, res, next) {
-    const version = req.params.version;
-    const data = await firmwareVersionModel.getByVersion(version);
-    return res.redirect(data[0].ESP32_url);    
+    try {
+        const version = req.params.version;
+        const data = await firmwareVersionModel.getByVersion(version);
+        return res.redirect(data[0].ESP32_url);    
+    } catch (err) {
+        res.status(500).json({ message: "Error downloading ESP32 firmware", error: err })
+    }
 });
 
 
@@ -95,7 +102,7 @@ router.delete('/:version', async function (req, res, next) {
     
         res.status(200).json({ message: 'delete success' });
     } catch (err) {
-        res.status(502).json({ message: err });
+        res.status(500).json({ message: err });
     }
 });
 
@@ -120,11 +127,11 @@ router.put('/spots', async function (req, res, next) {
         }
         const update_stat = await spotsModel.update(spot_hashes, uploadPayload);
         if (update_stat.status === 'failed') {
-            return res.status(502).json({ message: 'Update failed', payload: update_stat.payload });
+            return res.status(500).json({ message: 'Update failed', payload: update_stat.payload });
         }
         res.status(200).json({ message: 'Update success', lotId: lotId });
     } catch (err) {
-        res.status(502).json({ message: err });
+        res.status(500).json({ message: err });
     }
 });
 
