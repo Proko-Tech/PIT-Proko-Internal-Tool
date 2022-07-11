@@ -49,13 +49,13 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
         const ESP8266FileName = sha256File(pathESP8266) + '.ESP8266-v' + version + '.bin';
 
         const s3InfoESP32 = await s3_service.upload(pathESP32, ESP32FileName);
-        const s3Info2ESP8266 = await s3_service.upload(pathESP8266, ESP8266FileName);
+        const s3InfoESP8266 = await s3_service.upload(pathESP8266, ESP8266FileName);
         const uploadPayload = {
             version: req.body.version,
-            ESP32_url: s3InfoESP32.Location,
-            ESP8266_url: s3Info2ESP8266.Location,
-            ESP32_file_name: ESP32FileName,
-            ESP8266_file_name: ESP8266FileName
+            eso32_url: s3InfoESP32.Location,
+            esp8266_url: s3InfoESP8266.Location,
+            esp32_file_name: ESP32FileName,
+            esp8266_file_name: ESP8266FileName
         }
         await firmwareVersionModel.insert(uploadPayload);
 
@@ -73,7 +73,7 @@ router.get('/download/ESP8266/:version', async function (req, res, next) {
     try {
         const version = req.params.version;
         const data = await firmwareVersionModel.getByVersion(version);
-        const ESP8266Location = data[0].ESP8266_url;
+        const ESP8266Location = data[0].esp8266_url;
 
         return res.redirect(ESP8266Location);    
     } catch (err) {
@@ -86,7 +86,7 @@ router.get('/download/ESP32/:version', async function (req, res, next) {
     try {
         const version = req.params.version;
         const data = await firmwareVersionModel.getByVersion(version);
-        const ESP32Location = data[0].ESP32_url;
+        const ESP32Location = data[0].esp32_url;
 
         return res.redirect(ESP32Location);
     } catch (err) {
@@ -101,8 +101,8 @@ router.delete('/:version', async function (req, res, next) {
         const version = req.params.version;
 
         const data = await firmwareVersionModel.getByVersion(version);
-        const ESP8266FileName = data[0].ESP8266_file_name;
-        const ESP32FileName = data[0].ESP32_file_name;
+        const ESP8266FileName = data[0].esp8266_file_name;
+        const ESP32FileName = data[0].esp32_file_name;
 
         await s3_service.remove(ESP8266FileName);
         await s3_service.remove(ESP32FileName);
