@@ -10,7 +10,7 @@ var parkingLotRouter = require('./routes/parking_lot');
 var ticketsRouter = require('./routes/tickets');
 var complaintsRouter = require('./routes/complaints');
 var dashboardRouter = require('./routes/dashboard');
-var firmwareControlRouter = require('./routes/firmware_control');
+var firmwareRouter = require('./routes/firmware');
 var defectsRouter = require('./routes/defects');
 var v0Router = require('./routes/v0');
 
@@ -35,7 +35,7 @@ app.use('/tickets', verifyToken, ticketsRouter);
 app.use('/complaints', verifyToken, complaintsRouter);
 app.use('/defects', verifyToken, defectsRouter);
 app.use('/dashboard', verifyToken, dashboardRouter);
-app.use('/firmware', verifyToken, firmwareControlRouter);
+app.use('/firmware', verifyToken, firmwareRouter);
 app.use('/v0', verifyToken, v0Router);
 
 // catch 404 and forward to error handler
