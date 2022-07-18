@@ -13,25 +13,16 @@ const s3 = new AWS.S3();
 
 /**
  * Uploads a given image to s3 buckets
- * Usage:         const data = await s3.uploadImage(filePath, fileName);
- * Data is in the format of:
- * {
- *   ETag: '"62eceddef87f59c2b51c269337b22d5d"',
- *   Location: 'https://v0-test-images.s3.us-west-1.amazonaws.com/test.jpeg',
- *   key: 'test.jpeg',
- *   Key: 'test.jpeg',
- *   Bucket: 'v0-test-images'
- * }
- * @param filePath: the path of the file: ex: /resources/license-check.jpeg
- * @param hashedFileName the file name: ex: dfjklsa342.jpg
- * @returns {Promise<ManagedUpload.SendData>} (with a link to the image)
+ * @param filePath: the path of the file: ex: 'uploads/66ce1075df07b65fa788930c55432519'
+ * @param fileName: the file name: ex: 'e33be7e47d6843377189df0494aa1bc756df08029e90dc3958a3b4e8f784add5.ESP32-v2.bin'
+ * @returns {Promise<ManagedUpload.SendData>} (with a link to the fireware file)
  */
-async function upload (filePath, hashedFileName) {
+async function upload (filePath, fileName) {
     const fileContent = fs.readFileSync(filePath);
 
     const params = {
         Bucket: process.env.S3BUCKETNAME,
-        Key: hashedFileName, // File name you want to save as in S3
+        Key: fileName, // File name you want to save as in S3
         Body: fileContent
     }
     // Uploading files to the bucket
@@ -39,6 +30,11 @@ async function upload (filePath, hashedFileName) {
     return stored;
 }
 
+/**
+ * Delete an image in s3 buckets by its file name
+ * @param fileName: the file name: ex: 'e33be7e47d6843377189df0494aa1bc756df08029e90dc3958a3b4e8f784add5.ESP32-v2.bin'
+ * @returns {Promise<ManagedUpload.SendData>} (with a link to the fireware file)
+ */
 async function remove (fileName) {
     const params = {
         Bucket: process.env.S3BUCKETNAME,

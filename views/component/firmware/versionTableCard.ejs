@@ -49,7 +49,8 @@
 
 <script>
     function confirmDelete(version) {
-        if (confirm("Press OK to confirm deleting version " + version) == true) {
+        const userConfirm = confirm("Press OK to confirm deleting version " + version) 
+        if (userConfirm === true) {
             $.ajax({
                 url: '/firmware/' + version,
                 type: 'DELETE',

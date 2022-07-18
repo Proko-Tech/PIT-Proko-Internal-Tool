@@ -31,16 +31,14 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
         const { ESP32, ESP8266 } = req.files;
         const version = req.body.version
 
-        if (ESP32 == undefined || ESP8266 == undefined || version == '') {
-            res.status(401).send('All fields are required');
-            return;
+        if (ESP32 === undefined || ESP8266 === undefined || version === '') {
+            return res.status(401).send('All fields are required');
         }
 
         const firmwareVersions = await firmwareVersionModel.getByVersion(version);
         const isFirmwareExists = firmwareVersions.length !== 0;
         if (isFirmwareExists) {
-            res.status(401).send(`Version ${version} already exists`);
-            return;
+            return res.status(401).send(`Version ${version} already exists`);
         }
 
         const pathESP32 = ESP32[0].path;
@@ -52,7 +50,7 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
         const s3InfoESP8266 = await s3_service.upload(pathESP8266, ESP8266FileName);
         const uploadPayload = {
             version: req.body.version,
-            eso32_url: s3InfoESP32.Location,
+            esp32_url: s3InfoESP32.Location,
             esp8266_url: s3InfoESP8266.Location,
             esp32_file_name: ESP32FileName,
             esp8266_file_name: ESP8266FileName
@@ -61,9 +59,9 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
 
         fs.unlinkSync(pathESP32);
         fs.unlinkSync(pathESP8266);
-        res.redirect('/firmware');
+        return res.redirect('/firmware');
     } catch (err) {
-        res.status(500).json({ message: "Error updating new post", error: err })
+        return res.status(500).json({ message: "Error updating new post", error: err })
     }
 
 });
@@ -72,12 +70,14 @@ router.post('/upload', upload.fields([{ name: 'ESP32' },{ name: 'ESP8266' }]), a
 router.get('/download/ESP8266/:version', async function (req, res, next) {
     try {
         const version = req.params.version;
-        const data = await firmwareVersionModel.getByVersion(version);
-        const ESP8266Location = data[0].esp8266_url;
-
+        const firmwareData = await firmwareVersionModel.getByVersion(version);
+        if (firmwareData.length === 0) {
+            return res.status(404).send(`Version ${version} does not exist`);
+        }
+        const ESP8266Location = firmwareData[0].esp8266_url;
         return res.redirect(ESP8266Location);    
     } catch (err) {
-        res.status(500).json({ message: "Error downloading ESP8266 firmware", error: err })
+        return res.status(500).json({ message: "Error downloading ESP8266 firmware", error: err })
     }
 });
 
@@ -85,12 +85,14 @@ router.get('/download/ESP8266/:version', async function (req, res, next) {
 router.get('/download/ESP32/:version', async function (req, res, next) {
     try {
         const version = req.params.version;
-        const data = await firmwareVersionModel.getByVersion(version);
-        const ESP32Location = data[0].esp32_url;
-
+        const firmwareData = await firmwareVersionModel.getByVersion(version);
+        if (firmwareData.length === 0) {
+            return res.status(404).send(`Version ${version} does not exist`);
+        }
+        const ESP32Location = firmwareData[0].esp32_url;
         return res.redirect(ESP32Location);
     } catch (err) {
-        res.status(500).json({ message: "Error downloading ESP32 firmware", error: err })
+        return res.status(500).json({ message: "Error downloading ESP32 firmware", error: err })
     }
 });
 
@@ -99,19 +101,21 @@ router.get('/download/ESP32/:version', async function (req, res, next) {
 router.delete('/:version', async function (req, res, next) {
     try {
         const version = req.params.version;
-
-        const data = await firmwareVersionModel.getByVersion(version);
-        const ESP8266FileName = data[0].esp8266_file_name;
-        const ESP32FileName = data[0].esp32_file_name;
+        const firmwareData = await firmwareVersionModel.getByVersion(version);
+        if (firmwareData.length === 0) {
+            return res.status(404).send(`Version ${version} does not exist`);
+        }
+        const ESP8266FileName = firmwareData[0].esp8266_file_name;
+        const ESP32FileName = firmwareData[0].esp32_file_name;
 
         await s3_service.remove(ESP8266FileName);
         await s3_service.remove(ESP32FileName);
 
         await firmwareVersionModel.deleteByVersion(version);
 
-        res.status(200).json({ message: "delete success" });
+        return res.status(200).json({ message: "delete success" });
     } catch (err) {
-        res.status(500).json({ message: "delete failed", error: err });
+        return res.status(500).json({ message: "delete failed", error: err });
     }
 });
 
