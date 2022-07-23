@@ -5,7 +5,7 @@ const admin_account_model = require("../database/model/adminAccountsModel");
 const lot_model = require("../database/model/lotModel");
 const spot_model = require("../database/model/spotsModel");
 const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
-
+const moment = require("moment");
 const pick = require('../utils/pick');
 const crypto = require("crypto");
 
@@ -66,8 +66,8 @@ router.post("/parking_lot", async function (req, res) {
 
 /* TEST for parking lot spots route */
 router.get("/lotID", async function (req, res) {
-    const spotsInfo = await spot_model.getSpots(req.query.lotId);
-    res.render("page/parkingLot/parkingLotSpots", { title: "Spots Directory", spotsInfo });
+    const spotsInfo = await spot_model.getByLotId(req.query.lotId);
+    res.render("page/parkingLot/parkingLotSpots", { title: "Spots Directory", spotsInfo, moment });
 });
 
 /* POST parking_lot route */
