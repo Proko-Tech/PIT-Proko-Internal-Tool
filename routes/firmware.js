@@ -120,22 +120,37 @@ router.delete('/:version', async function (req, res, next) {
     }
 });
 
-/** update firmware version
- * @param {string} version
- * @param {string} lotId
- * @param {string[]} spots
- * If spots are not provided, it will update the version of ALL spots in that lot
+/** update the firmware version of single spot
+ * @param {string} req.body.version
+ * @param {string} req.body.spot_hash
  */
- router.put('/spots', async function (req, res, next) {
+router.put('/spot', async function (req, res, next) {
     try {
         const version = req.body.version;
-        const lotId = req.body.lotId;
-        let spot_hashes;
-        if (req.body.spot_hash === undefined){
-            spot_hashes = await spotsModel.getSpotHashesByLotId(lotId);
-        } else {
-            spot_hashes = JSON.parse(req.body.spot_hash);
+        const uploadPayload = {
+            available_firmware_version: version
         }
+        const update_stat = await spotsModel.update([req.body.spot_hash], uploadPayload);
+        if (update_stat.status === 'failed') {
+            return res.status(500).json({ message: 'Update failed', error: update_stat.err });
+        }
+        res.status(200).json({ message: 'Update success' });
+    } catch (err) {
+        res.status(500).json({ message: err });
+    }
+});
+
+
+/** update the firmware version of all spots in a lot
+ * @param {string} req.body.version
+ * @param {string} req.body.lot_id
+ */
+ router.put('/lot', async function (req, res, next) {
+    try {
+        const version = req.body.version;
+        const lot_id = req.body.lot_id;
+        spots = await spotsModel.getByLotId(lot_id);
+        spot_hashes = spots.map(spot => spot.secret);
         const uploadPayload = {
             available_firmware_version: version
         }
@@ -143,7 +158,7 @@ router.delete('/:version', async function (req, res, next) {
         if (update_stat.status === 'failed') {
             return res.status(500).json({ message: 'Update failed', error: update_stat.err });
         }
-        res.status(200).json({ message: 'Update success', lotId: lotId });
+        res.status(200).json({ message: 'Update success', lot_id: lot_id });
     } catch (err) {
         res.status(500).json({ message: err });
     }

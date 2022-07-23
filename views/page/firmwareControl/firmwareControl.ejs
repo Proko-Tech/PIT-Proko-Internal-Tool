@@ -12,11 +12,8 @@
             <%- include("../../component/sideBar.ejs") %>
         </header>
         <main>
-            <!-- <div class="container" >
-                <%# include("../../component/firmwareControl/firmwareControlInfoCard.ejs") %>
-            </div> -->
             <div class="container" >
-                <%- include("../../component/firmwareControl/versionTableCard.ejs",  {data: data, moment: moment}) %>
+                <%- include("../../component/firmware/versionTableCard.ejs",  {data: data, moment: moment}) %>
             </div>
         </main>
         <%- include('../../common/bottomScripts.ejs') %>

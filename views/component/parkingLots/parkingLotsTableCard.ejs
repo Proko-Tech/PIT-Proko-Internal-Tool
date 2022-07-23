@@ -46,7 +46,6 @@
 
 <script>
     $('.change_lot_version_form').submit(function(e){
-        console.log("here", data);
         e.preventDefault();
         const form = $(this);
         var data = {};
@@ -54,11 +53,11 @@
             data[field.name] = field.value;
         });
         $.ajax({
-            url: '/firmware/spots',
+            url: '/firmware/lot',
             type: 'PUT',
             data: data,
             success: function(res) {
-                window.location.href = '/parking/lotID?lotId=' + res.lotId;
+                window.location.href = '/parking/lotID?lotId=' + res.lot_id;
             },
             error: function(err) {
                 const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">

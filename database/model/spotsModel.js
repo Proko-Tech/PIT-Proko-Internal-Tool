@@ -1,44 +1,27 @@
 const db = require("../dbConfig");
-const moment = require('moment');
+
 /**
  * GET for the spots of a specific parking lot by lot_id
- * @param lot_id
- * @returns spots_info
- * 
- * 
- *  */
-
-async function getSpots (lot_id) {
-    let spots = await db('spots')
+ * @param {string} lot_id
+ * @returns {Promise<void>}
+ **/
+async function getByLotId (lot_id) {
+    const spots = await db('spots')
         .where({ lot_id })
         .select('*');
-    spots = await spots.map((row, index) => {
-        row.created_at = moment(row.created_at).format('MM-DD-YYYY');
-        return row;
-    });
     return spots;
-}
-
-async function getSpotHashesByLotId (lot_id) {
-    const spots = await getSpots(lot_id);
-    const spot_hashes = spots.map((spot) => {
-        return spot.secret;
-    });
-    return spot_hashes;
 }
 
 /**
  * update spot info using the information given to us
- * @param String[] spot_hashes
- * @param spot_info
- * @returns {Promise<{status: string}>}
+ * @param {String[]} spot_hashes
+ * @param {object} spot_info
+ * @returns {Promise<{status: string, error: object}>}
  */
- async function update (spot_hashes, spot_info) {
-    const result = { status: 'failed' };
+async function update (spot_hashes, spot_info) {
+    const result = { status: 'failed', error: '' };
     await db.transaction(async (trx) => {
         try {
-            console.log("Hash: " + spot_hashes);
-            console.log(spot_info);
             for (let i = 0; i < spot_hashes.length; i++) {
                 await db('spots')
                     .where({ secret: spot_hashes[i] })
@@ -57,13 +40,13 @@ async function getSpotHashesByLotId (lot_id) {
 
 /**
  * create spots in the spots table
- * @param spot_info
+ * @param {object} spot_info
  */
 async function create (spot_info) {
-        await db('spots')
-            .insert(spot_info);
+    await db('spots')
+        .insert(spot_info);
 }
 
 
 
-module.exports = { create, update, getSpots, getSpotHashesByLotId };
+module.exports = { create, update, getByLotId };
