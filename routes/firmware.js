@@ -134,9 +134,9 @@ router.put('/spot', async function (req, res, next) {
         if (update_stat.status === 'failed') {
             return res.status(500).json({ message: 'Update failed', error: update_stat.err });
         }
-        res.status(200).json({ message: 'Update success' });
+        return res.status(200).json({ message: 'Update success' });
     } catch (err) {
-        res.status(500).json({ message: err });
+        return res.status(500).json({ message: err });
     }
 });
 
@@ -149,8 +149,8 @@ router.put('/spot', async function (req, res, next) {
     try {
         const version = req.body.version;
         const lot_id = req.body.lot_id;
-        spots = await spotsModel.getByLotId(lot_id);
-        spot_hashes = spots.map(spot => spot.secret);
+        const spots = await spotsModel.getByLotId(lot_id);
+        const spot_hashes = spots.map(spot => spot.secret);
         const uploadPayload = {
             available_firmware_version: version
         }
@@ -158,9 +158,9 @@ router.put('/spot', async function (req, res, next) {
         if (update_stat.status === 'failed') {
             return res.status(500).json({ message: 'Update failed', error: update_stat.err });
         }
-        res.status(200).json({ message: 'Update success', lot_id: lot_id });
+        return res.status(200).json({ message: 'Update success', lot_id: lot_id });
     } catch (err) {
-        res.status(500).json({ message: err });
+        return res.status(500).json({ message: err });
     }
 });
 module.exports = router;
