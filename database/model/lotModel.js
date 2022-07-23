@@ -91,7 +91,6 @@ async function insertWithSpotsAndOwnership (parking_lot_info, spots_info, admin_
     const result = { insertResult: 'failed' };
     await db.transaction(async (transaction) => {
         try {
-            console.log("Im here 1");
             const id = await db('lots')
                 .insert(parking_lot_info)
                 .transacting(transaction)
