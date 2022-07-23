@@ -4,6 +4,7 @@ var router = express.Router();
 const moment = require('moment');
 const fs = require('fs')
 const firmwareVersionModel = require('../database/model/firmwareVersionModel');
+const spotsModel = require('../database/model/spotsModel');
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const sha256File = require('sha256-file');
@@ -119,4 +120,32 @@ router.delete('/:version', async function (req, res, next) {
     }
 });
 
+/** update firmware version
+ * @param {string} version
+ * @param {string} lotId
+ * @param {string[]} spots
+ * If spots are not provided, it will update the version of ALL spots in that lot
+ */
+ router.put('/spots', async function (req, res, next) {
+    try {
+        const version = req.body.version;
+        const lotId = req.body.lotId;
+        let spot_hashes;
+        if (req.body.spot_hash === undefined){
+            spot_hashes = await spotsModel.getSpotHashesByLotId(lotId);
+        } else {
+            spot_hashes = JSON.parse(req.body.spot_hash);
+        }
+        const uploadPayload = {
+            available_firmware_version: version
+        }
+        const update_stat = await spotsModel.update(spot_hashes, uploadPayload);
+        if (update_stat.status === 'failed') {
+            return res.status(500).json({ message: 'Update failed', error: update_stat.err });
+        }
+        res.status(200).json({ message: 'Update success', lotId: lotId });
+    } catch (err) {
+        res.status(500).json({ message: err });
+    }
+});
 module.exports = router;

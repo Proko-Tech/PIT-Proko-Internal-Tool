@@ -12,7 +12,8 @@
             <th>Parking Lot</th>
             <th>Created At</th>
             <th>Last Updated</th>
-            <th></th>
+            <th>Detail</th>
+            <th>Update All</th>
         </tr>
         </thead>
         <tbody>
@@ -31,13 +32,43 @@
                 <%=lot.updated_at%>
             </td>
             <td>
-                <a class = "waves-effect waves-light btn-small" href = "/parking/lotID?lotId=<%=lot.id%>">Details</a>
+                <a class = "waves-effect waves-light btn-small" href = "/parking/lotId?lotId=<%=lot.id%>">Details</a>
+            </td>
+            <td>
+                <a class = "modal-trigger waves-effect waves-light btn-small" href = "#change_version_modal_lotId<%=lot.id %>">Update All</a>
+                <%- include('parkingLotUpdateCard.ejs', {lot, lot}) %>
             </td>
         </tr>
         <%});%>
         </tbody>
     </table>
 </div>
+
+<script>
+    $('.change_lot_version_form').submit(function(e){
+        console.log("here", data);
+        e.preventDefault();
+        const form = $(this);
+        var data = {};
+        $.each(form.serializeArray(), function (i, field) {
+            data[field.name] = field.value;
+        });
+        $.ajax({
+            url: '/firmware/spots',
+            type: 'PUT',
+            data: data,
+            success: function(res) {
+                window.location.href = '/parking/lotID?lotId=' + res.lotId;
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
+</script>
 
 <link rel='stylesheet' href='/stylesheets/materialTable.css'>
 <script>

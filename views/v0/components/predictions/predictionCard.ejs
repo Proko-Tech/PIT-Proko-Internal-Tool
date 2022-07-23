@@ -74,9 +74,9 @@
                                    </div>`;
                 M.toast({html: toastHTML});
             },
-            errors: function(err) {
+            error: function(err) {
                 const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
-                                    <span>${err}</span>
+                                    <span>${err.responseText}</span>
                                     <button class="btn-flat toast-action" onclick="M.Toast.dismissAll();">Ack</button>
                                    </div>`;
                 M.toast({html: toastHTML});
