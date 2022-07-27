@@ -13,8 +13,12 @@ const s3_service = require('../services/s3-upload');
 /* GET firmware page */
 router.get('/', async function (req, res, next) {
     try {
-        const data = await firmwareVersionModel.getWithNumSpots();
-        res.render('page/firmware/firmware.ejs', { title:"ProkoPark - Firmware", data, moment });
+        const dataRaw = await firmwareVersionModel.getWithNumSpots();
+        const data = await dataRaw.map((row, index) => {
+            row.created_at = moment(row.created_at).format('L');
+            return row;
+        });
+        res.render('page/firmware/firmware.ejs', { title:"ProkoPark - Firmware", data });
     } catch (err){
         res.send(err)
     }
@@ -145,7 +149,7 @@ router.put('/spot', async function (req, res, next) {
  * @param {string} req.body.version
  * @param {string} req.body.lot_id
  */
- router.put('/lot', async function (req, res, next) {
+router.put('/lot', async function (req, res, next) {
     try {
         const version = req.body.version;
         const lot_id = req.body.lot_id;

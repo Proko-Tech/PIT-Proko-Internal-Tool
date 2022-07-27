@@ -38,7 +38,7 @@
                             <a class="btn btn-flat indigo-text white modal-trigger" href="#change_version_modal_spotID<%= spots.id %>"> <%=spots.available_firmware_version%> </a>
                         </td>
                         <td>
-                            <%= moment(spots.created_at).format('MM-DD-YYYY'); %>
+                            <%= spots.created_at; %>
                         </td>
                     </tr>
                     <%- include('spotsUpdateCard', {spots, spots}) %>
