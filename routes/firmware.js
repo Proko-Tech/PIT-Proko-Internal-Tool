@@ -4,6 +4,7 @@ var router = express.Router();
 const moment = require('moment');
 const fs = require('fs')
 const firmwareVersionModel = require('../database/model/firmwareVersionModel');
+const spotsModel = require('../database/model/spotsModel');
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const sha256File = require('sha256-file');
@@ -12,8 +13,12 @@ const s3_service = require('../services/s3-upload');
 /* GET firmware page */
 router.get('/', async function (req, res, next) {
     try {
-        const data = await firmwareVersionModel.getWithNumSpots();
-        res.render('page/firmware/firmware.ejs', { title:"ProkoPark - Firmware", data, moment });
+        const dataRaw = await firmwareVersionModel.getWithNumSpots();
+        const data = await dataRaw.map((row, index) => {
+            row.created_at = moment(row.created_at).format('L');
+            return row;
+        });
+        res.render('page/firmware/firmware.ejs', { title:"ProkoPark - Firmware", data });
     } catch (err){
         res.send(err)
     }
@@ -119,4 +124,47 @@ router.delete('/:version', async function (req, res, next) {
     }
 });
 
+/** update the firmware version of single spot
+ * @param {string} req.body.version
+ * @param {string} req.body.spot_hash
+ */
+router.put('/spot', async function (req, res, next) {
+    try {
+        const version = req.body.version;
+        const uploadPayload = {
+            available_firmware_version: version
+        }
+        const update_stat = await spotsModel.update([req.body.spot_hash], uploadPayload);
+        if (update_stat.status === 'failed') {
+            return res.status(500).json({ message: 'Update failed', error: update_stat.err });
+        }
+        return res.status(200).json({ message: 'Update success' });
+    } catch (err) {
+        return res.status(500).json({ message: err });
+    }
+});
+
+
+/** update the firmware version of all spots in a lot
+ * @param {string} req.body.version
+ * @param {string} req.body.lot_id
+ */
+router.put('/lot', async function (req, res, next) {
+    try {
+        const version = req.body.version;
+        const lot_id = req.body.lot_id;
+        const spots = await spotsModel.getByLotId(lot_id);
+        const spot_hashes = spots.map(spot => spot.secret);
+        const uploadPayload = {
+            available_firmware_version: version
+        }
+        const update_stat = await spotsModel.update(spot_hashes, uploadPayload);
+        if (update_stat.status === 'failed') {
+            return res.status(500).json({ message: 'Update failed', error: update_stat.err });
+        }
+        return res.status(200).json({ message: 'Update success', lot_id: lot_id });
+    } catch (err) {
+        return res.status(500).json({ message: err });
+    }
+});
 module.exports = router;

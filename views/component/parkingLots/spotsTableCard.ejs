@@ -20,7 +20,6 @@
             </tr>
         </thead>
         <tbody>
-            <form method="POST">
                 <%spotsInfo.map(function(spots){%>
                     <tr>
                         <td>
@@ -33,17 +32,17 @@
                             <%=spots.spot_status%>
                         </td>
                         <td>
-                            <%=spots.firmware_version%>
+                            <%= spots.firmware_version %>
                         </td>
                         <td>
-                            <%=spots.available_firmware_version%>
+                            <a class="btn btn-flat indigo-text white modal-trigger" href="#change_version_modal_spotID<%= spots.id %>"> <%=spots.available_firmware_version%> </a>
                         </td>
                         <td>
-                            <%=spots.created_at%>
+                            <%= spots.created_at; %>
                         </td>
                     </tr>
+                    <%- include('spotsUpdateCard', {spots, spots}) %>
                     <%});%>
-            </form>
         </tbody>
     </table>
 </div>
@@ -261,5 +260,30 @@
             },
             bAutoWidth: false,
         });
+        // Initialize the modal
+        $('.modal').modal();
     });
+    
+    $('.change_spot_version_form').submit(function(e) {
+        e.preventDefault();
+        const form = $(this);
+        var data = {};
+        $.each(form.serializeArray(), function (i, field) {
+            data[field.name] = field.value;
+        });
+        $.ajax({
+            url: '/firmware/spot',
+            type: 'PUT',
+            data: data,
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
 </script>

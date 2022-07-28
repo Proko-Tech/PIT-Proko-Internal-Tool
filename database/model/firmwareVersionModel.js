@@ -1,5 +1,4 @@
 const db = require('../dbConfig');
-const moment = require('moment');
 const { default: knex } = require('knex');
 
 /* list all firmware versions */
