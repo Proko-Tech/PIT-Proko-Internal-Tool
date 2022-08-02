@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-const admin_account_model = require('../database/model/adminAccountsModel');
-const lot_model = require('../database/model/lotModel');
-const spot_model = require('../database/model/spotsModel');
-const lot_ownerships_model = require('../database/model/lotOwnershipsModel');
+const admin_account_model = require("../database/model/adminAccountsModel");
+const lot_model = require("../database/model/lotModel");
+const spot_model = require("../database/model/spotsModel");
+const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
+const moment = require("moment");
 
 const pick = require('../utils/pick');
 const crypto = require('crypto');
@@ -89,12 +90,13 @@ router.post('/parking_lot', async function(req, res) {
 });
 
 /* TEST for parking lot spots route */
-router.get('/lotID', async function(req, res) {
-    const spotsInfo = await spot_model.getSpots(req.query.lotId);
-    res.render('page/parkingLot/parkingLotSpots', {
-        title: 'Spots Directory',
-        spotsInfo,
-    });
+router.get("/lotID", async function(req, res) {
+    const spotsInfoRaw = await spot_model.getByLotId(req.query.lotId);
+    const spotsInfo = await spotsInfoRaw.map((row, index) => {
+        row.created_at = moment(row.created_at).format('MM-DD-YYYY');
+        return row;
+    }); 
+    res.render("page/parkingLot/parkingLotSpots", {title: "Spots Directory", spotsInfo});
 });
 
 /* POST parking_lot route */

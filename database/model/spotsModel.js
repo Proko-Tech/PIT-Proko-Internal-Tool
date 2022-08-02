@@ -1,47 +1,52 @@
-const db = require('../dbConfig');
-const moment = require('moment');
+const db = require("../dbConfig");
 
 /**
  * GET for the spots of a specific parking lot by lot_id
- * @param lot_id
- * @returns spots_info
- */
-async function getSpots(lot_id) {
-    try {
-        let spots = await db('spots').where({lot_id}).select('*');
-        spots = await spots.map((row, index) => {
-            row.created_at = moment(row.created_at).format('MM-DD-YYYY');
-            return row;
-        });
-        return spots;
-    } catch (err) {
-        return {err};
-    }
+ * @param {string} lot_id
+ * @returns {Promise<void>}
+ **/
+async function getByLotId(lot_id) {
+    const spots = await db('spots')
+        .where({lot_id})
+        .select('*');
+    return spots;
 }
 
 /**
  * update spot info using the information given to us
- * @param spot_id
- * @param spot_info
+ * @param {String[]} spot_hashes
+ * @param {object} spot_info
+ * @returns {Promise<{status: string, error: object}>}
  */
-async function update(spot_id, spot_info) {
-    try {
-        await db('spots').where({spot_id}).update(spot_info);
-    } catch (err) {
-        console.log(err);
-    }
+async function update(spot_hashes, spot_info) {
+    const result = {status: 'failed', error: ''};
+    await db.transaction(async (trx) => {
+        try {
+            for (let i = 0; i < spot_hashes.length; i++) {
+                await db('spots')
+                    .where({secret: spot_hashes[i]})
+                    .update(spot_info)
+                    .transacting(trx);
+            }
+            await trx.commit();
+            result.status = 'success';
+        } catch (err) {
+            await trx.rollback();
+            result.error = err;
+        }
+    });
+    return result;
 }
 
 /**
  * create spots in the spots table
- * @param spot_info
+ * @param {object} spot_info
  */
 async function create(spot_info) {
-    try {
-        await db('spots').insert(spot_info);
-    } catch (err) {
-        console.log(err);
-    }
+    await db('spots')
+        .insert(spot_info);
 }
 
-module.exports = {create, update, getSpots};
+
+
+module.exports = {create, update, getByLotId};

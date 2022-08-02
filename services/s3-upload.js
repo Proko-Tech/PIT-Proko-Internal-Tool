@@ -12,7 +12,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 /**
- * Uploads a given image to s3 buckets
+ * Uploads a given file to s3 buckets
  * @param filePath: the path of the file: ex: 'uploads/66ce1075df07b65fa788930c55432519'
  * @param fileName: the file name: ex: 'e33be7e47d6843377189df0494aa1bc756df08029e90dc3958a3b4e8f784add5.ESP32-v2.bin'
  * @returns {Promise<ManagedUpload.SendData>} (with a link to the fireware file)
@@ -31,7 +31,7 @@ async function upload(filePath, fileName) {
 }
 
 /**
- * Delete an image in s3 buckets by its file name
+ * Delete an file in s3 buckets by its file name
  * @param fileName: the file name: ex: 'e33be7e47d6843377189df0494aa1bc756df08029e90dc3958a3b4e8f784add5.ESP32-v2.bin'
  * @returns {Promise<ManagedUpload.SendData>} (with a link to the fireware file)
  */
