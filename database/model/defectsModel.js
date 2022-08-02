@@ -5,7 +5,7 @@ const moment = require('moment');
  *  get all defects from defects table with formatted dates
  *  @returns {Promise<void>}
  */
-async function get () {
+async function get() {
     try {
         let defect_rows = await db('defects')
             .join('spots', 'defects.spot_id', 'spots.id')
@@ -17,18 +17,21 @@ async function get () {
             const created = moment(row.created_at);
 
             if (row.is_auto_generator) {
-                row.is_auto_generator = "Yes";
+                row.is_auto_generator = 'Yes';
             } else {
-                row.is_auto_generator = "No";
+                row.is_auto_generator = 'No';
             }
 
-            row.created_at = [created.format('MM-DD-YYYY'), created.format('LT')];
-            return row
+            row.created_at = [
+                created.format('MM-DD-YYYY'),
+                created.format('LT'),
+            ];
+            return row;
         });
         return defect_rows;
     } catch (err) {
-        return { err };
+        return {err};
     }
 }
 
-module.exports = { get }
+module.exports = {get};

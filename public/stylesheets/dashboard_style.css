@@ -3,21 +3,18 @@
     font-style: normal;
 }
 
-#infocard{
-
-
+#infocard {
     /* grayscale / white */
 
-    background: #FFFFFF;
+    background: #ffffff;
     /* grayscale / divider */
 
-    border: 1px solid #DFE0EB;
+    border: 1px solid #dfe0eb;
     box-sizing: border-box;
     border-radius: 8px;
 }
 
-#Trend{
-
+#Trend {
     width: 1275px;
     height: 526px;
     padding: 0px;
@@ -29,32 +26,29 @@
 
     /* grayscale / white */
 
-    background: #FFFFFF;
+    background: #ffffff;
     /* grayscale / divider */
 
-    border: 1px solid #DFE0EB;
+    border: 1px solid #dfe0eb;
     box-sizing: border-box;
     border-radius: 8px;
-
 }
 
 .container {
     width: 95%;
 }
 
-.title{
-    padding-top:15px;
-    padding-left:29px;
+.title {
+    padding-top: 15px;
+    padding-left: 29px;
     font-style: normal;
     font-weight: bold;
     font-size: 19px;
     line-height: 24px;
     letter-spacing: 0.4px;
     color: #252733;
-
 }
-#subject{
-
+#subject {
     height: 14px;
     left: 32px;
     right: 896px;
@@ -74,11 +68,9 @@
 
     /* grayscale / gray */
 
-    color: #9FA2B4;
-
+    color: #9fa2b4;
 }
-#details{
-
+#details {
     height: 80px;
     left: 32px;
     right: 896px;
@@ -97,26 +89,24 @@
     /* grayscale / black */
 
     color: #252733;
-
 }
-.divider{
+.divider {
     height: 0px;
     left: 0px;
     right: 0px;
-    top: calc(50% - 0px/2);
+    top: calc(50% - 0px / 2);
     border-top: 50px;
 
     /* grayscale / divider */
 
-    border: 1px solid #DFE0EB;;
+    border: 1px solid #dfe0eb;
 }
-#box{
+#box {
     padding: 0px;
-    border-left: 1px solid #DFE0EB;
+    border-left: 1px solid #dfe0eb;
     height: 526px;
 }
-#subject1{
-
+#subject1 {
     width: 278px;
     height: 22px;
     right: 32px;
@@ -136,12 +126,10 @@
 
     /* grayscale / gray */
 
-    color: #9FA2B4;
-padding-left: 100px;
-
+    color: #9fa2b4;
+    padding-left: 100px;
 }
-#details1{
-
+#details1 {
     width: 278px;
     height: 30px;
     right: 32px;
@@ -161,16 +149,15 @@ padding-left: 100px;
 
     color: #252733;
     padding-left: 100px;
-
 }
 
-#rows{
+#rows {
     padding-top: 10px;
 }
-#tickets{
-    background: #FFFFFF;
+#tickets {
+    background: #ffffff;
 
-    border: 1px solid #DFE0EB;
+    border: 1px solid #dfe0eb;
     box-sizing: border-box;
     border-radius: 8px;
 }

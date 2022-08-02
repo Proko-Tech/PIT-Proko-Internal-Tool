@@ -6,18 +6,16 @@ const moment = require('moment');
  * , formatting the creation date/time to date
  * @returns {Promise<void>}
  */
-async function get () {
+async function get() {
     try {
-        let lotRows = await db('lots')
-            .select('*');
+        let lotRows = await db('lots').select('*');
         lotRows = await lotRows.map((row, index) => {
             row.created_at = moment(row.created_at).format('MM-DD-YYYY');
             row.updated_at = moment(row.updated_at).format('MM-DD-YYYY');
             return row;
         });
         return lotRows;
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
     }
 }
@@ -26,38 +24,35 @@ async function get () {
  * insert parking lot using the information given to us
  * @param parking_lot_info
  */
-async function insert (parking_lot_info) {
+async function insert(parking_lot_info) {
     try {
-        await db('lots')
-            .insert(parking_lot_info);
+        await db('lots').insert(parking_lot_info);
     } catch (err) {
         console.log(err);
     }
 }
 
-async function getMax () {
+/**
+ * Get the row with the max id.
+ * @returns {Promise<*>}
+ */
+async function getMax() {
     try {
-        const maxQuery = await db('lots')
-            .max('id as maxID')
-            .first();
+        const maxQuery = await db('lots').max('id as maxID').first();
         return maxQuery.maxID;
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
     }
 }
-
 
 /**
  * update parking lot using the information given to us
  * @param id
  * @param changes
  */
-async function update (id, changes) {
+async function update(id, changes) {
     try {
-        await db('lots')
-            .where({ id })
-            .update(changes);
+        await db('lots').where({id}).update(changes);
     } catch (err) {
         console.log(err);
     }
@@ -68,15 +63,15 @@ async function update (id, changes) {
  *  @param Admin ID
  *  @return parking lot information
  */
-async function getByAdminId (admin_id) {
+async function getByAdminId(admin_id) {
     try {
         const lots = await db('lot_ownerships')
             .join('lots', 'lot_ownerships.lot_id', 'lots.id')
-            .where({ admin_id })
+            .where({admin_id})
             .select('*');
         return lots;
     } catch (err) {
-        return { err };
+        return {err};
     }
 }
 
@@ -87,20 +82,22 @@ async function getByAdminId (admin_id) {
  * @param admin_id
  * @returns {Promise<{insertResult: string}>}
  */
-async function insertWithSpotsAndOwnership (parking_lot_info, spots_info, admin_id) {
-    const result = { insertResult: 'failed' };
+async function insertWithSpotsAndOwnership(
+    parking_lot_info,
+    spots_info,
+    admin_id,
+) {
+    const result = {insertResult: 'failed'};
     await db.transaction(async (transaction) => {
         try {
             const id = await db('lots')
                 .insert(parking_lot_info)
                 .transacting(transaction)
                 .returning('id');
-            spots_info.map(spot_info => spot_info.lot_id = id);
-            await db('spots')
-                .insert(spots_info)
-                .transacting(transaction);
+            spots_info.map((spot_info) => (spot_info.lot_id = id));
+            await db('spots').insert(spots_info).transacting(transaction);
             await db('lot_ownerships')
-                .insert({ lot_id: id, admin_id })
+                .insert({lot_id: id, admin_id})
                 .transacting(transaction);
             result.insertResult = 'success';
             await transaction.commit();
@@ -113,4 +110,11 @@ async function insertWithSpotsAndOwnership (parking_lot_info, spots_info, admin_
     return result;
 }
 
-module.exports = { get, insert, update, getByAdminId, getMax, insertWithSpotsAndOwnership };
+module.exports = {
+    get,
+    insert,
+    update,
+    getByAdminId,
+    getMax,
+    insertWithSpotsAndOwnership,
+};

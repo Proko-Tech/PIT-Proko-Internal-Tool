@@ -4,7 +4,7 @@ div.material-table {
 
 div.material-table .hiddensearch {
     padding: 0 14px 0 24px;
-    border-bottom: solid 1px #DDDDDD;
+    border-bottom: solid 1px #dddddd;
     display: none;
 }
 
@@ -12,7 +12,7 @@ div.material-table .hiddensearch input {
     margin: 0;
     border: transparent 0 !important;
     height: 48px;
-    color: rgba(0, 0, 0, .84);
+    color: rgba(0, 0, 0, 0.84);
 }
 
 div.material-table .hiddensearch input:active {
@@ -32,7 +32,7 @@ div.material-table .table-header {
     align-items: center;
     display: flex;
     -webkit-display: flex;
-    border-bottom: solid 1px #DDDDDD;
+    border-bottom: solid 1px #dddddd;
 }
 
 div.material-table .table-header .actions {
@@ -153,7 +153,7 @@ div.material-table table tr td {
     height: 48px;
     font-size: 14px;
     color: rgba(58, 58, 58, 0.87);
-    border-bottom: solid 1px #DDDDDD;
+    border-bottom: solid 1px #dddddd;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -204,7 +204,7 @@ div.material-table table th.sorting_desc:after {
     word-wrap: normal;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-    content: "arrow_back";
+    content: 'arrow_back';
     -webkit-transform: rotate(90deg);
     display: none;
     vertical-align: middle;
@@ -217,11 +217,11 @@ div.material-table table th.sorting_desc:after {
 }
 
 div.material-table table th.sorting_desc:after {
-    content: "arrow_forward";
+    content: 'arrow_forward';
 }
 
 div.material-table table tbody tr:hover {
-    background-color: #EEE;
+    background-color: #eee;
 }
 
 div.material-table table th:first-child,

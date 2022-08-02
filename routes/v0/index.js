@@ -5,4 +5,4 @@ const predictionsRouter = require('./predictions');
 
 router.use('/predictions', predictionsRouter);
 
-module.exports=router;
+module.exports = router;

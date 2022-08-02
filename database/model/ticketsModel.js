@@ -6,12 +6,16 @@ const moment = require('moment');
  * @param id
  * @returns lot, spot, customer, date, and status
  */
-async function get (id) {
+async function get(id) {
     try {
         let ticket_rows = await db('lot_ownerships')
             .join('spots', 'lot_ownerships.lot_id', 'spots.lot_id')
             .join('lots', 'lot_ownerships.lot_id', 'lots.id')
-            .join('admin_accounts', 'lot_ownerships.admin_id', 'admin_accounts.id')
+            .join(
+                'admin_accounts',
+                'lot_ownerships.admin_id',
+                'admin_accounts.id',
+            )
             .join('users', 'admin_accounts.admin_email', 'users.email')
             .select('*');
         ticket_rows = await ticket_rows.map((row, index) => {
@@ -26,12 +30,12 @@ async function get (id) {
             }
             row.created_at = [created.format('ll'), created.format('LT')];
             row.updated_at = [updated.format('DD-MM-YYYY'), days_ago_str];
-            return row
+            return row;
         });
         return ticket_rows;
     } catch (err) {
-        return { err };
+        return {err};
     }
 }
 
-module.exports={ get }
+module.exports = {get};
