@@ -5,9 +5,9 @@ const db = require("../dbConfig");
  * @param {string} lot_id
  * @returns {Promise<void>}
  **/
-async function getByLotId (lot_id) {
+async function getByLotId(lot_id) {
     const spots = await db('spots')
-        .where({ lot_id })
+        .where({lot_id})
         .select('*');
     return spots;
 }
@@ -18,13 +18,13 @@ async function getByLotId (lot_id) {
  * @param {object} spot_info
  * @returns {Promise<{status: string, error: object}>}
  */
-async function update (spot_hashes, spot_info) {
-    const result = { status: 'failed', error: '' };
+async function update(spot_hashes, spot_info) {
+    const result = {status: 'failed', error: ''};
     await db.transaction(async (trx) => {
         try {
             for (let i = 0; i < spot_hashes.length; i++) {
                 await db('spots')
-                    .where({ secret: spot_hashes[i] })
+                    .where({secret: spot_hashes[i]})
                     .update(spot_info)
                     .transacting(trx);
             }
@@ -42,11 +42,11 @@ async function update (spot_hashes, spot_info) {
  * create spots in the spots table
  * @param {object} spot_info
  */
-async function create (spot_info) {
+async function create(spot_info) {
     await db('spots')
         .insert(spot_info);
 }
 
 
 
-module.exports = { create, update, getByLotId };
+module.exports = {create, update, getByLotId};

@@ -90,13 +90,13 @@ router.post('/parking_lot', async function(req, res) {
 });
 
 /* TEST for parking lot spots route */
-router.get("/lotID", async function (req, res) {
+router.get("/lotID", async function(req, res) {
     const spotsInfoRaw = await spot_model.getByLotId(req.query.lotId);
     const spotsInfo = await spotsInfoRaw.map((row, index) => {
         row.created_at = moment(row.created_at).format('MM-DD-YYYY');
         return row;
     }); 
-    res.render("page/parkingLot/parkingLotSpots", { title: "Spots Directory", spotsInfo });
+    res.render("page/parkingLot/parkingLotSpots", {title: "Spots Directory", spotsInfo});
 });
 
 /* POST parking_lot route */
