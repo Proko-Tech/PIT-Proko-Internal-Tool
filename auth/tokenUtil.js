@@ -6,14 +6,18 @@ require('dotenv').config();
  * @param token
  * @return authData
  */
-async function validateToken (token){
-    return jwt.verify(token, process.env.TOKENKEY, async function (err, auth_data) {
-        if (err) {
-            return null;
-        } else {
-            return auth_data;
-        }
-    });
+async function validateToken(token) {
+    return jwt.verify(
+        token,
+        process.env.TOKENKEY,
+        async function(err, auth_data) {
+            if (err) {
+                return null;
+            } else {
+                return auth_data;
+            }
+        },
+    );
 }
 
 /**
@@ -21,11 +25,11 @@ async function validateToken (token){
  * @param user_info
  * @return token
  */
-async function generateToken (user_info){
-    return jwt.sign({ user_info }, process.env.TOKENKEY);
+async function generateToken(user_info) {
+    return jwt.sign({user_info}, process.env.TOKENKEY);
 }
 
 module.exports = {
     validateToken,
-    generateToken
+    generateToken,
 };
