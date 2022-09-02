@@ -17,6 +17,7 @@
                 <th>Firmware Version</th>
                 <th>Available Firmware Version</th>
                 <th>Created At</th>
+                <th>Take Picture</th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +40,16 @@
                         </td>
                         <td>
                             <%= spots.created_at; %>
+                        </td>
+                        <td>
+                            <!-- <form class="manual_capture_btn" action="" method="POST">
+                                <input type="text" value="<%=spots.secret%>" name="spot_hash" hidden>
+                                <input type="number" value="<%=spots.lot_id%>" name="lot_id" hidden>
+                                <button type="submit">
+                                    <i class="material-icons">camera_alt</i>
+                                </button>
+                            </form> -->
+                            <a class="btn btn-flat indigo-text white" href="/spots/<%=spots.lot_id%>/<%= spots.secret %>"> <i class="material-icons">camera_alt</i> </a>
                         </td>
                     </tr>
                     <%- include('spotsUpdateCard', {spots, spots}) %>

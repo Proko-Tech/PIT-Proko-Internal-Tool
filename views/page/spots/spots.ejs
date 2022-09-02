@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+    <title><%= title %> </title>
+    <%- include('../../common/topScripts.ejs') %>
+</head>
+
+<body class="has-fixed-sidenav">
+    <header>
+        <%- include('../../component/topBar.ejs', {title})%>
+        <%- include("../../component/sideBar.ejs") %>
+    </header>
+    <main>
+        <div class="container" >
+            <%- include("../../component/spots/spotManualCaptureCard.ejs") %>
+        </div>
+    </main>
+        <%- include('../../common/bottomScripts.ejs') %>
+
+</body>
+
+</html>
