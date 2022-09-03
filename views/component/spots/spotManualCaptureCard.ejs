@@ -1,26 +1,41 @@
-<form class="manual_capture_btn">
+<form class="manual_capture_btn ">
     <input type="text" value="<%=spot_hash%>" name="spot_hash" hidden>
     <input type="number" value="<%=lot_id%>" name="lot_id" hidden>
     <button type="submit" class="btn indigo-text white">
         <a> Take a picture at this spot right now </a><i class="material-icons">camera_alt</i>
     </button>
 </form>
-<% for (let row = 0; row < spotCaptureData.length; row++) { %>
-    <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card-panel grey lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col s12">
-                <img src="<%= spotCaptureData[row].image_url %>" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+<% if (spotCaptureData.length > 0) { %>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image">
+                    <img src="<%=spotCaptureData[spotCaptureData.length - 1].image_url%>">
+                    <span class="card-title">Most recent capture</span>
                 </div>
-                <div class="col s10">
-                <span class="black-text">
-                    Captured at <%= spotCaptureData[row].created_at %>
-                </span>
+                <div class="card-content">
+                    <p>Picture taken at <%=spotCaptureData[spotCaptureData.length - 1].created_at%></p>
                 </div>
             </div>
         </div>
     </div>
 <% } %>
+<table id="manualCaptureTable">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%spotCaptureData.map(function(data){%>
+        <tr class = "row">
+            <td><%=data.image_url%></td>
+            <td><%=data.created_at%></td>
+        </tr>
+        <%});%>
+    </tbody>
+</table>
 
 <% if (spotCaptureData.length == 0) { %>
     No images captured yet.
