@@ -4,18 +4,22 @@
 <head>
     <meta charset="utf-8">
     <title><%= title %></title>
+    <%- include('../../common/topScripts.ejs') %>
 </head>
-<body>
+<body class="has-fixed-sidenav">
+<header>
+    <%- include('../../component/topBar.ejs', {title})%>
+    <%- include("../../component/sideBar.ejs") %>
+</header>
+<main>
 <div class="container">
 
-    <%- include("../../component/sideBar.ejs") %>
-    <%- include("../../component/pageTitle.ejs")%>
     <%- include("../../component/dashboard/smallInfoCard")%>
     <%- include("../../component/dashboard/todayTrend")%>
     <%- include("../../component/dashboard/unresolvedDefectTiket")%>
 
-
 </div>
-
+</main>
+<%- include('../../common/bottomScripts.ejs') %>
 </body>
 </html>

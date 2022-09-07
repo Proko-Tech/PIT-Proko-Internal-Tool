@@ -1,64 +1,57 @@
-.container{
-
+.container {
 }
-.card-panel{
+.card-panel {
     width: 1122px;
     height: 444px;
-    padding:0px;
-
-}
-#box{
     padding: 0px;
-    border-left: 1px solid #DFE0EB;
+}
+#box {
+    padding: 0px;
+    border-left: 1px solid #dfe0eb;
     height: 444px;
 }
 #map {
     height: 318px;
     width: 602px;
-    top:31px;
-    left:29px;
+    top: 31px;
+    left: 29px;
 }
-.titles{
-    padding-top:15px;
-    padding-left:29px;
+.titles {
+    padding-top: 15px;
+    padding-left: 29px;
 }
-.title{
-
+.title {
     font-style: normal;
     font-weight: bold;
     font-size: 19px;
     line-height: 24px;
     letter-spacing: 0.4px;
     color: #252733;
-
 }
-.time{
-
+.time {
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.1px;
-    color: #9FA2B4;
-
+    color: #9fa2b4;
 }
-p{
-     margin-top: 0px;
-     margin-bottom: 0px;
- }
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
-#subject{
-    padding-top:30px;
+#subject {
+    padding-top: 30px;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
     text-align: center;
     letter-spacing: 0.3px;
-    color: #9FA2B4;
-
+    color: #9fa2b4;
 }
-#details{
+#details {
     padding-bottom: 30px;
     font-family: Mulish;
     font-style: normal;
@@ -73,17 +66,15 @@ p{
     /* grayscale / black */
 
     color: #252733;
-
 }
-.divider{
+.divider {
     width: 373px;
-    border: 1px solid #DFE0EB;
+    border: 1px solid #dfe0eb;
 }
-.card{
+.card {
     width: 1122px;
     height: 444px;
-
 }
-#bar{
-padding-top: 22px;
+#bar {
+    padding-top: 22px;
 }

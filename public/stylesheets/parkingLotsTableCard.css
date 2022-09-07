@@ -1,6 +1,5 @@
-.lotTable {
-    border-collapse: collapse;
-    margin: 25px 0;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+tbody tr {
+    margin: 0%;
+    padding: 0%;
+    line-height: 5px;
 }

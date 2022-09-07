@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <%- include('../../../common/topScripts.ejs') %>
+    <%- include('../../../common/bottomScripts.ejs') %>
+    <link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="has-fixed-sidenav">
+<header>
+    <%- include('../../../component/topBar.ejs', {title})%>
+    <%- include("../../../component/sideBar.ejs") %>
+</header>
+<main>
+    <div class="container">
+        <%- include('../../components/predictions/predictionCard.ejs', {data}) %>
+    </div>
+</main>
+</body>
+</html>

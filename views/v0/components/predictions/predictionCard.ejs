@@ -1,0 +1,91 @@
+<div class="col m12 s12">
+    <form class="card" id="predictions_form">
+        <div class="card-content">
+            <span class="card-title">Camera Image:</span>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <img src="<%=data.image_url%>" alt="Prediction image" class="col s12">
+            </div>
+            <div class="col s6">
+                <h5>Predictions:</h5>
+                <h6 style="display:inline;">Object Detection: </h6>
+                <blockquote><code><%=data.is_car_prediction?'Car':'Not Car'%></code></blockquote>
+                <h6 style="display:inline;">License Predictions: </h6>
+                <blockquote style="white-space:pre"><code><%=data.license_plate_prediction%></code></blockquote>
+                <h5>Spot Information:</h5>
+                <h6 style="display:inline;">Spot Name: </h6>
+                <blockquote><code><%=data.spot_name%></code></blockquote>
+                <h6 style="display:inline;">Spot Hash: </h6>
+                <blockquote style="white-space:pre"><code><%=data.secret%></code></blockquote>
+            </div>
+            <% if (data.exit_image_url) { %>
+                <div class="col s6">
+                    <img src="<%=data.exit_image_url%>" alt="Prediction image" class="col s12">
+                </div>
+            <% } %>
+        </div>
+        <div class="card-action">
+            <h5>Verification:</h5>
+            <blockquote>Please look at the image captured by the Proko Sensor, and write down the license plate,
+                as well as the object you see. The system will automatically mark the correctness for the sensor
+                prediction. You can update it later.</blockquote>
+            <div class="row">
+                <div class="input-field input-outlined col s6">
+                    <input type="text" name="license_plate" id="license_plate" value="<%=data.license_plate%>" required>
+                    <label for="license_plate" class="indigo-text">Actual License Plate:</label>
+                </div>
+                <div class="input-field input-outlined col s6">
+                    <select class="indigo" name="is_car" id="is_car" required>
+                        <option value="" disabled selected><%=data.is_car===null?'Select the object in the image':data.is_car?'Car':'Not a car'%></option>
+                        <option value="car">Car</option>
+                        <option value="non_car">Not a car</option>
+                    </select>
+                    <label for="is_car">
+                        Object
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="card-action center">
+            <button class="waves-effect waves-light btn indigo" type="submit">submit</button>
+            <input type="reset" id="reset" class="btn-flat grey-text waves-effect">
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#predictions_form').submit(function(e) {
+        e.preventDefault();
+        const form = $(this);
+
+        $.ajax({
+            url: '/v0/predictions/'+<%=data.prediction_results_id%>,
+            type: 'PUT',
+            data: form.serialize(),
+            success: function(data) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${data.message}</span>
+                                    <% if (next_predictions.length !== 0) { %>
+                                    <button class="btn-flat toast-action" onclick="nextPredictionAndCloseToast(<%= next_predictions[0].id %>)">Next</button>
+                                   <% } else { %>
+                                    <button class="btn-flat toast-action" onclick="M.Toast.dismissAll();">Ack</button>
+                                   <% } %>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                    <button class="btn-flat toast-action" onclick="M.Toast.dismissAll();">Ack</button>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
+
+    function nextPredictionAndCloseToast (id) {
+        M.Toast.dismissAll();
+        window.location.href = '/v0/predictions/' + id;
+    }
+</script>

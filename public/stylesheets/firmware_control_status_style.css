@@ -1,0 +1,21 @@
+#status-btn {
+    /* Bold 11 (0.5 px, CAPS) */
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.72vw;
+    line-height: 14px;
+
+    /* identical to box height */
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-left: 15%;
+    width: 50%;
+
+    /* Green 2 */
+    background: #27ae60;
+    border-radius: 100px;
+}
