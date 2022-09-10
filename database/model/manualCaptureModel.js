@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 const moment = require('moment');
 
 /**
- * get all manual capture images from lots table
+ * get all manually capture images from lots table
  * by the spot_hash
  * @returns 
  * [{
@@ -14,13 +14,39 @@ const moment = require('moment');
  * updated_at: string
  * }]
  */
-async function getBySpotHash(spot_hash) {
+async function getBySpotHash(spot_secret) {
     try {
-        const allRows = await db('manual_captured_images').where({spot_hash}).select('*');
+        const allRows = await db('manually_captured_images').where({spot_secret}).select('*');
         return allRows;
     } catch (err) {
         console.log(err);
     }
 }
 
-module.exports = {getBySpotHash}
+/**
+ * delete manually captured image by id
+ * @param id - the id of the image to be deleted
+ * @returns
+ */
+async function deleteById(id) {
+    try {
+        const delete_stat = await db('manually_captured_images').where({id}).del();
+        return delete_stat;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+/**
+ * get manually captured image by id
+ * @param id - number
+ */
+async function getById(id) {
+    try {
+        const spotCaptureData = await db('manually_captured_images').where({id}).select('*');
+        return spotCaptureData;
+    } catch (err) {
+        console.log(err);
+    }
+}
+module.exports = {getBySpotHash, deleteById, getById};

@@ -1,4 +1,4 @@
-<form class="manual_capture_btn ">
+<form class="manual_capture_btn">
     <input type="text" value="<%=spot_hash%>" name="spot_hash" hidden>
     <input type="number" value="<%=lot_id%>" name="lot_id" hidden>
     <button type="submit" class="btn indigo-text white">
@@ -25,13 +25,21 @@
         <tr>
             <th>Image</th>
             <th>Time</th>
+            <th>Remove</th>
+            <th>Detail</th>
         </tr>
     </thead>
     <tbody>
         <%spotCaptureData.map(function(data){%>
-        <tr class = "row">
+        <tr class="row">
             <td><%=data.image_url%></td>
             <td><%=data.created_at%></td>
+            <td>
+                <a class="btn btn-floating waves-effect waves-light indigo" onclick="deleteCapturedImageById(<%= data.id %>)"><i class="material-icons">delete</i></a>
+            </td>
+            <td>
+                <a class="btn btn-floating waves-effect waves-light indigo" href="/spots/manual_capture/detail?id=<%= data.id %>"> <i class="material-icons">image</i> </a>
+            </td>
         </tr>
         <%});%>
     </tbody>
@@ -42,6 +50,25 @@
 <% } %>
 
 <script>
+function deleteCapturedImageById(id) {
+    $.ajax({
+        url: '/spots/manual_capture/',
+        type: 'DELETE',
+        data: {
+            id: id
+        },
+        success: function(result) {
+            location.reload();
+        },
+        error: function(err) {
+            const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                <span>${err.responseText}</span>
+                            </div>`;
+            M.toast({html: toastHTML});
+        }
+    });
+}
+
 $('.manual_capture_btn').submit(function(e) {
         e.preventDefault();
         const form = $(this);
