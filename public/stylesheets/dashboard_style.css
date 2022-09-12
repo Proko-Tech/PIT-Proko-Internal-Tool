@@ -48,6 +48,15 @@
     letter-spacing: 0.4px;
     color: #252733;
 }
+.subtitle{
+    padding-left:29px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    color: #252733;
+}
 #subject {
     height: 14px;
     left: 32px;
