@@ -1,0 +1,90 @@
+<form class="manual_capture_btn">
+    <input type="text" value="<%=spot_hash%>" name="spot_hash" hidden>
+    <input type="number" value="<%=lot_id%>" name="lot_id" hidden>
+    <button type="submit" class="btn indigo-text white">
+        <a> Take a picture at this spot right now </a><i class="material-icons">camera_alt</i>
+    </button>
+</form>
+<% if (spotCaptureData.length > 0) { %>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image">
+                    <img src="<%=spotCaptureData[spotCaptureData.length - 1].image_url%>">
+                    <span class="card-title">Most recent capture</span>
+                </div>
+                <div class="card-content">
+                    <p>Picture taken at <%=spotCaptureData[spotCaptureData.length - 1].created_at%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+<table id="manualCaptureTable">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Time</th>
+            <th>Remove</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%spotCaptureData.map(function(data){%>
+        <tr class="row">
+            <td><%=data.image_url%></td>
+            <td><%=data.created_at%></td>
+            <td>
+                <a class="btn btn-floating waves-effect waves-light indigo" onclick="deleteCapturedImageById(<%= data.id %>)"><i class="material-icons">delete</i></a>
+            </td>
+            <td>
+                <a class="btn btn-floating waves-effect waves-light indigo" href="/spots/manual_capture/detail?id=<%= data.id %>"> <i class="material-icons">image</i> </a>
+            </td>
+        </tr>
+        <%});%>
+    </tbody>
+</table>
+
+<% if (spotCaptureData.length == 0) { %>
+    No images captured yet.
+<% } %>
+
+<script>
+function deleteCapturedImageById(id) {
+    $.ajax({
+        url: '/spots/manual_capture/',
+        type: 'DELETE',
+        data: {
+            id: id
+        },
+        success: function(result) {
+            location.reload();
+        },
+        error: function(err) {
+            const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                <span>${err.responseText}</span>
+                            </div>`;
+            M.toast({html: toastHTML});
+        }
+    });
+}
+
+$('.manual_capture_btn').submit(function(e) {
+        e.preventDefault();
+        const form = $(this);
+        $.ajax({
+            url: '/spots/manual_capture',
+            type: 'PUT',
+            data: form.serialize(),
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
+</script>

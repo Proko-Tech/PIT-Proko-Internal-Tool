@@ -158,7 +158,8 @@ router.put('/spot', async function(req, res, next) {
         const uploadPayload = {
             available_firmware_version: version,
         }
-        const update_stat = await spotsModel.update([req.body.spot_hash], uploadPayload);
+        const update_stat =
+            await spotsModel.update([req.body.spot_hash], uploadPayload);
         if (update_stat.status === 'failed') {
             return res.status(500).json({message: 'Update failed', error: update_stat.err});
         }
