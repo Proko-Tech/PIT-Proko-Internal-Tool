@@ -1,69 +1,61 @@
 
-    <div class="row" >
-            <div class="card-panel " id = "Trend">
-                <div class='col s8 '>
-                    <div class = 'title'>
-                    <p> Today's Trends</p>
-                   </div>
-
-                    </div>
-                <div class='col s4' id = 'box'>
-                    <div id="subject1">
-                        <p>
-                          Reservations
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                             449
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                          Fullfiled Reservation
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                        426
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                           Average Time
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                            33m
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                          Total Online Spots
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                            3h 8m
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                           Reservation  Fullfiled Rate
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                           94%
-                        </p>
-                    </div>
-               </div>
-            </div>
-
-        </div>
+                <div class="col l12 m12 s12">
+                    <%- include('../../common/charts/main-toggle-line-chart.ejs', {header: mainToggleLineHeader, data: mainToggleLine, toggleData}); %>
+                </div>
+<!--                <div class='col s4' id = 'box'>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Reservations-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                             449-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Fullfiled Reservation-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                        426-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                           Average Time-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                            33m-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Total Online Spots-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                            3h 8m-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                           Reservation  Fullfiled Rate-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                           94%-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--               </div>-->
 <!--<link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>-->

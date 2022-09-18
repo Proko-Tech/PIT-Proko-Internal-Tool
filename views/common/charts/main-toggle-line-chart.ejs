@@ -1,0 +1,63 @@
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            const datas = '<%-JSON.stringify(data)%>';
+            const mainLineData = JSON.parse(datas);
+            const toggles = '<%-JSON.stringify(toggleData)%>';
+            const toggleData = JSON.parse(toggles);
+            var ctx = $("#main-toggle-line-chart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: mainLineData,
+                options: {
+                    hover: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    maintainAspectRatio: false,
+                },
+            });
+
+            $("#main-toggle-line-chart")
+                .closest('.card').find('.card-metrics')
+                .on('click', '.card-metric', function (e) {
+                    e.stopPropagation();
+                    var card = $(this).closest('.card');
+                    var cardChart = card.find($('.card-chart'));
+                    if (cardChart.length) {
+                        var chart = chartExists(cardChart);
+                        var metric = $(this).attr('data-metric');
+                        console.log(metric);
+                        if (!!chart && toggleData.hasOwnProperty(metric)) {
+                            $(this).siblings().removeClass('active');
+                            $(this).addClass('active');
+                            var index = $(this).index();
+                            var isActive = $(this).hasClass('active');
+
+                            chart.data.datasets[0].data = toggleData[metric].data;
+                            chart.data.datasets[0].label = toggleData[metric].label;
+                            chart.update();
+                        }
+                    }
+                });
+        });
+    }( jQuery ));
+</script>
+
+<div class="card">
+    <div class="card-metrics card-metrics-toggle card-metrics-centered">
+        <%header.map((head, index) => {%>
+        <div class="card-metric <%=index === 0? 'active':''%>" data-metric="<%=head.metric%>">
+            <div class="card-metric-title"><%=head.title%></div>
+            <div class="card-metric-value"><%=head.value%></div>
+            <!--            <div class="card-metric-change">-->
+            <!--                <i class="material-icons">keyboard_arrow_up</i>-->
+            <!--                12%-->
+            <!--            </div>-->
+        </div>
+        <%})%>
+    </div>
+    <div class="card-content">
+        <canvas class="card-chart" id="main-toggle-line-chart" width="400" height="400"></canvas>
+    </div>
+</div>

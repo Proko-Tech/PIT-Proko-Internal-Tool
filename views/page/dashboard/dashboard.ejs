@@ -14,10 +14,8 @@
 <main>
 <div class="container">
 
-    <%- include("../../component/dashboard/smallInfoCard")%>
-    <%- include("../../component/dashboard/todayTrend")%>
-    <%- include("../../component/dashboard/unresolvedDefectTiket")%>
-
+    <%- include("../../component/dashboard/smallInfoCard", {numOfUsers, numOfLots, numOfReservations, numOfNotficationRequests, dailyNewUsers, monthlyNewLots, dailyNewReservations, dailyNewNotificationRequests})%>
+    <%- include("../../component/dashboard/todayTrend", {mainToggleLineHeader, mainToggleLine, toggleData})%>
 </div>
 </main>
 <%- include('../../common/bottomScripts.ejs') %>
