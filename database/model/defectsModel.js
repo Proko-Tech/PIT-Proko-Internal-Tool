@@ -2,36 +2,42 @@ const db = require('../dbConfig');
 const moment = require('moment');
 
 /**
- *  get all defects from defects table with formatted dates
+ *  Get all defects from defects table with formatted dates
  *  @returns {Promise<void>}
  */
 async function get() {
-    try {
-        let defect_rows = await db('defects')
-            .join('spots', 'defects.spot_id', 'spots.id')
-            .join('lots', 'defects.lot_id', 'lots.id')
-            .join('admin_accounts', 'defects.admin_id', 'admin_accounts.id')
-            .join('users', 'admin_accounts.admin_email', 'users.email')
-            .select('*');
-        defect_rows = await defect_rows.map((row) => {
-            const created = moment(row.created_at);
-
-            if (row.is_auto_generator) {
-                row.is_auto_generator = 'Yes';
-            } else {
-                row.is_auto_generator = 'No';
-            }
-
-            row.created_at = [
-                created.format('MM-DD-YYYY'),
-                created.format('LT'),
-            ];
-            return row;
-        });
-        return defect_rows;
-    } catch (err) {
-        return {err};
-    }
+    const result = await db('defects')
+        .join('lots', 'defects.lot_id', 'lots.id')
+        .join('admin_accounts', 'defects.admin_id', 'admin_accounts.id')
+        .select('*', 'defects.created_at')
+        .orderBy('defects.created_at', 'desc');
+    return result;
 }
 
-module.exports = {get};
+/**
+ * Get defect by secret hash
+ * @param secret_hash
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, ArrayIfAlready<TResult, DeferredKeySelection.Augment<UnwrapArrayMember<TResult>, Knex.ResolveTableType<TRecord>, IncompatibleToAlt<ArrayMember<[string, string]>, string, never>, Knex.IntersectAliases<[string, string]>>>>>}
+ */
+async function getBySecretHash(secret_hash) {
+    const result = await db('defects')
+        .join('lots', 'defects.lot_id', 'lots.id')
+        .join('admin_accounts', 'defects.admin_id', 'admin_accounts.id')
+        .where({secret_hash})
+        .select('*', 'defects.created_at');
+    return result;
+}
+
+/**
+ * Update by secret hash.
+ * @param secret_hash
+ * @param payload
+ * @returns {Promise<void>}
+ */
+async function updateBySecretHash(secret_hash, payload) {
+    await db('defects')
+        .update(payload)
+        .where({secret_hash});
+}
+
+module.exports = {get, getBySecretHash, updateBySecretHash};
