@@ -26,7 +26,7 @@ router.post('/', async function(req, res) {
         const token = await auth.generateToken(tokenPayload);
         res.clearCookie('user');
         res.cookie('user', token);
-        res.redirect('/v0/predictions');
+        res.redirect('/dashboard');
     } else {
         res.status(401).send('Access Denied');
     }

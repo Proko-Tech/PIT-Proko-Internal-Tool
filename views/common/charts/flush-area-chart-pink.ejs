@@ -1,0 +1,28 @@
+<canvas id="flush-area-chart-pink" height="100px"></canvas>
+<%-include('../bottomScripts.ejs')%>
+
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            const datas = '<%-data.arr%>'.split(',');
+            const labels = '<%-data.labels%>'.split(',');
+            var $flushAreaChartPink = $('#flush-area-chart-pink');
+            if ($flushAreaChartPink.length) {
+                var pinkData = {
+                    labels,
+                    datasets: [{
+                        backgroundColor: chartColorPink,
+                        borderColor: chartColorPink,
+                        data: datas,
+                        label: 'Number'
+                    }]
+                };
+                var flushAreaChartPink = new Chart($flushAreaChartPink, {
+                    type: 'line',
+                    data: pinkData,
+                    options: flushChartOptions
+                });
+            }
+        });
+    }( jQuery ));
+</script>

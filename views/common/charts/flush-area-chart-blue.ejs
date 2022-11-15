@@ -1,0 +1,28 @@
+<canvas id="flush-area-chart-blue" height="100px"></canvas>
+<%-include('../bottomScripts.ejs')%>
+
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            const datas = '<%-data.arr%>'.split(',');
+            const labels = '<%-data.labels%>'.split(',');
+            var $flushAreaChartBlue = $('#flush-area-chart-blue');
+            if ($flushAreaChartBlue.length) {
+                var blueData = {
+                    labels,
+                    datasets: [{
+                        backgroundColor: chartColorBlue,
+                        borderColor: chartColorBlue,
+                        data: datas,
+                        label: 'Number'
+                    }]
+                };
+                var flushAreaChartBlue = new Chart($flushAreaChartBlue, {
+                    type: 'line',
+                    data: blueData,
+                    options: flushChartOptions
+                });
+            }
+        });
+    }( jQuery ));
+</script>

@@ -4,43 +4,54 @@
 
         <div class = "col s3">
            <div class="card panel" id="infocard">
-                 <div id = "subject">
-                      <p> Users</p>
-                  </div>
-                 <div id="details">
-                      <p> 50</p>
-                 </div>
+               <div id = "subject">
+                   <p>Total Users</p>
+               </div>
+               <div id="details">
+                   <h4><%=numOfUsers%></h4>
+               </div>
+               <div class="card-chart">
+                   <%- include('../../common/charts/flush-area-chart-blue.ejs', {data: dailyNewUsers}) %>
+               </div>
            </div>
         </div>
         <div class = "col s3">
             <div class="card panel" id="infocard">
                 <div id = "subject">
-                    <p> Parking Lots</p>
+                    <p>Total Parking Lots</p>
                 </div>
                 <div id="details">
-                    <p> 16</p>
+                    <h4><%=numOfLots%></h4>
+                </div>
+                <div class="card-chart">
+                    <%- include('../../common/charts/flush-area-chart-green.ejs', {data: monthlyNewLots}) %>
                 </div>
             </div>
         </div>
         <div class = "col s3">
             <div class="card panel" id="infocard">
                 <div id = "subject">
-                    <p> Parking Spots</p>
+                    <p>Total Reservations</p>
                 </div>
                 <div id="details">
-                    <p>43</p>
+                    <h4><%=numOfReservations%></h4>
+                </div>
+                <div class="card-chart">
+                    <%- include('../../common/charts/flush-area-chart-pink.ejs', {data: dailyNewReservations}) %>
                 </div>
             </div>
         </div>
         <div class = "col s3">
             <div class="card panel" id="infocard">
                 <div id = "subject">
-                    <p> Defects</p>
+                    <p>Total Notifications</p>
                 </div>
                 <div id="details">
-                    <p> 50</p>
+                    <h4><%=numOfNotficationRequests%></h4>
                 </div>
-
+                <div class="card-chart">
+                    <%- include('../../common/charts/flush-area-chart-yellow.ejs', {data: dailyNewNotificationRequests}) %>
+                </div>
             </div>
         </div>
     </div>

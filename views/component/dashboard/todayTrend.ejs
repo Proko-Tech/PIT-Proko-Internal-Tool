@@ -1,111 +1,61 @@
 
-    <div class="row" >
-<div class="container">
-    <div class="card-panel " id = "Trend">
-        <div class='col s8 '>
-            <div class = 'title'>
-            <p> Today's Trends</p>
-           </div>
-           <div class = 'subtitle'>
-            <p><%= moment().format('Do MM YYYY hh:mm a'); %></p>
-           </div>
-           <div class = "chartBox">
-            <canvas id="myChart"></canvas>
-           </div>
-           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-            const ctx = document.getElementById('myChart');
-            const xValues = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
-            const yValues = [7,8,8,9,9,9,10,11,14,14,15,6,7,8,9,10,2,3,4];
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                labels: xValues,
-                datasets: [{
-                label: 'Today',
-                backgroundColor: "purple",
-                borderColor: "purple",
-                tension: 0.3,
-                data: yValues
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: true,
-                        align: 'end',
-                    }
-                }
-                
-            }
-            });
-            </script>
-            </div>
-                <div class='col s4' id = 'box'>
-                    <div id="subject1">
-                        <p>
-                          Reservations
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                             449
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                          Fullfiled Reservation
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                        426
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                           Average Time
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                            33m
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                          Total Online Spots
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                            3h 8m
-                        </p>
-                    </div>
-                    <div class="divider"></div>
-                    <div id="subject1">
-                        <p>
-                           Reservation  Fullfiled Rate
-                        </p>
-                    </div>
-                    <div id="details1">
-                        <p>
-                           94%
-                        </p>
-                    </div>
-               </div>
-            </div>
-        </div>
-    </div>
-
-
-
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>
+                <div class="col l12 m12 s12">
+                    <%- include('../../common/charts/main-toggle-line-chart.ejs', {header: mainToggleLineHeader, data: mainToggleLine, toggleData}); %>
+                </div>
+<!--                <div class='col s4' id = 'box'>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Reservations-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                             449-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Fullfiled Reservation-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                        426-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                           Average Time-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                            33m-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                          Total Online Spots-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                            3h 8m-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div id="subject1">-->
+<!--                        <p>-->
+<!--                           Reservation  Fullfiled Rate-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div id="details1">-->
+<!--                        <p>-->
+<!--                           94%-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--               </div>-->
+<!--<link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>-->

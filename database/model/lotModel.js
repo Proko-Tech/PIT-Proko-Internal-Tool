@@ -110,6 +110,18 @@ async function insertWithSpotsAndOwnership(
     return result;
 }
 
+/**
+ * Get lots created greater than a start date.
+ * @param startDate
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, ArrayIfAlready<TResult, DeferredKeySelection<TRecord, string>>>>}
+ */
+async function getByGreaterThanCreatedAt(startDate) {
+    const result = await db('lots')
+        .where('created_at', '>=', startDate)
+        .select('*');
+    return result;
+}
+
 module.exports = {
     get,
     insert,
@@ -117,4 +129,5 @@ module.exports = {
     getByAdminId,
     getMax,
     insertWithSpotsAndOwnership,
+    getByGreaterThanCreatedAt,
 };

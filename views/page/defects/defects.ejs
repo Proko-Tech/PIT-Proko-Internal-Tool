@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title><%= title %></title>
+    <%- include('../../common/topScripts.ejs') %>
+    <%- include('../../common/bottomScripts.ejs') %>
+    <link href="/stylesheets/dashboard_style.css" rel="stylesheet" type="text/css"/>
+
 </head>
-<body>
-<div class="container">
+<body class="has-fixed-sidenav">
+<header>
+    <%- include('../../component/topBar.ejs', {title})%>
     <%- include("../../component/sideBar.ejs") %>
-    <%- include("../../component/pageTitle.ejs", {title: "Defects Table"}) %>
-    <%- include("../../component/defects/defectsTableCard.ejs", {defects}) %>
-</div>
+</header>
+<main>
+    <div class="container">
+        <%- include('../../component/defects/defectsTable.ejs', {defects})%>
+    </div>
+</main>
 </body>
 </html>

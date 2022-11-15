@@ -1,6 +1,16 @@
 const db = require("../dbConfig");
 
 /**
+ * Get all spots.
+ * @returns {Promise<void>}
+ */
+async function get() {
+    const result = await db('spots')
+        .select('*');
+    return result;
+}
+
+/**
  * GET for the spots of a specific parking lot by lot_id
  * @param {string} lot_id
  * @returns {Promise<void>}
@@ -47,6 +57,16 @@ async function create(spot_info) {
         .insert(spot_info);
 }
 
+/**
+ * Get spots created greater than a start date.
+ * @param startDate
+ * @returns {Promise<awaited Knex.QueryBuilder<TRecord, ArrayIfAlready<TResult, DeferredKeySelection<TRecord, string>>>>}
+ */
+async function getByGreaterThanCreatedAt(startDate) {
+    const result = await db('spots')
+        .where('created_at', '>=', startDate)
+        .select('*');
+    return result;
+}
 
-
-module.exports = {create, update, getByLotId};
+module.exports = {create, get, update, getByLotId, getByGreaterThanCreatedAt};
