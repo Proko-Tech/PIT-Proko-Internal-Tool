@@ -44,6 +44,9 @@
                         <td>
                             <a class="btn btn-flat indigo-text white" href="/spots/manual_capture?lot_id=<%=spots.lot_id%>&spot_hash=<%= spots.secret %>"> <i class="material-icons">camera_alt</i> </a>
                         </td>
+                        <td>
+                            <a class="btn btn-flat indigo-text red" onclick="exportQR('<%=spots.public_key%>')"> <i class="material-icons">camera_alt</i> </a>
+                        </td>
                     </tr>
                     <%- include('spotsUpdateCard', {spots, spots}) %>
                     <%});%>
@@ -61,6 +64,29 @@
     function goToPrediction(prediction_id) {
         window.location.href = '/v0/predictions/' + prediction_id;
     }
+
+
+    function exportQR(public_key){
+        $.ajax({
+            url: '/parking/QR',
+            type: 'GET',
+            data: {public_key},
+            success: function(res) {
+                console.log(res)
+                var a = document.createElement("a"); //Create <a>
+                window.location.href = res;
+                a.download = "Image.png"; //File name Here
+                a.click(); //Downloaded file
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    }
+
 
     (function(window, document, undefined) {
         var factory = function($, DataTable) {
@@ -267,7 +293,7 @@
         // Initialize the modal
         $('.modal').modal();
     });
-    
+
     $('.change_spot_version_form').submit(function(e) {
         e.preventDefault();
         const form = $(this);

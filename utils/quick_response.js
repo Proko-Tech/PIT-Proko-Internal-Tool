@@ -5,23 +5,26 @@ const QRCode = require('qrcode');
  * @returns {string[]} an array of base64 images
  */
 function create(public_keys) {
+    // if(typeof(public_keys)==="undefined") return undefined;
     if(typeof(public_keys)==="string") public_keys = [public_keys];
-
-    const images = public_keys.map(key => {
+    const images =  public_keys.map(async key => {
         let data = "http://web.prokopark.us/spot/pay/"+key;
 
         // Converting the data into String format
         let stringData = JSON.stringify(data)
 
         // Converting the data into base64
-        QRCode.toDataURL(stringData, function (err, data) {
-            if(err) return console.log("error occurred");
+        const e = await QRCode.toDataURL(stringData, async (err, data) => {
+            if(err) return err;
             return data;
-        })
-    })
+        });
+        console.log(e)
+    });
     return images;
 
 }
 
 
-module.exports = create;
+module.exports = {
+    create
+};
