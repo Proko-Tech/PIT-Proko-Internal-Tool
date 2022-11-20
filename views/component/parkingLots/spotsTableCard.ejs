@@ -72,10 +72,9 @@
             type: 'GET',
             data: {public_key},
             success: function(res) {
-                console.log(res)
                 var a = document.createElement("a"); //Create <a>
-                window.location.href = res;
-                a.download = "Image.png"; //File name Here
+                a.href = res;
+                a.download = public_key; //File name Here
                 a.click(); //Downloaded file
             },
             error: function(err) {

@@ -120,7 +120,6 @@ router.post('/update_parking_lot', async function(req, res) {
 router.get('/QR', async function(req, res) {
     const {public_key} = req.query;
     const base64 = await QR.create(public_key);
-    console.log(base64)
     res.send(base64)
 });
 
