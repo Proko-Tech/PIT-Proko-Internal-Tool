@@ -6,9 +6,9 @@ const QRCode = require('qrcode');
  */
 async function create(public_key) {
     // if(typeof(public_keys)==="undefined") return undefined;
-    let data = "http://web.prokopark.us/spot/pay/"+public_key;
+    const data = "http://web.prokopark.us/spot/pay/"+public_key;
     // Converting the data into String format
-    let stringData = JSON.stringify(data)
+    const stringData = JSON.stringify(data)
     // Converting the data into base64
     const base64 = await QRCode.toDataURL(stringData);
     return base64;
@@ -16,5 +16,5 @@ async function create(public_key) {
 
 
 module.exports = {
-    create
+    create,
 };
