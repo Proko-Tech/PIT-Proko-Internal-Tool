@@ -7,6 +7,7 @@ const spot_model = require("../database/model/spotsModel");
 const lot_ownerships_model = require("../database/model/lotOwnershipsModel");
 const moment = require("moment");
 
+const QR = require('../utils/quick_response');
 const pick = require('../utils/pick');
 const crypto = require('crypto');
 
@@ -95,7 +96,7 @@ router.get("/lotID", async function(req, res) {
     const spotsInfo = await spotsInfoRaw.map((row, index) => {
         row.created_at = moment(row.created_at).format('MM-DD-YYYY');
         return row;
-    }); 
+    });
     res.render("page/parkingLot/parkingLotSpots", {title: "Spots Directory", spotsInfo});
 });
 
@@ -114,6 +115,12 @@ router.post('/update_parking_lot', async function(req, res) {
     } catch (err) {
         res.status(500).json({message: 'Error updating new post', error: err});
     }
+});
+
+router.get('/QR', async function(req, res) {
+    const {public_key} = req.query;
+    const base64 = await QR.create(public_key);
+    res.send(base64)
 });
 
 module.exports = router;
