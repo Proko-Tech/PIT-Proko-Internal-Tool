@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin_account');
 const parkingLotRouter = require('./routes/parking_lot');
 const ticketsRouter = require('./routes/tickets');
 const complaintsRouter = require('./routes/complaints');
@@ -39,6 +40,7 @@ app.use('/dashboard', verifyToken, dashboardRouter);
 app.use('/firmware', verifyToken, firmwareRouter);
 app.use('/spots', verifyToken, spotsRouter);
 app.use('/v0', verifyToken, v0Router);
+app.use('/admin_accounts', verifyToken, adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

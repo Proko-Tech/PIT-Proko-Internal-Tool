@@ -1,78 +1,48 @@
 <div class="card material-table">
-    <div class="table-header">
-        <span class="table-title">Parking Lots</span>
-        <div class="actions">
-            <a href="#" id="search-toggle" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-        </div>
-    </div>
-    <table id="datatable" class="highlight responsive-table" style="width: 100%">
-        <thead>
-        <tr>
-            <th>Lot Hash</th>
-            <th>Parking Lot</th>
-            <th>Created At</th>
-            <th>Last Updated</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%lotsInfo.map(function(lot){%>
-        <tr class="clickable-row" data-href = "/parking/lotID?lotId=<%=lot.id%>">
-            <td>
-                <%=lot.hash%>
-            </td>
-            <td>
-                <%=lot.name%>
-            </td>
-            <td>
-                <%=lot.created_at%>
-            </td>
-            <td>
-                <%=lot.updated_at%>
-            </td>
-            <td>
-                <a class="btn btn-floating waves-effect waves-light indigo pulse tooltipped"
-                data-position="bottom" data-tooltip="View Spots"
-                href = "/parking/lotId?lotId=<%=lot.id%>">
-                    <i class="material-icons" style="color: white;">visibility</i>
-                </a>
-                <a class = "modal-trigger btn btn-floating waves-effect waves-light indigo pulse tooltipped"
-                href = "#change_version_modal_lotId<%=lot.id %>"
-                data-tooltip="Update all sensor software">
-                <i class="small bx bx-up-arrow-alt white-text"></i>
-                </a>
-                <%- include('parkingLotUpdateCard.ejs', {lot, lot}) %>
-            </td>
-        </tr>
-        <%});%>
-        </tbody>
-    </table>
+  <div class="table-header">
+      <span class="table-title">Accounts</span>
+      <div class="actions">
+          <a href="#" id="search-toggle" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+      </div>
+  </div>
+  <table id="datatable" class="highlight responsive-table" style="width: 100%">
+      <thead>
+      <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Number</th>
+          <th>Org. Name</th>
+          <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%data.map(function(account){%>
+      <tr>
+          <td>
+              <%=account.admin_username%>
+          </td>
+          <td>
+              <%=account.admin_email%>
+          </td>
+          <td>
+              <%=account.admin_phone_number%>
+          </td>
+          <td>
+              <%=account.organization_name%>
+          </td>
+          <td>
+              <a class = "modal-trigger btn btn-floating waves-effect waves-light indigo pulse tooltipped"
+              href = "#change_password_modal<%=account.id%>"
+              data-tooltip="Change Password">
+              <i class="small bx bx-edit-alt white-text"></i>
+              </a>
+              <%- include('passwordUpdateCard.ejs', {account}) %>
+          </td>
+      </tr>
+      <%});%>
+      </tbody>
+  </table>
 </div>
-
-<script>
-    $('.change_lot_version_form').submit(function(e){
-        e.preventDefault();
-        const form = $(this);
-        var data = {};
-        $.each(form.serializeArray(), function (i, field) {
-            data[field.name] = field.value;
-        });
-        $.ajax({
-            url: '/firmware/lot',
-            type: 'PUT',
-            data: data,
-            success: function(res) {
-                window.location.href = '/parking/lotID?lotId=' + res.lot_id;
-            },
-            error: function(err) {
-                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
-                                    <span>${err.responseText}</span>
-                                   </div>`;
-                M.toast({html: toastHTML});
-            }
-        });
-    })
-</script>
 
 <link rel='stylesheet' href='/stylesheets/materialTable.css'>
 <script>
@@ -83,6 +53,28 @@
     function goToPrediction(prediction_id) {
         window.location.href = '/v0/predictions/' + prediction_id;
     }
+
+
+    function exportQR(public_key){
+        $.ajax({
+            url: '/parking/QR',
+            type: 'GET',
+            data: {public_key},
+            success: function(res) {
+                var a = document.createElement("a"); //Create <a>
+                a.href = res;
+                a.download = public_key; //File name Here
+                a.click(); //Downloaded file
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    }
+
 
     (function(window, document, undefined) {
         var factory = function($, DataTable) {
@@ -286,5 +278,30 @@
             },
             bAutoWidth: false,
         });
+        // Initialize the modal
+        $('.modal').modal();
     });
+
+    $('.change_spot_version_form').submit(function(e) {
+        e.preventDefault();
+        const form = $(this);
+        var data = {};
+        $.each(form.serializeArray(), function (i, field) {
+            data[field.name] = field.value;
+        });
+        $.ajax({
+            url: '/firmware/spot',
+            type: 'PUT',
+            data: data,
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
 </script>
