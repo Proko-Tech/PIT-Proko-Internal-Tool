@@ -101,13 +101,17 @@ router.get("/lotID", async function(req, res) {
     });
     const sensorType = spotsInfo.length > 0 ? spotsInfo[0].spot_type : 'NONE';
 
-    spotsInfo.map((spot_info) => {
-        spot_info.updated_at = DateTime.fromISO(
-            new Date(spot_info.updated_at).toISOString(),
-        )
+    spotsInfo.map((spotInfo) => {
+        const updatedAtTime = DateTime.fromISO(
+            new Date(spotInfo.updated_at).toISOString(),
+        );
+        const lastUpdatedMins = DateTime.local().toUTC()
+            .diff(updatedAtTime, 'minutes').toObject();
+        spotInfo.updated_at = updatedAtTime
             .toUTC()
             .plus({minutes: tzOffset})
             .toFormat('MM/dd/yy HH:mm:ss');
+        spotInfo.updated_mins_ago = Math.round(lastUpdatedMins.minutes);
     });
     res.render("page/parkingLot/parkingLotSpots", {
         title: "Spots Directory", spotsInfo, sensorType,
