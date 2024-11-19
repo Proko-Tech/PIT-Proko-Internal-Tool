@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const {DateTime} = require('luxon');
 
 const admin_account_model = require("../database/model/adminAccountsModel");
 const lot_model = require("../database/model/lotModel");
@@ -44,7 +45,7 @@ router.post('/new', async function(req, res) {
             ]),
             hash,
         };
-        const spotsData = await Promise.all(
+        const spotsData = req.body.spot_name ? await Promise.all(
             req.body.spot_name.map((name, index) => {
                 const spot = {
                     spot_name: name,
@@ -58,7 +59,7 @@ router.post('/new', async function(req, res) {
                 };
                 return spot;
             }),
-        );
+        ) : [];
 
         const {insertResult} = await lot_model.insertWithSpotsAndOwnership(
             lotData,
@@ -92,12 +93,25 @@ router.post('/parking_lot', async function(req, res) {
 
 /* TEST for parking lot spots route */
 router.get("/lotID", async function(req, res) {
+    const {tzOffset} = req.userInfo.user_info;
     const spotsInfoRaw = await spot_model.getByLotId(req.query.lotId);
     const spotsInfo = await spotsInfoRaw.map((row, index) => {
         row.created_at = moment(row.created_at).format('MM-DD-YYYY');
         return row;
     });
-    res.render("page/parkingLot/parkingLotSpots", {title: "Spots Directory", spotsInfo});
+    const sensorType = spotsInfo.length > 0 ? spotsInfo[0].spot_type : 'NONE';
+
+    spotsInfo.map((spot_info) => {
+        spot_info.updated_at = DateTime.fromISO(
+            new Date(spot_info.updated_at).toISOString(),
+        )
+            .toUTC()
+            .plus({minutes: tzOffset})
+            .toFormat('MM/dd/yy HH:mm:ss');
+    });
+    res.render("page/parkingLot/parkingLotSpots", {
+        title: "Spots Directory", spotsInfo, sensorType,
+    });
 });
 
 /* POST parking_lot route */

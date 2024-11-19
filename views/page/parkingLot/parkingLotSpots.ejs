@@ -12,7 +12,11 @@
     </header>
     <main>
         <div class="container">
-            <%- include("../../component/parkingLots/spotsTableCard.ejs") %>
+            <% if (sensorType === 'SINGLE_SPACE_WITH_CAM') { %>
+                <%- include("../../component/parkingLots/spotsTableCard.ejs") %>
+            <% } else { %>
+                <%- include("../../component/parkingLots/spotsWithoutCamTableCard.ejs") %>
+            <% } %>
         </div>
     </main>
 

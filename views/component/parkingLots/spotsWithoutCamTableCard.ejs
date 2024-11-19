@@ -1,0 +1,384 @@
+<div class="card material-table">
+    <div class="table-header">
+        <span class="table-title">Spots</span>
+        <div class="actions">
+            <a href="#" id="search-toggle" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
+        </div>
+    </div>
+    <table id="datatable" class="highlight responsive-table">
+        <colgroup>
+            <!--Add Column Styling Here if Necessary-->
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Structure - Spot</th>
+                <th>Status</th>
+                <th>Alive Status</th>
+                <th>Current Signal Strength</th>
+                <th>Mesh Visibility</th>
+                <th>Mesh Visibility Threshold</th>
+                <th>Last Updated At</th>
+            </tr>
+        </thead>
+        <tbody>
+                <%spotsInfo.map(function(data){%>
+                    <tr>
+                        <td>
+                            <%- data.spot_name %>
+                        </td>
+                        <td>
+                            <% if(data.spot_status === 'UNOCCUPIED'){ %>
+                                <span class="new badge green" data-badge-caption="<%= data.spot_status %>"></span>
+                            <%} else if(data.spot_status === 'RESERVED'){%>
+                                <span class="new badge orange" data-badge-caption="<%= data.spot_status %>"></span>
+                            <%} else if(data.spot_status === 'OCCUPIED'){%>
+                                <span class="new badge red" data-badge-caption="<%= data.spot_status %>"></span>
+                            <%} else if(data.spot_status === 'OFF_LINE'){%>
+                                <span class="new badge grey" data-badge-caption="NOT RESERVABLE"></span>
+                            <%}%>
+                        </td>
+                        <td>
+                            <% if (data.alive_status === 1) { %>
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <i class="small material-icons green-text">radio_button_checked</i>
+                                </div>
+                                <div class="row green-text" style="margin-bottom: 0px;">
+                                    Online
+                                </div>
+                            <% } else { %>
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <i class="small material-icons red-text">remove_circle_outline</i>
+                                </div>
+                                <div class="row red-text" style="margin-bottom: 0px;">
+                                    Offline
+                                </div>
+                            <% } %>
+                        </td>
+                        <td>
+                          <% if(data.last_rssi_reading > -70){ %>
+                              <div class="row green-text" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-wifi"></i>
+                                  <%=data.last_rssi_reading%>
+                              </div>
+                          <%} else if(data.last_rssi_reading > -90){%>
+                              <div class="row  lime-text text-darken-1" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-wifi-2"></i>
+                                  <%=data.last_rssi_reading%>
+                              </div>
+                          <%} else if (data.last_rssi_reading > -95){%>
+                              <div class="row yellow-text text-darken-2" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-wifi-1"></i>
+                                  <%=data.last_rssi_reading%>
+                              </div>
+                          <% } else { %>
+                              <div class="row red-text" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-wifi-0"></i>
+                                  <%=data.last_rssi_reading%>
+                              </div>
+                          <% } %>
+                        </td>
+                        <td>
+                          <% if(data.number_of_connected_nodes / data.min_number_of_connected_nodes > 0.8){ %>
+                              <div class="row green-text" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-signal-5"></i>
+                                  <%=data.number_of_connected_nodes%>
+                              </div>
+                          <%} else if(data.number_of_connected_nodes / data.min_number_of_connected_nodes > 0.6){%>
+                              <div class="row lime-text text-darken-1" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-signal-4"></i>
+                                  <%=data.number_of_connected_nodes%>
+                              </div>
+                          <%} else if (data.number_of_connected_nodes / data.min_number_of_connected_nodes > 0.4) {%>
+                              <div class="row yellow-text text-darken-2" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-signal-3"></i>
+                                  <%=data.number_of_connected_nodes%>
+                              </div>
+                          <%} else if (data.number_of_connected_nodes / data.min_number_of_connected_nodes > 0.2) {%>
+                              <div class="row orange-text text-darken-3" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-signal-2"></i>
+                                  <%=data.number_of_connected_nodes%>
+                              </div>
+                          <% } else { %>
+                              <div class="row red-text" style="margin-bottom: 0px;">
+                                  <i class="small bx bx-signal-1"></i>
+                                  <%=data.number_of_connected_nodes%>
+                              </div>
+                          <% } %>
+                        </td>
+                        <td>
+                            <a
+                                href="#change_min_number_of_connected_nodes<%=data.id%>"
+                                class="btn btn-flat indigo-text white modal-trigger">
+                                <%= data.min_number_of_connected_nodes %>
+                            </a>
+                        </td>
+                        <td><%=data.updated_at%></td>
+                    </tr>
+                    <%- include('minConnectedNodeUpdateCard.ejs', {data}) %>
+                    <%});%>
+        </tbody>
+    </table>
+</div>
+
+
+<link rel='stylesheet' href='/stylesheets/materialTable.css'>
+<script>
+    /**
+     * Go to GET /v0/predictions/:prediction_id
+     * @param prediction_id
+     */
+    function goToPrediction(prediction_id) {
+        window.location.href = '/v0/predictions/' + prediction_id;
+    }
+
+
+    function exportQR(public_key){
+        $.ajax({
+            url: '/parking/QR',
+            type: 'GET',
+            data: {public_key},
+            success: function(res) {
+                var a = document.createElement("a"); //Create <a>
+                a.href = res;
+                a.download = public_key; //File name Here
+                a.click(); //Downloaded file
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    }
+
+
+    (function(window, document, undefined) {
+        var factory = function($, DataTable) {
+            "use strict";
+
+            $('.search-toggle').click(function() {
+                if ($('.hiddensearch').css('display') == 'none')
+                    $('.hiddensearch').slideDown();
+                else
+                    $('.hiddensearch').slideUp();
+            });
+
+            /* Set the defaults for DataTables initialisation */
+            $.extend(true, DataTable.defaults, {
+                dom: "<'hiddensearch'f'>" +
+                    "tr" +
+                    "<'table-footer'lip'>",
+                renderer: 'material',
+            });
+
+            /* Default class modification */
+            $.extend(DataTable.ext.classes, {
+                sWrapper: "dataTables_wrapper",
+                sFilterInput: "form-control input-sm",
+                sLengthSelect: "form-control input-sm",
+            });
+
+            /* Bootstrap paging button renderer */
+            DataTable.ext.renderer.pageButton.material = function(settings, host, idx, buttons, page, pages) {
+                var api = new DataTable.Api(settings);
+                var classes = settings.oClasses;
+                var lang = settings.oLanguage.oPaginate;
+                var btnDisplay, btnClass, counter = 0;
+
+                var attach = function(container, buttons) {
+                    var i, ien, node, button;
+                    var clickHandler = function(e) {
+                        e.preventDefault();
+                        if (!$(e.currentTarget).hasClass('disabled')) {
+                            api.page(e.data.action).draw(false);
+                        }
+                    };
+
+                    for (i = 0, ien = buttons.length; i < ien; i++) {
+                        button = buttons[i];
+
+                        if ($.isArray(button)) {
+                            attach(container, button);
+                        } else {
+                            btnDisplay = '';
+                            btnClass = '';
+
+                            switch (button) {
+
+                                case 'first':
+                                    btnDisplay = lang.sFirst;
+                                    btnClass = button + (page > 0 ?
+                                        '' : ' disabled');
+                                    break;
+
+                                case 'previous':
+                                    btnDisplay = '<i class="material-icons">chevron_left</i>';
+                                    btnClass = button + (page > 0 ?
+                                        '' : ' disabled');
+                                    break;
+
+                                case 'next':
+                                    btnDisplay = '<i class="material-icons">chevron_right</i>';
+                                    btnClass = button + (page < pages - 1 ?
+                                        '' : ' disabled');
+                                    break;
+
+                                case 'last':
+                                    btnDisplay = lang.sLast;
+                                    btnClass = button + (page < pages - 1 ?
+                                        '' : ' disabled');
+                                    break;
+
+                            }
+
+                            if (btnDisplay) {
+                                node = $('<li>', {
+                                    'class': classes.sPageButton + ' ' + btnClass,
+                                    'id': idx === 0 && typeof button === 'string' ?
+                                        settings.sTableId + '_' + button : null,
+                                })
+                                    .append($('<a>', {
+                                            'href': '#',
+                                            'aria-controls': settings.sTableId,
+                                            'data-dt-idx': counter,
+                                            'tabindex': settings.iTabIndex,
+                                        })
+                                            .html(btnDisplay),
+                                    )
+                                    .appendTo(container);
+
+                                settings.oApi._fnBindAction(
+                                    node, {
+                                        action: button,
+                                    }, clickHandler,
+                                );
+
+                                counter++;
+                            }
+                        }
+                    }
+                };
+
+                // IE9 throws an 'unknown error' if document.activeElement is used
+                // inside an iframe or frame.
+                var activeEl;
+
+                try {
+                    // Because this approach is destroying and recreating the paging
+                    // elements, focus is lost on the select button which is bad for
+                    // accessibility. So we want to restore focus once the draw has
+                    // completed
+                    activeEl = $(document.activeElement).data('dt-idx');
+                } catch (e) {}
+
+                attach(
+                    $(host).empty().html('<ul class="material-pagination"/>').children('ul'),
+                    buttons,
+                );
+
+                if (activeEl) {
+                    $(host).find('[data-dt-idx=' + activeEl + ']').focus();
+                }
+            };
+
+            /*
+             * TableTools Bootstrap compatibility
+             * Required TableTools 2.1+
+             */
+            if (DataTable.TableTools) {
+                // Set the classes that TableTools uses to something suitable for Bootstrap
+                $.extend(true, DataTable.TableTools.classes, {
+                    "container": "DTTT btn-group",
+                    "buttons": {
+                        "normal": "btn btn-default",
+                        "disabled": "disabled",
+                    },
+                    "collection": {
+                        "container": "DTTT_dropdown dropdown-menu",
+                        "buttons": {
+                            "normal": "",
+                            "disabled": "disabled",
+                        },
+                    },
+                    "print": {
+                        "info": "DTTT_print_info",
+                    },
+                    "select": {
+                        "row": "active",
+                    },
+                });
+
+                // Have the collection use a material compatible drop down
+                $.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
+                    "collection": {
+                        "container": "ul",
+                        "button": "li",
+                        "liner": "a",
+                    },
+                });
+            }
+
+        }; // /factory
+
+        // Define as an AMD module if possible
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery', 'datatables'], factory);
+        } else if (typeof exports === 'object') {
+            // Node/CommonJS
+            factory(require('jquery'), require('datatables'));
+        } else if (jQuery) {
+            // Otherwise simply initialise as normal, stopping multiple evaluation
+            factory(jQuery, jQuery.fn.dataTable);
+        }
+
+    })(window, document);
+
+    $(document).ready(function() {
+        $('#datatable').dataTable({
+            "iDisplayLength": 20,
+            "order": [],
+            "oLanguage": {
+                "sStripClasses": "",
+                "sSearch": "",
+                "sSearchPlaceholder": "Enter Keywords Here",
+                "sInfo": "_START_ -_END_ of _TOTAL_",
+                "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                    '<option value="10">10</option>' +
+                    '<option value="15">15</option>' +
+                    '<option value="20">20</option>' +
+                    '<option value="30">30</option>' +
+                    '<option value="40">40</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="-1">All</option>' +
+                    '</select></div>',
+            },
+            bAutoWidth: false,
+        });
+        // Initialize the modal
+        $('.modal').modal();
+    });
+
+    $('.change_spot_version_form').submit(function(e) {
+        e.preventDefault();
+        const form = $(this);
+        var data = {};
+        $.each(form.serializeArray(), function (i, field) {
+            data[field.name] = field.value;
+        });
+        $.ajax({
+            url: '/firmware/spot',
+            type: 'PUT',
+            data: data,
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(err) {
+                const toastHTML = `<div style="top: auto !important; right: auto !important; bottom: 10%; left: 7%;">
+                                    <span>${err.responseText}</span>
+                                   </div>`;
+                M.toast({html: toastHTML});
+            }
+        });
+    })
+</script>

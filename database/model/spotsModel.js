@@ -69,4 +69,17 @@ async function getByGreaterThanCreatedAt(startDate) {
     return result;
 }
 
-module.exports = {create, get, update, getByLotId, getByGreaterThanCreatedAt};
+/**
+ * update spot by lot id
+ * @param lot_id 
+ * @param updated_json 
+ * @returns 
+ */
+async function updateByLotId(lot_id, updated_json) {
+    const data = await db('spots').where({lot_id}).update(updated_json);
+    return data;
+}
+
+module.exports = {
+    create, get, update, getByLotId, getByGreaterThanCreatedAt, updateByLotId
+};

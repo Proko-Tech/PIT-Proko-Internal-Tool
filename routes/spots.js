@@ -64,4 +64,16 @@ router.get('/manual_capture/detail', async function(req, res, next) {
         return res.status(500).json({message: err});
     }
 });
+
+router.post('/edit_min_number_of_connected_nodes', async function(req, res) {
+    const {lot_id, min_number_of_connected_nodes} = req.body;
+    try {
+        await spotsModel.updateByLotId(lot_id, {min_number_of_connected_nodes});
+        return res.redirect(`/parking/lotId?lotId=${lot_id}`);
+    } catch (err) {
+        console.log(err);
+        return res.end('Request end with server error');
+    }
+});
+
 module.exports = router;

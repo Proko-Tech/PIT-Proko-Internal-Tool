@@ -1,0 +1,30 @@
+<div id="change_min_number_of_connected_nodes<%=data.id%>" class="modal card" style="width: 40% !important;">
+  <form action="/spots/edit_min_number_of_connected_nodes" method="POST">
+      <div class="modal-content">
+          <h4>Edit Min Connected Nodes Threshold</h4>
+          <span>
+            This is used to determine what is the minimum number of
+            sensors are on the mesh for the sensor to restart.
+          </span>
+          <input type="number" value="<%=data.lot_id%>" name="lot_id" hidden>
+          <div class="row">
+              <div class="col input-field input-outlined s12">
+                  <input
+                      type="number"
+                      step="1"
+                      placeholder="Enter a number"
+                      id="min_number_of_connected_nodes"
+                      name="min_number_of_connected_nodes"
+                      value="<%= data.min_number_of_connected_nodes %>"
+                      class="validate"
+                  >
+                  <label for="rssi_threshold">Min Connected Nodes Threshold</label>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+              <button class="waves-effect waves-light btn indigo" type="submit">Submit</button>
+          </div>
+      </div>
+  </form>
+</div>
