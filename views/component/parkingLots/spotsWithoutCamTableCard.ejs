@@ -11,7 +11,8 @@
         </colgroup>
         <thead>
             <tr>
-                <th>Structure - Spot</th>
+                <th>Spot</th>
+                <th>Secret</th>
                 <th>Status</th>
                 <th>Alive Status</th>
                 <th>Current Signal Strength</th>
@@ -25,6 +26,9 @@
                     <tr>
                         <td>
                             <%- data.spot_name %>
+                        </td>
+                        <td>
+                            <%- data.secret %>
                         </td>
                         <td>
                             <% if(data.spot_status === 'UNOCCUPIED'){ %>
