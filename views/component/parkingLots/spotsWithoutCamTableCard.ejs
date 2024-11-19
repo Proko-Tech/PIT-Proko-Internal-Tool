@@ -62,22 +62,22 @@
                           <% if(data.last_rssi_reading > -70){ %>
                               <div class="row green-text" style="margin-bottom: 0px;">
                                   <i class="small bx bx-wifi"></i>
-                                  <%=data.last_rssi_reading%>
+                                  <%=data.last_rssi_reading%> dbm
                               </div>
                           <%} else if(data.last_rssi_reading > -90){%>
                               <div class="row  lime-text text-darken-1" style="margin-bottom: 0px;">
                                   <i class="small bx bx-wifi-2"></i>
-                                  <%=data.last_rssi_reading%>
+                                  <%=data.last_rssi_reading%> dbm
                               </div>
                           <%} else if (data.last_rssi_reading > -95){%>
                               <div class="row yellow-text text-darken-2" style="margin-bottom: 0px;">
                                   <i class="small bx bx-wifi-1"></i>
-                                  <%=data.last_rssi_reading%>
+                                  <%=data.last_rssi_reading%> dbm
                               </div>
                           <% } else { %>
                               <div class="row red-text" style="margin-bottom: 0px;">
                                   <i class="small bx bx-wifi-0"></i>
-                                  <%=data.last_rssi_reading%>
+                                  <%=data.last_rssi_reading%> dbm
                               </div>
                           <% } %>
                         </td>
